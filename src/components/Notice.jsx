@@ -1,35 +1,36 @@
-import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 
 // import required modules
-import { Pagination } from "swiper";
+import { Autoplay } from "swiper";
 
 export default function Notice() {
     return (
         <>
-            <Swiper
-                direction={"vertical"}
-                spaceBetween={30}
-                pagination={{
-                    clickable: true,
-                }}
-                className="mySwiper"
-            >
-                <SwiperSlide>Slide 1</SwiperSlide>
-                <SwiperSlide>Slide 2</SwiperSlide>
-                <SwiperSlide>Slide 3</SwiperSlide>
-                <SwiperSlide>Slide 4</SwiperSlide>
-                <SwiperSlide>Slide 5</SwiperSlide>
-                <SwiperSlide>Slide 6</SwiperSlide>
-                <SwiperSlide>Slide 7</SwiperSlide>
-                <SwiperSlide>Slide 8</SwiperSlide>
-                <SwiperSlide>Slide 9</SwiperSlide>
-            </Swiper>
+            <div className="inner">
+                <Swiper
+                    direction={"vertical"}
+                    cssMode={true}
+                    autoplay={{
+                        delay: 2000,
+                        disableOnInteraction: false,
+                    }}
+                    modules={[Autoplay]}
+                    loop="true"
+                    className="mySwiper"
+                >
+                    <SwiperSlide>안녕1</SwiperSlide>
+                    <SwiperSlide>안녕2</SwiperSlide>
+                    <SwiperSlide>안녕3</SwiperSlide>
+                    <SwiperSlide>안녕4</SwiperSlide>
+                    <SwiperSlide>안녕5</SwiperSlide>
+                    <SwiperSlide>안녕6</SwiperSlide>
+                    <SwiperSlide>안녕7</SwiperSlide>
+                </Swiper>
+            </div>
         </>
     );
 }
