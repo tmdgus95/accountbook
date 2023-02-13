@@ -1,7 +1,12 @@
 import React from "react";
+// import Notice from "../components/Notice";
 
 const Home = () => {
-    return <div>Home</div>;
+    return (
+        <div>
+            {/* <Notice /> */}
+        </div>
+    );
 };
 
 export default Home;
