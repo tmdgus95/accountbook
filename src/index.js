@@ -7,10 +7,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Chart from "./pages/Chart";
 import Statistics from "./pages/Statistics";
-import Calendar from "./pages/Calendar";
 import Mypage from "./pages/Mypage";
 import SignUp from "./pages/SignUp";
 import ErrorPage from "./pages/ErrorPage";
+import MoneyCalendar from "./pages/MoneyCalendar";
 
 const router = createBrowserRouter([
     {
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { index: true, element: <Home /> },
-            { path: "calendar", element: <Calendar /> },
+            { path: "calendar", element: <MoneyCalendar /> },
             { path: "chart", element: <Chart /> },
             { path: "statistics", element: <Statistics /> },
             { path: "mypage", element: <Mypage /> },
