@@ -16,7 +16,6 @@ const Footer = () => {
                 <span className="text-xs tracking-wider">
                     (주) COPYRIGHT 가계부 ALL RIGHTS RESERVED.
                 </span>
-                <div className="h-10"></div>
             </FootContainer>
         </footer>
     );

@@ -4,12 +4,13 @@ import Notice from "../components/Notice";
 import styled from "styled-components";
 import HeartDay from "../components/HeartDay";
 import Footer from "../components/Footer";
+
 const Home = () => {
     return (
         <div>
             <Notice />
             <Photo>
-                <ProfileCard name="조승현" />
+                <ProfileCard name="조승현"/>
                 <HeartDay />
                 <ProfileCard name="뚱이" />
             </Photo>
@@ -20,5 +21,10 @@ const Photo = styled.div`
     display: flex;
     justify-content: center;
     gap: 20px;
+    height: 80vh;
+    margin: 0 auto;
+    align-items: center;
+    
+    background: yellowgreen;
 `;
 export default Home;

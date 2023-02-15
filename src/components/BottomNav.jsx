@@ -52,7 +52,6 @@ const FixUl = styled.div`
     justify-content: space-around;
     font-size: xx-large;
     color: #fbe300;
-    margin-top: 7px;
 `;
 const FixLi = styled.div`
     display: flex;
