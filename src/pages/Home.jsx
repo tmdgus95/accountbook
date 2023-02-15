@@ -4,16 +4,21 @@ import Notice from "../components/Notice";
 import styled from "styled-components";
 import HeartDay from "../components/HeartDay";
 import Footer from "../components/Footer";
+import SelectOption from "../components/SelectOption";
 
 const Home = () => {
     return (
         <div>
-            <Notice />
-            <Photo>
-                <ProfileCard name="조승현"/>
-                <HeartDay />
-                <ProfileCard name="뚱이" />
-            </Photo>
+            <div>
+                <SelectOption />
+                <div style={{ height: "150px" }}></div>
+                <Notice />
+                <Photo>
+                    <ProfileCard img="/images/bback.png" name="조승현" />
+                    <HeartDay />
+                    <ProfileCard img="images/starbucks.png" name="뚱이" />
+                </Photo>
+            </div>
         </div>
     );
 };
@@ -24,7 +29,5 @@ const Photo = styled.div`
     height: 80vh;
     margin: 0 auto;
     align-items: center;
-    
-    background: yellowgreen;
 `;
 export default Home;

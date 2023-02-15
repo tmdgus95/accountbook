@@ -9,6 +9,7 @@ export default function Notice() {
     return (
         <>
             <Banner className="inner">
+                <span style={{position:"absolute",paddingLeft:"5px"}}>공지사항</span>
                 <Swiper
                     direction={"vertical"}
                     cssMode={true}
@@ -19,7 +20,7 @@ export default function Notice() {
                     modules={[Autoplay]}
                     loop="true"
                     className="mySwiper"
-                >
+                > 
                     <SwiperSlide>안녕1</SwiperSlide>
                     <SwiperSlide>안녕2</SwiperSlide>
                     <SwiperSlide>안녕3</SwiperSlide>

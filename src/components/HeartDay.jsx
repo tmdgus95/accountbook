@@ -25,5 +25,6 @@ const Day = styled.span`
     position: absolute;
     text-align: center;
     padding: 38px;
+    margin-bottom: 5px;
 `;
 export default HeartDay;

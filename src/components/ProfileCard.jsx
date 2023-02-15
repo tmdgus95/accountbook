@@ -1,15 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const ProfileCard = ({ name }) => {
-    const imageURL = "/images/starbucks.png";
+const ProfileCard = ({ name, img }) => {
     return (
         <div>
             <Img>
                 <img
-                    src={imageURL}
+                    src={img}
                     alt="사진"
-                    style={{ width: "100px", height: "100px", margin: "10px" }}
+                    style={{ width: "300px", height: "300px", margin: "10px" }}
                 />
                 <span>{name}</span>
             </Img>
