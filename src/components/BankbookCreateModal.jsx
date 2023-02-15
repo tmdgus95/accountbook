@@ -1,13 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup
     .object({
-        email: yup.string("문자를 입력하세요").required("이메일을 입력하세요"),
-        pw: yup
+        name: yup.string("문자를 입력하세요").required("이메일을 입력하세요"),
+        firstdate: yup
             .number("숫자를 입력하세요")
             .positive("양수를 입력하세요")
             .integer("정수를 입력하세요")
@@ -15,7 +14,7 @@ const schema = yup
     })
     .required();
 
-const Login = () => {
+const BankbookCreateModal = () => {
     const {
         register,
         handleSubmit,
@@ -25,27 +24,23 @@ const Login = () => {
     });
 
     const onSubmit = (data) => console.log(data);
-
     return (
-        <>
+        <div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label>
-                    이메일 <input {...register("email")} />
+                    이름 <input {...register("name")} />
                 </label>
                 <p>{errors.email?.message}</p>
 
                 <label>
-                    비밀번호 <input {...register("pw")} />
+                    우리의 1일 <input {...register("firstdate")} />
                 </label>
                 <p>{errors.pw?.message}</p>
 
                 <button>로그인</button>
             </form>
-            <p>
-                아직 회원이 아니신가요? <Link to={"/signup"}>회원가입</Link>
-            </p>
-        </>
+        </div>
     );
 };
 
-export default Login;
+export default BankbookCreateModal;
