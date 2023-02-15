@@ -5,6 +5,8 @@ import "react-calendar/dist/Calendar.css"; // css import
 import moment from "moment/moment";
 // 한글로 출력하게 해줌.
 import "moment/locale/ko";
+import styled from "styled-components";
+import ExpendModal from "../components/ExpendModal";
 
 const MoneyCalendar = () => {
     // 로컬 정보 호출
@@ -24,7 +26,7 @@ const MoneyCalendar = () => {
     const publicFolder = process.env.PUBLIC_URL;
 
     return (
-        <div>
+        <Wrap>
             <Calendar
                 formatDay={(locale, date) => moment(date).format("D")}
                 // 일요일부터 출력
@@ -81,8 +83,15 @@ const MoneyCalendar = () => {
                     </div>
                 )}
             </div>
-        </div>
+            <ExpendModal />
+        </Wrap>
     );
 };
+
+const Wrap = styled.div`
+    .react-calendar__month-view__days__day--weekend {
+        color: blue;
+    }
+`;
 
 export default MoneyCalendar;
