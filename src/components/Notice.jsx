@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -10,7 +12,7 @@ import { Autoplay } from "swiper";
 export default function Notice() {
     return (
         <>
-            <div className="inner">
+            <Banner className="inner">
                 <Swiper
                     direction={"vertical"}
                     cssMode={true}
@@ -30,7 +32,35 @@ export default function Notice() {
                     <SwiperSlide>안녕6</SwiperSlide>
                     <SwiperSlide>안녕7</SwiperSlide>
                 </Swiper>
-            </div>
+            </Banner>
         </>
     );
 }
+
+const Banner = styled.div`
+    margin: 0 auto;
+    line-height: 50px;
+    height: 50px;
+    width: 400px;
+    border-radius: 5px;
+    background: gray;
+
+    .mySwiper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        color: #fff;
+        /* Center slide text vertically */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        display: block;
+        width: 100%;
+        height: 100%;
+        /* object-fit: cover; */
+    }
+`;
