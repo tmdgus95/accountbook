@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import BankbookCreateModal from "../components/BankbookCreateModal";
 import Button from "../components/ui/Button";
+import { useState } from "react";
 
 const schema = yup
     .object({
@@ -24,6 +25,7 @@ const schema = yup
     .required();
 
 const SignUp = () => {
+    const [createBank, setCreateBank] = useState(false);
     const {
         register,
         handleSubmit,
@@ -39,7 +41,7 @@ const SignUp = () => {
                 <label>
                     이메일 <input {...register("mbiBasicEmail")} />
                 </label>
-                <p>{errors.email?.message}</p>
+                <p>{errors.mbiBasicEmail?.message}</p>
 
                 <label>
                     비밀번호 <input {...register("password")} />
@@ -77,8 +79,13 @@ const SignUp = () => {
                 <p>{errors.accountNumber?.message}</p>
                 <Button>회원가입</Button>
             </form>
-            <BankbookCreateModal />
-            <Button>통장개설</Button>
+            {createBank && <BankbookCreateModal />}
+            <Button>
+                <span onClick={() => setCreateBank((prev) => !prev)}>
+                    통장개설
+                </span>
+            </Button>
+
             <p>
                 이미 회원이신가요?{" "}
                 <Link style={{ color: "blue" }} to={"/login"}>

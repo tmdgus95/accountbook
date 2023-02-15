@@ -6,8 +6,8 @@ import Button from "./ui/Button";
 
 const schema = yup
     .object({
-        name: yup.string("문자를 입력하세요").required("이메일을 입력하세요"),
-        firstdate: yup
+        name: yup.string("문자를 입력하세요").required("이름을 입력하세요"),
+        startDay: yup
             .number("숫자를 입력하세요")
             .positive("양수를 입력하세요")
             .integer("정수를 입력하세요")
@@ -25,18 +25,19 @@ const BankbookCreateModal = () => {
     });
 
     const onSubmit = (data) => console.log(data);
+
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label>
                     이름 <input {...register("name")} />
                 </label>
-                <p>{errors.email?.message}</p>
+                <p>{errors.name?.message}</p>
 
                 <label>
-                    우리의 1일 <input {...register("firstdate")} />
+                    우리의 1일 <input {...register("startDay")} />
                 </label>
-                <p>{errors.pw?.message}</p>
+                <p>{errors.startDay?.message}</p>
 
                 <Button>개설하기</Button>
             </form>
