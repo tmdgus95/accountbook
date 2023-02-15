@@ -22,11 +22,13 @@ const Footer = () => {
     );
 };
 const FootContainer = styled.div`
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     width: 100%;
     display: block;
+    background: #fbe300;
     text-align: center;
+    padding: 10px 0;
 `;
 const FootTitle = styled.div``;
 const FootUl = styled.ul`
