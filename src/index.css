@@ -16,3 +16,8 @@ a {
 body {
     font-family: "Roboto", "Noto Sans KR", sans-serif;
 }
+
+button {
+    border: none;
+    outline: none;
+}

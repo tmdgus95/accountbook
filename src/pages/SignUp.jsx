@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import BankbookCreateModal from "../components/BankbookCreateModal";
+import Button from "../components/ui/Button";
 
 const schema = yup
     .object({
@@ -74,12 +75,15 @@ const SignUp = () => {
                     통장번호 <input {...register("accountNumber")} />
                 </label>
                 <p>{errors.accountNumber?.message}</p>
-                <button>회원가입</button>
+                <Button>회원가입</Button>
             </form>
             <BankbookCreateModal />
-            <button>통장개설</button>
+            <Button>통장개설</Button>
             <p>
-                이미 회원이신가요? <Link to={"/login"}>로그인</Link>
+                이미 회원이신가요?{" "}
+                <Link style={{ color: "blue" }} to={"/login"}>
+                    로그인
+                </Link>
             </p>
         </div>
     );

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Button from "../components/ui/Button";
 
 const schema = yup
     .object({
@@ -37,10 +38,13 @@ const Login = () => {
                 </label>
                 <p>{errors.password?.message}</p>
 
-                <button>로그인</button>
+                <Button>로그인</Button>
             </form>
             <p>
-                아직 회원이 아니신가요? <Link to={"/signup"}>회원가입</Link>
+                아직 회원이 아니신가요?{" "}
+                <Link style={{ color: "blue" }} to={"/signup"}>
+                    회원가입
+                </Link>
             </p>
         </>
     );

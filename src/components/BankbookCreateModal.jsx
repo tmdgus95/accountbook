@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Button from "./ui/Button";
 
 const schema = yup
     .object({
@@ -37,7 +38,7 @@ const BankbookCreateModal = () => {
                 </label>
                 <p>{errors.pw?.message}</p>
 
-                <button>로그인</button>
+                <Button>개설하기</Button>
             </form>
         </div>
     );

@@ -1,22 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Button from "./ui/Button";
 
 const Header = () => {
     return (
         <HeaderFix>
-            <button>
+            <Button>
                 <Link to={"/"}>로고</Link>
-            </button>
-            <button>
+            </Button>
+            <Button>
                 <Link to={"/login"}>로그인</Link>
-            </button>
-            <button>
+            </Button>
+            <Button>
                 <Link to={"/login"}>로그아웃</Link>
-            </button>
-            <button>
+            </Button>
+            <Button>
                 <Link to={"/signup"}>회원가입</Link>
-            </button>
+            </Button>
         </HeaderFix>
     );
 };
