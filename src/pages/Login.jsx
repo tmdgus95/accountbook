@@ -7,10 +7,8 @@ import * as yup from "yup";
 const schema = yup
     .object({
         email: yup.string("문자를 입력하세요").required("이메일을 입력하세요"),
-        pw: yup
-            .number("숫자를 입력하세요")
-            .positive("양수를 입력하세요")
-            .integer("정수를 입력하세요")
+        password: yup
+            .string("숫자를 입력하세요")
             .required("비밀번호를 입력하세요"),
     })
     .required();
@@ -35,9 +33,9 @@ const Login = () => {
                 <p>{errors.email?.message}</p>
 
                 <label>
-                    비밀번호 <input {...register("pw")} />
+                    비밀번호 <input {...register("password")} />
                 </label>
-                <p>{errors.pw?.message}</p>
+                <p>{errors.password?.message}</p>
 
                 <button>로그인</button>
             </form>

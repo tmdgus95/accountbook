@@ -7,15 +7,18 @@ import BankbookCreateModal from "../components/BankbookCreateModal";
 
 const schema = yup
     .object({
-        email: yup.string("문자를 입력하세요").required("이메일을 입력하세요"),
-        pw: yup
-            .number("숫자를 입력하세요")
-            .positive("양수를 입력하세요")
-            .integer("정수를 입력하세요")
+        mbiBasicEmail: yup
+            .string("문자를 입력하세요")
+            .required("이메일을 입력하세요"),
+        password: yup
+            .string("숫자를 입력하세요")
             .required("비밀번호를 입력하세요"),
+        gender: yup.number().required(),
         name: yup.string().required(),
-        nickname: yup.string().required(),
-        code: yup.string(),
+        mbiStartDay: yup.string().required(),
+        mbiBrith: yup.string().required(),
+        nickName: yup.string().required(),
+        accountNumber: yup.string(),
     })
     .required();
 
@@ -33,14 +36,19 @@ const SignUp = () => {
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label>
-                    이메일 <input {...register("email")} />
+                    이메일 <input {...register("mbiBasicEmail")} />
                 </label>
                 <p>{errors.email?.message}</p>
 
                 <label>
-                    비밀번호 <input {...register("pw")} />
+                    비밀번호 <input {...register("password")} />
                 </label>
-                <p>{errors.pw?.message}</p>
+                <p>{errors.password?.message}</p>
+
+                <label>
+                    성별 <input {...register("gender")} />
+                </label>
+                <p>{errors.gender?.message}</p>
 
                 <label>
                     이름 <input {...register("name")} />
@@ -48,14 +56,24 @@ const SignUp = () => {
                 <p>{errors.name?.message}</p>
 
                 <label>
-                    별명 <input {...register("nickname")} />
+                    사귄날 <input {...register("mbiStartDay")} />
                 </label>
-                <p>{errors.nickname?.message}</p>
+                <p>{errors.mbiStartDay?.message}</p>
 
                 <label>
-                    참여코드 <input {...register("code")} />
+                    생일 <input {...register("mbiBrith")} />
                 </label>
-                <p>{errors.code?.message}</p>
+                <p>{errors.mbiStartDay?.message}</p>
+
+                <label>
+                    별명 <input {...register("nickName")} />
+                </label>
+                <p>{errors.nickName?.message}</p>
+
+                <label>
+                    통장번호 <input {...register("accountNumber")} />
+                </label>
+                <p>{errors.accountNumber?.message}</p>
                 <button>회원가입</button>
             </form>
             <BankbookCreateModal />
