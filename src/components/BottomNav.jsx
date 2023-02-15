@@ -2,11 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { FaCalendarCheck } from "react-icons/fa";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import {
-    BsFillPieChartFill,
-    BsBarChartLineFill,
-    BsFillPersonFill,
-} from "react-icons/bs";
+import { MdQueryStats } from "react-icons/md";
+import { BsFillPieChartFill, BsFillPersonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 const BottomNav = () => {
     return (
@@ -16,30 +13,26 @@ const BottomNav = () => {
                     <FixLi>
                         <Link to="/calendar">
                             <FaCalendarCheck />
-                            <span>달력</span>
                         </Link>
                     </FixLi>
                     <FixLi>
                         <Link to="/chart">
                             <BsFillPieChartFill />
-                            <span>차트</span>
                         </Link>
                     </FixLi>
                     <FixLi>
                         <Link to="">
-                            <AiOutlinePlusCircle style={{ fontSize: "55px" }} />
+                            <AiOutlinePlusCircle />
                         </Link>
                     </FixLi>
                     <FixLi>
                         <Link to="/Statistics">
-                            <BsBarChartLineFill />
-                            <span>통계</span>
+                            <MdQueryStats />
                         </Link>
                     </FixLi>
                     <FixLi>
                         <Link to="/mypage">
                             <BsFillPersonFill />
-                            <span>마이페이지</span>
                         </Link>
                     </FixLi>
                 </FixUl>
@@ -48,8 +41,8 @@ const BottomNav = () => {
     );
 };
 const Fix = styled.div`
-    position: fixed;
-    bottom: 180px;
+    /* position: fixed; */
+    bottom: 160px;
     width: 100%;
     background: gray;
 `;
@@ -59,12 +52,13 @@ const FixUl = styled.div`
     justify-content: space-around;
     font-size: xx-large;
     color: #fbe300;
-    margin-top: 7px;
 `;
 const FixLi = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+    font-size: 60px;
     > a {
         flex-direction: column;
         align-items: center;
@@ -72,10 +66,6 @@ const FixLi = styled.div`
         svg {
             display: block;
             color: #fbe300;
-        }
-        span {
-            color: #fbe300;
-            display: block;
         }
     }
 `;

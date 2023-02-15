@@ -16,17 +16,18 @@ const Footer = () => {
                 <span className="text-xs tracking-wider">
                     (주) COPYRIGHT 가계부 ALL RIGHTS RESERVED.
                 </span>
-                <div className="h-10"></div>
             </FootContainer>
         </footer>
     );
 };
 const FootContainer = styled.div`
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     width: 100%;
     display: block;
+    background: #fbe300;
     text-align: center;
+    padding: 10px 0;
 `;
 const FootTitle = styled.div``;
 const FootUl = styled.ul`
