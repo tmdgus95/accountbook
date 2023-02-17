@@ -10,6 +10,10 @@ const CoupleHome = () => {
     return (
         <div>
             <ImgCover>
+                <SelectOption />
+
+                <div style={{ height: "150px" }}></div>
+                <Notice />
                 <Box>
                     <div>
                         단순한 연애는 끝났다.
@@ -26,6 +30,7 @@ const CoupleHome = () => {
                         <br />
                         어플입니다.
                     </div>
+
                     <Photo>
                         <ProfileCard img="/images/jenny.jpg" name=" 제니" />
                         <HeartDay />

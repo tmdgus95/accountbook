@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp";
 import ErrorPage from "./pages/ErrorPage";
 import MoneyCalendar from "./pages/MoneyCalendar";
 import NoticeDetail from "./pages/NoticeDetail";
+import CoupleHome from "./pages/CoupleHome";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { index: true, element: <Home /> },
+            { path: "couplehome", element: <CoupleHome /> },
             { path: "calendar", element: <MoneyCalendar /> },
             { path: "chart", element: <Chart /> },
             { path: "statistics", element: <Statistics /> },
