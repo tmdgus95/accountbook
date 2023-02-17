@@ -5,6 +5,8 @@ import * as yup from "yup";
 import { SlClose } from "react-icons/sl";
 import { BsCheckCircle } from "react-icons/bs";
 
+import InputDatePicker from "./InputDatePicker";
+
 const schema = yup
     .object({
         price: yup
@@ -18,26 +20,34 @@ const schema = yup
     })
     .required();
 
-const ExpendModal = () => {
+const ExpendModal = ({ setModal }) => {
     const {
         register,
         handleSubmit,
+        control,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
     });
 
     const onSubmit = (data) => console.log(data);
+    const handleChange = () => {
+        setModal(false);
+    };
 
     return (
-        <>
+        <div>
             <div>
-                <SlClose />
+                <SlClose onClick={handleChange} style={{ cursor: "pointer" }} />
                 <span>지출 입력</span>
-                <BsCheckCircle />
+                <BsCheckCircle
+                    onClick={handleSubmit(onSubmit)}
+                    style={{ cursor: "pointer" }}
+                />
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <p>날짜</p>
+                <InputDatePicker control={control} />
 
                 <span>성별</span>
                 <select {...register("gender")}>
@@ -70,9 +80,8 @@ const ExpendModal = () => {
                     메모 <input {...register("memo")} />
                 </label>
                 <p>{errors.memo?.message}</p>
-                <button>버튼</button>
             </form>
-        </>
+        </div>
     );
 };
 

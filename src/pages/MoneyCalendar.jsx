@@ -6,7 +6,6 @@ import moment from "moment/moment";
 // 한글로 출력하게 해줌.
 import "moment/locale/ko";
 import styled from "styled-components";
-import ExpendModal from "../components/ExpendModal";
 
 const MoneyCalendar = () => {
     // 로컬 정보 호출
@@ -83,7 +82,6 @@ const MoneyCalendar = () => {
                     </div>
                 )}
             </div>
-            <ExpendModal />
         </Wrap>
     );
 };
