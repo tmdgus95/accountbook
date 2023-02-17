@@ -5,7 +5,12 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { MdQueryStats } from "react-icons/md";
 import { BsFillPieChartFill, BsFillPersonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-const BottomNav = () => {
+
+const BottomNav = ({ setModal }) => {
+    const handleChange = () => {
+        setModal(true);
+    };
+
     return (
         <>
             <Fix>
@@ -21,9 +26,10 @@ const BottomNav = () => {
                         </Link>
                     </FixLi>
                     <FixLi>
-                        <Link to="">
-                            <AiOutlinePlusCircle />
-                        </Link>
+                        <AiOutlinePlusCircle
+                            onClick={handleChange}
+                            style={{ cursor: "pointer" }}
+                        />
                     </FixLi>
                     <FixLi>
                         <Link to="/Statistics">
@@ -44,7 +50,7 @@ const Fix = styled.div`
     /* position: fixed; */
     bottom: 160px;
     width: 100%;
-    background: #a9a9a9;
+    background: black;
 `;
 const FixUl = styled.div`
     list-style: none;
@@ -59,6 +65,12 @@ const FixLi = styled.div`
     align-items: center;
     padding: 20px;
     font-size: 60px;
+    opacity: 0.8;
+    transition: all 0.5s;
+    &:hover {
+        opacity: 1;
+        scale: 1.1;
+    }
     > a {
         flex-direction: column;
         align-items: center;
