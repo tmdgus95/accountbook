@@ -26,7 +26,7 @@ export default function Notice() {
     return (
         <>
             <Banner className="inner">
-                <span style={{ position: "absolute", paddingLeft: "10px" }}>
+                <span style={{ position: "absolute", paddingLeft: "10px"}}>
                     공지사항
                 </span>
                 <Swiper
@@ -60,8 +60,9 @@ const Banner = styled.div`
     height: 45px;
     width: 600px;
     border-radius: 10px;
-    background: #a9a9a9;
-    opacity: 0.7;
+    border: 1px solid gray;
+    background: #fff;
+    opacity: 0.8;
     .mySwiper {
         width: 100%;
         height: 100%;
@@ -70,13 +71,11 @@ const Banner = styled.div`
         text-align: center;
         font-size: 18px;
         color: #fff;
-        /* Center slide text vertically */
         display: flex;
         justify-content: center;
         align-items: center;
         display: block;
         width: 100%;
         height: 100%;
-        /* object-fit: cover; */
     }
 `;

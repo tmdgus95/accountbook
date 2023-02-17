@@ -21,3 +21,5 @@ button {
     border: none;
     outline: none;
 }
+
+/* 헤더 푸터 제외 1280px 으로 고정 */
