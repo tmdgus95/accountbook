@@ -5,11 +5,30 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 // import required modules
 import { Autoplay } from "swiper";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 export default function Notice() {
+    const [noticeList, setNoticeList] = useState([]);
+
+    const fetchData = () => {
+        axios
+            .get("http://192.168.0.156:9090/api/notice/list")
+            .then((res) => res.data.list)
+            .then((list) => setNoticeList(list));
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     return (
         <>
             <Banner className="inner">
-                <span style={{position:"absolute",paddingLeft:"5px"}}>공지사항</span>
+                <span style={{ position: "absolute", paddingLeft: "10px" }}>
+                    공지사항
+                </span>
                 <Swiper
                     direction={"vertical"}
                     cssMode={true}
@@ -20,14 +39,16 @@ export default function Notice() {
                     modules={[Autoplay]}
                     loop="true"
                     className="mySwiper"
-                > 
-                    <SwiperSlide>안녕1</SwiperSlide>
-                    <SwiperSlide>안녕2</SwiperSlide>
-                    <SwiperSlide>안녕3</SwiperSlide>
-                    <SwiperSlide>안녕4</SwiperSlide>
-                    <SwiperSlide>안녕5</SwiperSlide>
-                    <SwiperSlide>안녕6</SwiperSlide>
-                    <SwiperSlide>안녕7</SwiperSlide>
+                >
+                    {noticeList.map((notice) => {
+                        return (
+                            <SwiperSlide key={notice.niSeq}>
+                                <Link to={`/noticedetail/${notice.niSeq}`}>
+                                    {notice.niMemo}
+                                </Link>
+                            </SwiperSlide>
+                        );
+                    })}
                 </Swiper>
             </Banner>
         </>
@@ -35,11 +56,12 @@ export default function Notice() {
 }
 const Banner = styled.div`
     margin: 0 auto;
-    line-height: 50px;
-    height: 50px;
-    width: 400px;
-    border-radius: 5px;
-    background: gray;
+    line-height: 45px;
+    height: 45px;
+    width: 600px;
+    border-radius: 10px;
+    background: #a9a9a9;
+    opacity: 0.7;
     .mySwiper {
         width: 100%;
         height: 100%;

@@ -7,7 +7,7 @@ const HeartDay = () => {
                 <img
                     src="images/heart.svg.png"
                     alt=""
-                    style={{ width: 100, height: 100, margin: "10px" }}
+                    style={{ width: 300, height: 300, margin: "10px" }}
                 />
                 <Day>100일</Day>
             </Heart>
@@ -17,14 +17,21 @@ const HeartDay = () => {
 
 const Heart = styled.div`
     display: flex;
+    flex-direction: column;
     text-align: center;
     align-items: center;
+    opacity: 0.7;
+    :hover {
+        transform: scale(1.5);
+        transition: transform 2s;
+    }
 `;
 
 const Day = styled.span`
     position: absolute;
-    text-align: center;
-    padding: 38px;
-    margin-bottom: 5px;
+    display: block;
+    margin-top: 100px;
+    font-size: xx-large;
+    font-weight: 700;
 `;
 export default HeartDay;

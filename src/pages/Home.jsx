@@ -9,24 +9,30 @@ import SelectOption from "../components/SelectOption";
 const Home = () => {
     return (
         <div>
-            <div>
+            <ImgCover>
                 <SelectOption />
                 <div style={{ height: "150px" }}></div>
                 <Notice />
                 <Photo>
-                    <ProfileCard img="/images/bback.png" name="조승현" />
+                    <ProfileCard img="/images/jenny.jpg" name=" 제니" />
                     <HeartDay />
-                    <ProfileCard img="images/starbucks.png" name="뚱이" />
+                    <ProfileCard img="images/bb.jpg" name="뷔" />
                 </Photo>
-            </div>
+            </ImgCover>
         </div>
     );
 };
+const ImgCover = styled.div`
+    background: url("images/jeju.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+`;
+
 const Photo = styled.div`
     display: flex;
     justify-content: center;
     gap: 20px;
-    height: 80vh;
+    height: 55vh;
     margin: 0 auto;
     align-items: center;
 `;

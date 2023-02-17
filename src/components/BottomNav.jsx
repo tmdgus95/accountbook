@@ -44,7 +44,7 @@ const Fix = styled.div`
     /* position: fixed; */
     bottom: 160px;
     width: 100%;
-    background: gray;
+    background: #a9a9a9;
 `;
 const FixUl = styled.div`
     list-style: none;
