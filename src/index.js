@@ -11,6 +11,7 @@ import Mypage from "./pages/Mypage";
 import SignUp from "./pages/SignUp";
 import ErrorPage from "./pages/ErrorPage";
 import MoneyCalendar from "./pages/MoneyCalendar";
+import NoticeDetail from "./pages/NoticeDetail";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
             { path: "mypage", element: <Mypage /> },
             { path: "login", element: <Login /> },
             { path: "signup", element: <SignUp /> },
+            { path: "noticedetail/:notice", element: <NoticeDetail /> },
         ],
     },
 ]);

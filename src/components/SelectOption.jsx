@@ -69,7 +69,8 @@ const Box = styled.div`
     display: inline-block;
     padding: 10px;
     border-radius: 5px;
-    background: #fbe300;
+    background: #a9a9a9;
+    opacity: 0.7;
 `;
 
 export default SelectOption;
