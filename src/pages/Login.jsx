@@ -49,7 +49,7 @@ const Login = () => {
             <p>
                 아직 회원이 아니신가요?{" "}
                 <Link style={{ color: "blue" }} to={"/signup"}>
-                    회원가입
+                    회원가입 테스트
                 </Link>
             </p>
             <button onClick={handleTest}>테스트</button>
