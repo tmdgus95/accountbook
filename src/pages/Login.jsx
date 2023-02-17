@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Button from "../components/ui/Button";
+import axios from "axios";
 
 const schema = yup
     .object({
@@ -24,7 +25,12 @@ const Login = () => {
     });
 
     const onSubmit = (data) => console.log(data);
-
+    const handleTest = () => {
+        const body = { email: "1234", password: "1234" };
+        axios
+            .post("http://192.168.0.208:9090/api/member/login", body)
+            .then((res) => console.log(res));
+    };
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -46,6 +52,7 @@ const Login = () => {
                     회원가입
                 </Link>
             </p>
+            <button onClick={handleTest}>테스트</button>
         </>
     );
 };
