@@ -36,7 +36,7 @@ const MoneyCalendar = () => {
                 // 달력에 출력될 html 작성
                 tileContent={({ date, view }) => {
                     let html = [];
-                    console.log(date);
+                    // console.log(date);
                     // date      : Tue Feb 28 2023 00:00:00 GMT+0900 (한국 표준시)
                     // item.date : "2023-02-07"
                     // 각각의 날짜 영역에 출력하고 싶은 내용을 작성한다.
