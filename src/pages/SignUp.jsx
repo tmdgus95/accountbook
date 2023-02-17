@@ -88,7 +88,7 @@ const SignUp = () => {
 
             <p>
                 이미 회원이신가요?{" "}
-                <Link style={{ color: "blue" }} to={"/login"}>
+                <Link className="text-blue-300" to={"/login"}>
                     로그인
                 </Link>
             </p>
