@@ -6,6 +6,7 @@ import { SlClose } from "react-icons/sl";
 import { BsCheckCircle } from "react-icons/bs";
 
 import InputDatePicker from "./InputDatePicker";
+import { useState } from "react";
 
 const schema = yup
     .object({
@@ -21,6 +22,9 @@ const schema = yup
     .required();
 
 const ExpendModal = ({ setModal }) => {
+    const [dateError, setDateError] = useState(false);
+    const errorMessage = "날짜를 선택해주세요";
+
     const {
         register,
         handleSubmit,
@@ -30,7 +34,16 @@ const ExpendModal = ({ setModal }) => {
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = (data) => console.log(data);
+    // const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+        if (data.installDate === undefined) {
+            setDateError(true);
+            return;
+        }
+        setDateError(false);
+        console.log(data);
+    };
+
     const handleChange = () => {
         setModal(false);
     };
@@ -47,6 +60,7 @@ const ExpendModal = ({ setModal }) => {
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <p>날짜</p>
+                {dateError && errorMessage}
                 <InputDatePicker control={control} />
 
                 <span>성별</span>
