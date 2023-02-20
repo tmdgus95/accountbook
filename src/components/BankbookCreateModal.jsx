@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Button from "./ui/Button";
+import axios from "axios";
 
 const schema = yup
     .object({
@@ -15,7 +15,7 @@ const schema = yup
     })
     .required();
 
-const BankbookCreateModal = () => {
+const BankbookCreateModal = ({ setCreateBank, setBankBookNumber }) => {
     const {
         register,
         handleSubmit,
@@ -24,22 +24,35 @@ const BankbookCreateModal = () => {
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = (data) => console.log(data);
-
+    const onSubmit = (data) => {
+        console.log(data);
+        axios
+            .post("http://192.168.0.56:9090/api/shareaccount/join")
+            .then((res) => console.log(res));
+        setCreateBank(false);
+    };
+    const inpustStlye =
+        "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
     return (
-        <div>
+        <div className="w-full text-center">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label>
-                    이름 <input {...register("name")} />
+                <label className="text-2xl">
+                    이름
+                    <br />
+                    <input className={inpustStlye} {...register("name")} />
                 </label>
                 <p>{errors.name?.message}</p>
 
-                <label>
-                    우리의 1일 <input {...register("startDay")} />
+                <label className="text-2xl">
+                    우리의 1일
+                    <br />
+                    <input className={inpustStlye} {...register("startDay")} />
                 </label>
                 <p>{errors.startDay?.message}</p>
 
-                <Button>개설하기</Button>
+                <button className="text-2xl bg-main rounded-xl p-3 mb-3">
+                    개설하기
+                </button>
             </form>
         </div>
     );

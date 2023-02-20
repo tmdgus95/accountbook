@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import BankbookCreateModal from "../components/BankbookCreateModal";
-import Button from "../components/ui/Button";
 import { useState } from "react";
 
 const schema = yup
@@ -26,6 +25,7 @@ const schema = yup
 
 const SignUp = () => {
     const [createBank, setCreateBank] = useState(false);
+    const [bankBookNumber, setBankBookNumber] = useState(0);
     const {
         register,
         handleSubmit,
@@ -35,56 +35,94 @@ const SignUp = () => {
     });
 
     const onSubmit = (data) => console.log(data);
+    const inpustStlye =
+        "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
     return (
-        <div>
+        <div className="w-full text-center">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label>
-                    이메일 <input {...register("mbiBasicEmail")} />
+                <label className="text-2xl">
+                    이메일
+                    <br />
+                    <input
+                        className={inpustStlye}
+                        {...register("mbiBasicEmail")}
+                    />
                 </label>
                 <p>{errors.mbiBasicEmail?.message}</p>
 
-                <label>
-                    비밀번호 <input {...register("password")} />
+                <label className="text-2xl">
+                    비밀번호
+                    <br />
+                    <input className={inpustStlye} {...register("password")} />
                 </label>
                 <p>{errors.password?.message}</p>
 
-                <label>
-                    성별 <input {...register("gender")} />
+                <label className="text-2xl">
+                    성별
+                    <br />
+                    <select {...register("gender")}>
+                        <option value="">성별을 선택하세요</option>
+                        <option value="1">여자</option>
+                        <option value="0">남자</option>
+                    </select>
                 </label>
-                <p>{errors.gender?.message}</p>
+                <p>{errors.gender && errors.gender.message}</p>
 
-                <label>
-                    이름 <input {...register("name")} />
+                <label className="text-2xl">
+                    이름
+                    <br />
+                    <input className={inpustStlye} {...register("name")} />
                 </label>
                 <p>{errors.name?.message}</p>
 
-                <label>
-                    사귄날 <input {...register("mbiStartDay")} />
+                <label className="text-2xl">
+                    사귄날
+                    <br />
+                    <input
+                        className={inpustStlye}
+                        {...register("mbiStartDay")}
+                    />
                 </label>
                 <p>{errors.mbiStartDay?.message}</p>
 
-                <label>
-                    생일 <input {...register("mbiBrith")} />
+                <label className="text-2xl">
+                    생일
+                    <br />
+                    <input className={inpustStlye} {...register("mbiBrith")} />
                 </label>
                 <p>{errors.mbiStartDay?.message}</p>
 
-                <label>
-                    별명 <input {...register("nickName")} />
+                <label className="text-2xl">
+                    별명
+                    <br />
+                    <input className={inpustStlye} {...register("nickName")} />
                 </label>
                 <p>{errors.nickName?.message}</p>
 
-                <label>
-                    통장번호 <input {...register("accountNumber")} />
+                <label className="text-2xl">
+                    통장번호
+                    <br />
+                    <input
+                        className={inpustStlye}
+                        {...register("accountNumber")}
+                    />
                 </label>
                 <p>{errors.accountNumber?.message}</p>
-                <Button>회원가입</Button>
+                <button className="text-2xl bg-main rounded-xl p-3 mb-3">
+                    회원가입
+                </button>
             </form>
-            {createBank && <BankbookCreateModal />}
-            <Button>
+            {createBank && (
+                <BankbookCreateModal
+                    setCreateBank={setCreateBank}
+                    setBankBookNumber={setBankBookNumber}
+                />
+            )}
+            <button className="text-2xl bg-main rounded-xl p-3 mb-3">
                 <span onClick={() => setCreateBank((prev) => !prev)}>
                     통장개설
                 </span>
-            </Button>
+            </button>
 
             <p>
                 이미 회원이신가요?{" "}
