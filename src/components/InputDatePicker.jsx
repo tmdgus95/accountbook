@@ -21,13 +21,15 @@ function InputDatePicker({ control }) {
                 // moment 객체 그대로를 반환하기에,
                 // "2021-04-15"와 같은 값을 얻고싶다면, 두번째 파라미터
                 // "dateString"을 추가해서 값을 넣어야 한다.
-                    <DatePicker
-                        renderExtraFooter={() => ""}
-                        onChange={(value, dateString) => {
-                            onChange(dateString);
-                        }}
-                        format={dateFormat}
-                    />
+                <DatePicker
+                    renderExtraFooter={() => ""}
+                    onChange={(value, dateString) => {
+                        onChange(dateString);
+                    }}
+                    format={dateFormat}
+                    style={{ width: "55%", height: "40px" }}
+                    placeholder="날짜를 선택하세요"
+                />
             )}
         />
     );

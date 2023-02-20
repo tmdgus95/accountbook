@@ -35,7 +35,7 @@ const FootContainer = styled.div`
     background: #fbe300;
     flex-direction: column;
     text-align: start;
-    padding: 40px 135px;
+    padding: 28px 135px;
 `;
 const FootUl = styled.ul`
     list-style: none;
