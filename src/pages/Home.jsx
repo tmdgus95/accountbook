@@ -1,37 +1,42 @@
 import React from "react";
 import styled from "styled-components";
+import CoupleHome from "./CoupleHome";
 
-const CoupleHome = () => {
+const Home = () => {
     return (
         <div>
-            <ImgCover>
-                <Box>
-                    <img
-                        src="/images/home.avif"
-                        alt="사진"
-                        style={{ width: "500px", height: "500px" }}
-                    />
-                    <div>
-                        <p style={{ fontSize: "30px" }}>
-                            단순한 연애는 끝났다.
-                        </p>
-                        <br />
-                        <Name>똑똑한 연애의 시작, 커플가계부</Name>
-                        <br />
-                        <p style={{fontSize:"20px",color:"#999"}}>
-                            지금 연애하고 계신가요?
+            {0 ? (
+                <CoupleHome />
+            ) : (
+                <ImgCover>
+                    <Box>
+                        <img
+                            src="/images/home.avif"
+                            alt="사진"
+                            style={{ width: "500px", height: "500px" }}
+                        />
+                        <div>
+                            <p style={{ fontSize: "30px" }}>
+                                단순한 연애는 끝났다.
+                            </p>
                             <br />
-                            커플가계부를 시작하세요!
+                            <Name>똑똑한 연애의 시작, 커플가계부</Name>
                             <br />
-                            커플가계부는 연인과 더 똑똑하게
-                            <br />
-                            소통하고 미래도 준비할 수 있는
-                            <br />
-                            어플입니다.
-                        </p>
-                    </div>
-                </Box>
-            </ImgCover>
+                            <p style={{ fontSize: "20px", color: "#999" }}>
+                                지금 연애하고 계신가요?
+                                <br />
+                                커플가계부를 시작하세요!
+                                <br />
+                                커플가계부는 연인과 더 똑똑하게
+                                <br />
+                                소통하고 미래도 준비할 수 있는
+                                <br />
+                                어플입니다.
+                            </p>
+                        </div>
+                    </Box>
+                </ImgCover>
+            )}
         </div>
     );
 };
@@ -57,4 +62,4 @@ const Name = styled.p`
     font-weight: 800;
     color: #ffd700;
 `;
-export default CoupleHome;
+export default Home;
