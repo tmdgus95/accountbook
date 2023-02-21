@@ -1,23 +1,29 @@
 import styled from "styled-components";
-// Import Swiper React components
+
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
-// import required modules
 import { Autoplay } from "swiper";
+
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { useEffect } from "react";
+
+import axios from "axios";
+
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import NoticeModal from "./NoticeModal";
+
 export default function Notice() {
     const [noticeList, setNoticeList] = useState([]);
 
     const fetchData = () => {
         axios
-            .get("http://192.168.0.156:9090/api/notice/list")
-            .then((res) => res.data.list)
-            .then((list) => setNoticeList(list));
+            .get("http://192.168.0.208:9090//api/notice/list")
+            .then((res) => console.log(res));
+        // .then((list) => setNoticeList(list));
     };
+    
+    const [modal, setModal] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -25,10 +31,20 @@ export default function Notice() {
 
     return (
         <>
+            {modal && <NoticeModal setModal={setModal} />}
             <Banner className="inner">
-                <span style={{ position: "absolute", paddingLeft: "10px"}}>
+                <span className="flex justify-between items-center px-5">
                     공지사항
+                    <AiOutlinePlusCircle
+                        style={{
+                            fontSize: "30px",
+                            paddingBottom: "2px",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => setModal(true)}
+                    />
                 </span>
+
                 <Swiper
                     direction={"vertical"}
                     cssMode={true}

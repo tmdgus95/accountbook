@@ -11,11 +11,12 @@ const CoupleHome = () => {
                 <SelectOption />
                 <div style={{ height: "150px" }}></div>
                 <Notice />
+                <div className="z-50 text-center mt-16 text-white">
+                    <div style={{ fontSize: "20px" }}>우리 커플</div>
+                    <div style={{ fontSize: "80px" }}>100일</div>
+                    <div style={{ fontSize: "20px" }}>내일 더 사랑할게</div>
+                </div>
                 <Celebrate>
-                    <div className="z-50 text-center mb-6">
-                    <div>우리 사귄지</div>
-                    <div>100일</div>
-                    </div>
                     <div className="absolute mb-20">
                         <ProfileCard />
                     </div>
@@ -29,7 +30,6 @@ const ImgCover = styled.div`
     background-size: cover;
     background-position: center;
     height: 70vh;
-    
 `;
 const Celebrate = styled.div`
     position: relative;
@@ -38,9 +38,8 @@ const Celebrate = styled.div`
     justify-content: center;
     align-items: center;
     color: #000;
-    padding-top: 350px;
+    padding-top: 200px;
     font-size: xx-large;
-    
 `;
 
 export default CoupleHome;
