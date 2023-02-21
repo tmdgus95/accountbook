@@ -10,7 +10,7 @@ function InputDatePicker({ control }) {
         // Controller를 선언한 후 control을 속성으로 넣어주면 된다.
         <Controller
             control={control}
-            name="selectedDate"
+            name="installDate"
             format={dateFormat}
             // render를 사용해서, field값을 복사하거나 꺼내 쓰면 된다.
             // field안에는 value나 onBlur와 같은 함수도 있음
