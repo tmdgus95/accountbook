@@ -9,55 +9,13 @@ import InputDatePicker from "./InputDatePicker";
 import { useState } from "react";
 import styled from "styled-components";
 
-import axios from "axios";
-
-yup.setLocale({
-    mixed: {
-        default: "사용할 수 없는 값입니다.",
-        required: "필수 입력입니다.",
-        oneOf: "다음 값 중 하나여야 합니다.: ${values}",
-        notOneOf: "다음 값 중 하나가 아니어야 합니다.: ${values}",
-        notType: function notType(_ref) {
-            let path = _ref.path,
-                type = _ref.type,
-                value = _ref.value,
-                originalValue = _ref.originalValue;
-            let isCast = originalValue != null && originalValue !== value;
-            let msg = "";
-            if (type === "number") {
-                msg = "숫자를 입력하세요";
-            } else if (type === "date") {
-                msg = "날짜 형식으로 입력해주세요.";
-            } else {
-                msg = path + " 항목은 `" + type + "` 형식으로 입력해주세요.";
-            }
-
-            // if (value === null) {
-            //   msg +=
-            //     '\n If "null" is intended as an empty value be sure to mark the schema as `.nullable()`';
-            // }
-
-            return msg;
-        },
-        defined: "정의되지 않았습니다.",
-    },
-    string: {
-        length: "${length}자로 입력해주세요.",
-        min: "${min}자 이상 입력바랍니다.",
-        max: "${max}자 까지 입력됩니다.",
-        email: "이메일 형식이 아닙니다.",
-    },
-});
 const schema = yup
     .object({
         price: yup
-            .number()
+            .number("숫자를 입력하세요")
             .positive("양수를 입력하세요")
             .integer("정수를 입력하세요")
             .required("금액을 입력하세요"),
-        selectedDate: yup
-            .string("문자를 입력하세요")
-            .required("날짜를 입력하세요"),
         memo: yup.string("문자를 입력하세요").required("메모를 입력하세요"),
         gender: yup.string().required("성별을 선택하세요"),
         cateSeq: yup.string().required("카테고리를 선택하세요"),
@@ -66,6 +24,9 @@ const schema = yup
     .required();
 
 const ExpendModal = ({ setModal }) => {
+    const [dateError, setDateError] = useState(false);
+    const errorMessage = "날짜를 선택해주세요";
+
     const {
         register,
         handleSubmit,
@@ -86,29 +47,17 @@ const ExpendModal = ({ setModal }) => {
         }
     }, [image]);
 
+    // const onSubmit = (data) => console.log(data);
     const onSubmit = (data) => {
-        const formData = new FormData();
-        formData.append("file", data.image && data.image[0]);
-        const body = {
-            price: data.price,
-            memo: data.memo,
-            date: data.date,
-            status: data.status,
-            cateSeq: data.cateSeq,
-        };
-        const blob = new Blob([JSON.stringify(body)], {
-            type: "application/json",
-        });
-        formData.append("json", blob);
-        axios
-            .post(
-                "http://192.168.0.208:9090/api/accountbook/expense/add",
-                formData
-            )
-            .then((res) => console.log(res));
+        if (data.installDate === undefined) {
+            setDateError(true);
+            return;
+        }
+        setDateError(false);
+        console.log(data);
     };
 
-    const handleChangeModal = () => {
+    const handleChange = () => {
         setModal(false);
     };
 
@@ -117,7 +66,7 @@ const ExpendModal = ({ setModal }) => {
             <Inner>
                 <Top>
                     <SlClose
-                        onClick={handleChangeModal}
+                        onClick={handleChange}
                         style={{ cursor: "pointer" }}
                     />
                     <span>지출 입력</span>
@@ -128,21 +77,15 @@ const ExpendModal = ({ setModal }) => {
                 </Top>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <p>날짜</p>
-                    <InputDatePicker
-                        control={control}
-                        {...register("selectedDate")}
-                    />
-
-                    <span className="text-red-500 pl-10">
-                        {errors.selectedDate && errors.selectedDate.message}
-                    </span>
+                    {dateError && errorMessage}
+                    <InputDatePicker control={control} />
                     <p>성별</p>
                     <select {...register("gender")}>
                         <option value="">성별을 선택하세요</option>
                         <option value="woman">여자</option>
                         <option value="man">남자</option>
                     </select>
-                    <span className="text-red-500 pl-10">
+                    <span className="text-red-500 pl-4">
                         {errors.gender && errors.gender.message}
                     </span>
                     <br />
@@ -167,7 +110,7 @@ const ExpendModal = ({ setModal }) => {
                         <option value="17">술</option>
                         <option value="18">교통비</option>
                     </select>
-                    <span className="text-red-500 pl-10">
+                    <span className="text-red-500 pl-4">
                         {errors.cateSeq && errors.cateSeq.message}
                     </span>
                     <br />
@@ -176,7 +119,6 @@ const ExpendModal = ({ setModal }) => {
                         {...register("image")}
                         id="picture"
                         type="file"
-                        name="image"
                         className="focus:outline-none mb-3"
                     />
                     <img
@@ -185,7 +127,7 @@ const ExpendModal = ({ setModal }) => {
                         className="max-w-[55%] mb-4"
                     />
                     <label>
-                        금액 <br /> <input {...register("price")} /> 원
+                        금액 <br /> <input {...register("price")} />
                     </label>
                     <span className="text-red-500 pl-4">
                         {errors.price?.message}
@@ -194,7 +136,7 @@ const ExpendModal = ({ setModal }) => {
                     <label>
                         메모 <br /> <input {...register("memo")} />
                     </label>
-                    <span className="text-red-500 pl-10">
+                    <span className="text-red-500 pl-4">
                         {errors.memo?.message}
                     </span>
                 </form>
@@ -225,9 +167,6 @@ const Inner = styled.div`
         font-size: 20px;
         input {
             width: 55%;
-            font-size: 16px;
-            color: rgba(0, 0, 0, 0.88);
-            padding: 1%;
             margin-bottom: 15px;
             border: 1px solid #d9d9d9;
             border-radius: 6px;
@@ -243,10 +182,9 @@ const Inner = styled.div`
         width: 55%;
         font-size: 16px;
         color: rgba(0, 0, 0, 0.88);
-        padding: 1.2%;
+        padding: 2%;
         border: 1px solid #d9d9d9;
         border-radius: 6px;
-        cursor: pointer;
         transition: border 0.2s, box-shadow 0.2s;
         &:focus {
             border-color: #4096ff;
