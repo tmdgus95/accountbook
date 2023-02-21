@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import BankbookCreateModal from "../components/BankbookCreateModal";
 import { useState } from "react";
+import axios from "axios";
 
 const schema = yup
     .object({
@@ -25,7 +26,8 @@ const schema = yup
 
 const SignUp = () => {
     const [createBank, setCreateBank] = useState(false);
-    const [bankBookNumber, setBankBookNumber] = useState(0);
+    const [bankBookNumber, setBankBookNumber] = useState("");
+    console.log(bankBookNumber);
     const {
         register,
         handleSubmit,
@@ -34,12 +36,40 @@ const SignUp = () => {
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+        const formData = new FormData();
+        formData.append("file", data.image && data.image[0]);
+        const body = {
+            mbiBasicEmail: data.mbiBasicEmail,
+            password: data.password,
+            gender: data.gender,
+            name: data.name,
+            mbiStartDay: data.mbiStartDay,
+            mbiBrith: data.mbiBrith,
+            nickName: data.nickName,
+            accountNumber: bankBookNumber,
+        };
+        const blob = new Blob([JSON.stringify(body)], {
+            type: "application/json",
+        });
+        formData.append("json", blob);
+        axios
+
+            .post("http://192.168.0.208:9090/api/member/join", formData)
+            .then((res) => console.log(res));
+    };
     const inpustStlye =
         "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
     return (
         <div className="w-full text-center">
             <form onSubmit={handleSubmit(onSubmit)}>
+                <input
+                    {...register("image")}
+                    id="picture"
+                    type="file"
+                    accept="image/*"
+                />
+
                 <label className="text-2xl">
                     이메일
                     <br />
@@ -105,6 +135,7 @@ const SignUp = () => {
                     <input
                         className={inpustStlye}
                         {...register("accountNumber")}
+                        defaultValue={bankBookNumber && bankBookNumber}
                     />
                 </label>
                 <p>{errors.accountNumber?.message}</p>

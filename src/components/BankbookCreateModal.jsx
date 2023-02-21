@@ -8,9 +8,7 @@ const schema = yup
     .object({
         name: yup.string("문자를 입력하세요").required("이름을 입력하세요"),
         startDay: yup
-            .number("숫자를 입력하세요")
-            .positive("양수를 입력하세요")
-            .integer("정수를 입력하세요")
+            .string("숫자를 입력하세요")
             .required("비밀번호를 입력하세요"),
     })
     .required();
@@ -26,9 +24,14 @@ const BankbookCreateModal = ({ setCreateBank, setBankBookNumber }) => {
 
     const onSubmit = (data) => {
         console.log(data);
+        const body = {
+            name: data.name,
+            startDay: data.startDay,
+        };
         axios
-            .post("http://192.168.0.56:9090/api/shareaccount/join")
-            .then((res) => console.log(res));
+            .post("http://192.168.0.56:9090/api/shareaccount/join", body)
+            .then((res) => res.data.accountCode)
+            .then((code) => setBankBookNumber(code));
         setCreateBank(false);
     };
     const inpustStlye =
@@ -46,7 +49,11 @@ const BankbookCreateModal = ({ setCreateBank, setBankBookNumber }) => {
                 <label className="text-2xl">
                     우리의 1일
                     <br />
-                    <input className={inpustStlye} {...register("startDay")} />
+                    <input
+                        className={inpustStlye}
+                        {...register("startDay")}
+                        placeholder="yyyy-mm-dd"
+                    />
                 </label>
                 <p>{errors.startDay?.message}</p>
 
