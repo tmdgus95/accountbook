@@ -30,10 +30,8 @@ const Login = () => {
     const onSubmit = (data) => {
         const body = { email: data.email, password: data.password };
         axios
-
             .post("http://192.168.0.208:9090/api/member/login", body)
             .then((res) => setUser(res.data))
-
             .then(navigate("/couplehome"));
     };
 

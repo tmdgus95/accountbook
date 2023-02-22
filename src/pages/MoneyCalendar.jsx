@@ -64,9 +64,21 @@ const MoneyCalendar = () => {
                     // 달력에 출력될 html 작성
                     tileContent={showTile}
                 />
+                <Summary>
+                    <Top>
+                        <span>수입</span>
+                        <span>지출</span>
+                        <span>합계</span>
+                    </Top>
+                    <Bottom>
+                        <span>3,117,000원</span>
+                        <span>3,953,930원</span>
+                        <span>-836,930원</span>
+                    </Bottom>
+                </Summary>
             </Wrap>
             {/* 상세 정보 내역 출력 */}
-            <div className="calender-detail">
+            {/* <div className="calender-detail">
                 {todoData && (
                     <div className="calender-detail__item">
                         <div className="calender-detail__title">
@@ -84,7 +96,7 @@ const MoneyCalendar = () => {
                         </div>
                     </div>
                 )}
-            </div>
+            </div> */}
         </>
     );
 };
@@ -94,30 +106,62 @@ const Wrap = styled.div`
         width: 100%;
         height: 643px;
     }
+    .react-calendar__navigation__label > span {
+        font-size: 32px;
+        font-weight: 900;
+        color: black;
+        margin: 0;
+    }
     .react-calendar button {
-        /* border: 1px solid #A0A096; */
         border-collapse: collapse;
-        height: 60px;
+        height: 105px !important;
     }
     .react-calendar__navigation {
-        height: 70px;
+        height: 60px !important;
         border-bottom: 1px solid #a0a096;
         border-collapse: collapse;
     }
     .react-calendar__navigation button {
-        height: 70px;
+        height: 60px !important;
     }
     .react-calendar__month-view__weekdays {
         border-bottom: 1px solid #a0a096;
         height: 40px;
+        font-size: 20px;
     }
-    .react-calendar__month-view__weekdays__weekday {
-        /* padding: 0; */
+    .react-calendar__tile--active {
+        background: #4096ff !important;
+        color: white;
     }
-    .react-calendar__month-view__weekNumbers .react-calendar__tile {
+    .react-calendar__tile--active:enabled:hover,
+    .react-calendar__tile--active:enabled:focus {
+        background: #4096ff !important;
     }
-    .react-calendar__tile {
-        border: 1px solid #a0a096;
+    .react-calendar__tile--now {
+        background: white;
+    }
+    .react-calendar__tile--now:enabled:hover,
+    .react-calendar__tile--now:enabled:focus {
+        background: #e6e6e6;
+    }
+`;
+const Summary = styled.div`
+    border: 1px solid #a0a096;
+    width: 100%;
+    height: 100%;
+`;
+const Top = styled.div`
+    display: flex;
+    justify-content: space-around;
+    span {
+        font-size: 30px;
+    }
+`;
+const Bottom = styled.div`
+    display: flex;
+    justify-content: space-around;
+    span {
+        font-size: 30px;
     }
 `;
 export default MoneyCalendar;
