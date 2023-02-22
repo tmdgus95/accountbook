@@ -1,21 +1,49 @@
 import axios from "axios";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 
 const NoticeModal = ({ setModal }) => {
     const [memo, setMeno] = useState("");
-    const handleChange = (e) => setMeno(e.target.value);
+    const [file, setFile] = useState("");
+    const [imagePreview, setImagePreview] = useState("");
+    const handleChangeMemo = (e) => setMeno(e.target.value);
+    const handleChangeImg = (e) => setFile(e.target.files[0]);
+
+    useEffect(() => {
+        if (file || file.length > 0) {
+            const image = file;
+            setImagePreview(URL.createObjectURL(image));
+            console.log(image);
+        }
+    }, [file]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let body = {
+        const formData = new FormData();
+        formData.append("file", file);
+        const body = {
             memo,
+            niNiiSeq: 0,
+            niMbiSeq: 0,
         };
+        const blob = new Blob([JSON.stringify(body)], {
+            type: "application/json",
+        });
+        formData.append("noticeVO", blob);
         axios
-            .put("http://192.168.0.156:9090/api/notice/add", body)
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+            .post("http://192.168.0.156:9090/api/notice/add", formData)
+            .then((res) => console.log(res));
+
+        // let body = {
+        //     memo,
+        // };
+        // axios
+        //     .put("http://192.168.0.156:9090/api/notice/add", body)
+        //     .then((res) => console.log(res))
+        //     .catch((err) => console.log(err));
     };
 
     return (
@@ -31,9 +59,16 @@ const NoticeModal = ({ setModal }) => {
                             <p>
                                 <Content
                                     placeholder="내용을 입력하세요."
-                                    onChange={handleChange}
+                                    onChange={handleChangeMemo}
+                                    autoFocus
                                 ></Content>
                             </p>
+                            <img
+                                src={imagePreview}
+                                alt="imagePreview"
+                                className="max-w-[30%] mb-4"
+                            />
+                            <input type="file" onChange={handleChangeImg} />
                         </form>
                     </Body>
                     {/*footer*/}
@@ -92,7 +127,7 @@ const Body = styled.div`
 
 const Content = styled.textarea`
     width: 100%;
-    height: 450px;
+    height: 150px;
     margin: 0 auto;
     padding: 10px;
     resize: none;
