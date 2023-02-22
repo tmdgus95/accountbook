@@ -3,8 +3,12 @@ import Notice from "../components/Notice";
 import styled from "styled-components";
 import SelectOption from "../components/SelectOption";
 import ProfileCard from "../components/ProfileCard";
+import { useAuthContext } from "../context/AuthContext";
 
 const CoupleHome = () => {
+    const { user } = useAuthContext();
+    console.log(user);
+
     return (
         <div>
             <ImgCover>
@@ -13,12 +17,14 @@ const CoupleHome = () => {
                 <Notice />
                 <div className="z-50 text-center mt-16 text-white">
                     <div style={{ fontSize: "20px" }}>우리 커플</div>
-                    <div style={{ fontSize: "80px" }}>100일</div>
+                    <div style={{ fontSize: "80px" }}>
+                        {user && user.loveDay}일
+                    </div>
                     <div style={{ fontSize: "20px" }}>내일 더 사랑할게</div>
                 </div>
                 <Celebrate>
                     <div className="absolute mb-20">
-                        <ProfileCard />
+                        <ProfileCard user={user} />
                     </div>
                 </Celebrate>
             </ImgCover>
