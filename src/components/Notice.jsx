@@ -12,17 +12,24 @@ import axios from "axios";
 
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import NoticeModal from "./NoticeModal";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function Notice() {
+    const { Authorization } = useAuthContext();
     const [noticeList, setNoticeList] = useState([]);
 
     const fetchData = () => {
+        // const header = {
+        //     headers: {
+        //         Authorization,
+        //     },
+        // };
         axios
-            .get("http://192.168.0.208:9090//api/notice/list")
-            .then((res) => console.log(res));
+            .get("http://192.168.0.208:9090/api/notice/list")
+            .then((res) => console.log(res.data));
         // .then((list) => setNoticeList(list));
     };
-    
+
     const [modal, setModal] = useState(false);
 
     useEffect(() => {
