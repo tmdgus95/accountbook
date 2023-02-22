@@ -8,7 +8,7 @@ export function AuthContextProvider({ children }) {
     return (
         <AuthContext.Provider
             value={{
-                user: user && user.data,
+                user,
                 setUser,
                 Authorization: user && user.Authentication,
             }}

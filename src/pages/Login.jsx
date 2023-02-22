@@ -32,7 +32,7 @@ const Login = () => {
         // const body = { email: "email2", password: 1234 };
         axios
 
-            .post("http://192.168.0.208:9090/api/member/login1", body)
+            .post("http://192.168.0.208:9090/api/member/login", body)
             .then((res) => {
                 console.log(res.data);
                 return res.data;
