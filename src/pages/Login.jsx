@@ -30,22 +30,31 @@ const Login = () => {
     const onSubmit = (data) => {
         const body = { email: data.email, password: data.password };
         axios
-            .post("http://192.168.0.208:9090/api/member/login", body)
-            .then((res) => res.data)
+            .post("http://192.168.0.208:9090/api/member/login1", body)
+            .then((res) => {
+                console.log(res.data);
+                return res.data;
+            })
             .then((user) => setUser(user))
             .then(navigate("/couplehome"));
     };
 
+    const inpustStlye =
+        "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
     return (
-        <>
+        <div className="w-full text-center">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label>
-                    이메일 <input {...register("email")} />
+                <label className="text-2xl">
+                    이메일
+                    <br />
+                    <input className={inpustStlye} {...register("email")} />
                 </label>
                 <p>{errors.email?.message}</p>
 
-                <label>
-                    비밀번호 <input {...register("password")} />
+                <label className="text-2xl">
+                    비밀번호
+                    <br />
+                    <input className={inpustStlye} {...register("password")} />
                 </label>
                 <p>{errors.password?.message}</p>
 
@@ -57,7 +66,7 @@ const Login = () => {
                     회원가입
                 </Link>
             </p>
-        </>
+        </div>
     );
 };
 

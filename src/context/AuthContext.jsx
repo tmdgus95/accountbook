@@ -10,7 +10,7 @@ export function AuthContextProvider({ children }) {
             value={{
                 user: user && user.data,
                 setUser,
-                Authorization: user && user.Authorization,
+                Authorization: user && user.Authentication,
             }}
         >
             {children}

@@ -27,7 +27,7 @@ const schema = yup
 const SignUp = () => {
     const [createBank, setCreateBank] = useState(false);
     const [bankBookNumber, setBankBookNumber] = useState("");
-    console.log(bankBookNumber);
+
     const {
         register,
         handleSubmit,
@@ -69,6 +69,7 @@ const SignUp = () => {
                     type="file"
                     accept="image/*"
                 />
+                <br />
 
                 <label className="text-2xl">
                     이메일
