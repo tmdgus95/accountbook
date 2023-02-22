@@ -6,7 +6,7 @@ import { useAuthContext } from "../context/AuthContext";
 
 const Header = () => {
     const { Authorization } = useAuthContext();
-    console.log(Authorization);
+
     return (
         <header className="flex justify-between  w-full px-10 text-lg font-medium">
             <div>

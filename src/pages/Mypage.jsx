@@ -59,38 +59,49 @@ const Mypage = () => {
         "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
 
     return (
-        <div className="w-full text-center">
-            <p className="text-4xl bg-main w-fit text-white p-2 rounded-lg mx-auto mb-4">
-                회원정보 변경
-            </p>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input
-                    {...register("image")}
-                    id="picture"
-                    type="file"
-                    accept="image/*"
-                />
-                <br />
+        <div className="flex w-full text-center justify-around">
+            <div>
+                <p className="text-4xl bg-main w-fit text-white p-2 rounded-lg mx-auto mb-4">
+                    회원정보 변경
+                </p>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <input
+                        {...register("image")}
+                        id="picture"
+                        type="file"
+                        accept="image/*"
+                    />
+                    <br />
 
-                <label className="text-2xl">
-                    이름 <br />{" "}
-                    <input className={inpustStlye} {...register("name")} />
-                </label>
-                <p>{errors.email?.message}</p>
+                    <label className="text-2xl">
+                        이름 <br />{" "}
+                        <input className={inpustStlye} {...register("name")} />
+                    </label>
+                    <p>{errors.email?.message}</p>
 
-                <label className="text-2xl">
-                    비밀번호 <br />
-                    <input className={inpustStlye} {...register("password")} />
-                </label>
-                <p>{errors.password?.message}</p>
-                <label className="text-2xl">
-                    별명 <br />
-                    <input className={inpustStlye} {...register("nickName")} />
-                </label>
-                <p>{errors.nickName?.message}</p>
-                <button>변경</button>
-            </form>
-            <button>회원탈퇴</button>
+                    <label className="text-2xl">
+                        비밀번호 <br />
+                        <input
+                            className={inpustStlye}
+                            {...register("password")}
+                        />
+                    </label>
+                    <p>{errors.password?.message}</p>
+                    <label className="text-2xl">
+                        별명 <br />
+                        <input
+                            className={inpustStlye}
+                            {...register("nickName")}
+                        />
+                    </label>
+                    <p>{errors.nickName?.message}</p>
+                    <button>변경</button>
+                </form>
+                <button>회원탈퇴</button>
+            </div>
+            <div>
+                <p>회원정보</p>
+            </div>
         </div>
     );
 };
