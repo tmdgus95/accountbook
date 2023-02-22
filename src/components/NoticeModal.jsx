@@ -26,15 +26,15 @@ const NoticeModal = ({ setModal }) => {
         formData.append("file", file);
         const body = {
             memo,
-            niNiiSeq: 0,
-            niMbiSeq: 0,
+
+            niMbiSeq: 96,
         };
         const blob = new Blob([JSON.stringify(body)], {
             type: "application/json",
         });
         formData.append("noticeVO", blob);
         axios
-            .post("http://192.168.0.156:9090/api/notice/add", formData)
+            .put("http://192.168.0.156:9090/api/notice/add", formData)
             .then((res) => console.log(res));
 
         // let body = {

@@ -1,7 +1,7 @@
 import React from "react";
 import { BsFillHeartFill } from "react-icons/bs";
 
-const ProfileCard = ({ name, img }) => {
+const ProfileCard = ({ user }) => {
     return (
         <>
             <div className="flex justify-between px-10  w-maincard">
@@ -9,13 +9,16 @@ const ProfileCard = ({ name, img }) => {
                     <div className="card  p-4 rounded-2xl w-48 h-60 ">
                         <div className="image flex flex-col items-center">
                             <img
-                                src="/images/jenny.jpg"
+                                src={
+                                    user &&
+                                    `http://192.168.0.208:9090/api/background/img/다운로드`
+                                }
                                 className="rounded-full w-32 h-32 "
                                 alt="profile"
                             />
                         </div>
                         <div className="name text-white  flex flex-col items-center text-2xl  mt-4 z-10">
-                            승현이
+                            {user && user.nickName}
                         </div>
                     </div>
                 </div>
@@ -26,13 +29,16 @@ const ProfileCard = ({ name, img }) => {
                     <div className="card p-4  rounded-2xl w-48 h-60 ">
                         <div className="image flex flex-col items-center">
                             <img
-                                src="/images/jenny.jpg"
+                                src={
+                                    user &&
+                                    `http://192.168.0.208:9090/api/background/img/400x400`
+                                }
                                 className="rounded-full w-32 h-32 "
                                 alt="profile"
                             />
                         </div>
                         <div className="name  text-white  flex flex-col items-center text-2xl  mt-4 z-10">
-                            승현이
+                            {user && user.otherName}
                         </div>
                     </div>
                 </div>
