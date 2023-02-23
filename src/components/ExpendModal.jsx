@@ -2,12 +2,9 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { SlClose } from "react-icons/sl";
-import { BsCheckCircle } from "react-icons/bs";
 
 import InputDatePicker from "./InputDatePicker";
 import { useState } from "react";
-import styled from "styled-components";
 
 import axios from "axios";
 
@@ -65,7 +62,7 @@ const schema = yup
     })
     .required();
 
-const ExpendModal = ({ setModal }) => {
+const ExpendModal = () => {
     const {
         register,
         handleSubmit,
@@ -93,7 +90,7 @@ const ExpendModal = ({ setModal }) => {
             price: data.price,
             memo: data.memo,
             date: data.date,
-            status: data.status,
+            status: 1,
             cateSeq: data.cateSeq,
         };
         const blob = new Blob([JSON.stringify(body)], {
@@ -102,165 +99,80 @@ const ExpendModal = ({ setModal }) => {
         formData.append("json", blob);
         axios
             .post(
-                "http://192.168.0.208:9090/api/accountbook/expense/add",
+                "http://192.168.0.208:9090/api/accountbook/expense/add?mbiSeq=96",
                 formData
             )
             .then((res) => console.log(res));
     };
 
-    const handleChangeModal = () => {
-        setModal(false);
-    };
-
     return (
-        <Wrap>
-            <Inner>
-                <Top>
-                    <SlClose
-                        onClick={handleChangeModal}
-                        style={{ cursor: "pointer" }}
-                    />
-                    <span>지출 입력</span>
-                    <BsCheckCircle
-                        onClick={handleSubmit(onSubmit)}
-                        style={{ cursor: "pointer" }}
-                    />
-                </Top>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <p>날짜</p>
-                    <InputDatePicker
-                        control={control}
-                        {...register("selectedDate")}
-                    />
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <p>날짜</p>
+            <InputDatePicker control={control} {...register("selectedDate")} />
 
-                    <span className="text-red-500 pl-10">
-                        {errors.selectedDate && errors.selectedDate.message}
-                    </span>
-                    <p>성별</p>
-                    <select {...register("gender")}>
-                        <option value="">성별을 선택하세요</option>
-                        <option value="woman">여자</option>
-                        <option value="man">남자</option>
-                    </select>
-                    <span className="text-red-500 pl-10">
-                        {errors.gender && errors.gender.message}
-                    </span>
-                    <br />
-                    <p>카테고리</p>
-                    <select {...register("cateSeq")}>
-                        <option value="">카테고리를 선택하세요</option>
-                        <option value="1">카페</option>
-                        <option value="2">의료/건강</option>
-                        <option value="3">오락</option>
-                        <option value="4">교육</option>
-                        <option value="5">여행</option>
-                        <option value="6">패션</option>
-                        <option value="7">미용</option>
-                        <option value="8">생필품</option>
-                        <option value="9">통신</option>
-                        <option value="10">기타</option>
-                        <option value="11">식비</option>
-                        <option value="13">편의점</option>
-                        <option value="14">문화/여가</option>
-                        <option value="15">주거비</option>
-                        <option value="16">취미</option>
-                        <option value="17">술</option>
-                        <option value="18">교통비</option>
-                    </select>
-                    <span className="text-red-500 pl-10">
-                        {errors.cateSeq && errors.cateSeq.message}
-                    </span>
-                    <br />
-                    <p>이미지 업로드</p>
-                    <input
-                        {...register("image")}
-                        id="picture"
-                        type="file"
-                        name="image"
-                        className="focus:outline-none mb-3"
-                    />
-                    <img
-                        src={imagePreview}
-                        alt="imagePreview"
-                        className="max-w-[55%] mb-4"
-                    />
-                    <label>
-                        금액 <br /> <input {...register("price")} /> 원
-                    </label>
-                    <span className="text-red-500 pl-4">
-                        {errors.price?.message}
-                    </span>
-                    <br />
-                    <label>
-                        메모 <br /> <input {...register("memo")} />
-                    </label>
-                    <span className="text-red-500 pl-10">
-                        {errors.memo?.message}
-                    </span>
-                </form>
-            </Inner>
-        </Wrap>
+            <span className="text-red-500 pl-10">
+                {errors.selectedDate && errors.selectedDate.message}
+            </span>
+            <p>성별</p>
+            <select {...register("gender")}>
+                <option value="">성별을 선택하세요</option>
+                <option value="woman">여자</option>
+                <option value="man">남자</option>
+            </select>
+            <span className="text-red-500 pl-10">
+                {errors.gender && errors.gender.message}
+            </span>
+            <br />
+            <p>카테고리</p>
+            <select {...register("cateSeq")}>
+                <option value="">카테고리를 선택하세요</option>
+                <option value="1">카페</option>
+                <option value="2">의료/건강</option>
+                <option value="3">오락</option>
+                <option value="4">교육</option>
+                <option value="5">여행</option>
+                <option value="6">패션</option>
+                <option value="7">미용</option>
+                <option value="8">생필품</option>
+                <option value="9">통신</option>
+                <option value="10">기타</option>
+                <option value="11">식비</option>
+                <option value="13">편의점</option>
+                <option value="14">문화/여가</option>
+                <option value="15">주거비</option>
+                <option value="16">취미</option>
+                <option value="17">술</option>
+                <option value="18">교통비</option>
+            </select>
+            <span className="text-red-500 pl-10">
+                {errors.cateSeq && errors.cateSeq.message}
+            </span>
+            <br />
+            <p>이미지 업로드</p>
+            <input
+                {...register("image")}
+                id="picture"
+                type="file"
+                name="image"
+                className="focus:outline-none mb-3"
+            />
+            <img
+                src={imagePreview}
+                alt="imagePreview"
+                className="max-w-[55%] mb-4"
+            />
+            <label>
+                금액 <br /> <input {...register("price")} /> 원
+            </label>
+            <span className="text-red-500 pl-4">{errors.price?.message}</span>
+            <br />
+            <label>
+                메모 <br /> <input {...register("memo")} />
+            </label>
+            <span className="text-red-500 pl-10">{errors.memo?.message}</span>
+            <button onClick={handleSubmit(onSubmit)}>전송</button>
+        </form>
     );
 };
-
-const Wrap = styled.div`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 5;
-    padding: 2% 30%;
-    top: 0;
-    left: 0;
-`;
-const Inner = styled.div`
-    background: white;
-    border-radius: 5px;
-    padding: 3%;
-    p {
-        font-size: 20px;
-        margin: 20px 0 10px;
-    }
-    label {
-        font-size: 20px;
-        input {
-            width: 55%;
-            font-size: 16px;
-            color: rgba(0, 0, 0, 0.88);
-            padding: 1%;
-            margin-bottom: 15px;
-            border: 1px solid #d9d9d9;
-            border-radius: 6px;
-            transition: border 0.2s, box-shadow 0.2s;
-            &:focus {
-                border-color: #4096ff;
-                box-shadow: 0 0 0 2px rgb(5 145 255 / 10%);
-                outline: none;
-            }
-        }
-    }
-    select {
-        width: 55%;
-        font-size: 16px;
-        color: rgba(0, 0, 0, 0.88);
-        padding: 1.2%;
-        border: 1px solid #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: border 0.2s, box-shadow 0.2s;
-        &:focus {
-            border-color: #4096ff;
-            box-shadow: 0 0 0 2px rgb(5 145 255 / 10%);
-            outline: none;
-        }
-    }
-`;
-const Top = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-    font-size: 30px;
-`;
 
 export default ExpendModal;
