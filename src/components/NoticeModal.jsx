@@ -56,23 +56,28 @@ const NoticeModal = ({ setModal }) => {
                     {/* boby */}
                     <Body>
                         <form onSubmit={handleSubmit}>
-                            <p>
+                            <p className="px-5">
                                 <Content
                                     placeholder="내용을 입력하세요."
                                     onChange={handleChangeMemo}
                                     autoFocus
                                 ></Content>
                             </p>
-                            <img
-                                src={imagePreview}
-                                alt="imagePreview"
-                                className="max-w-[30%] mb-4"
-                            />
-                            <input type="file" onChange={handleChangeImg} />
+                            <div className="pl-5">
+                                <img
+                                    src={imagePreview}
+                                    alt="imagePreview"
+                                    className="max-w-[45%] mb-2"
+                                />
+                                <input type="file" onChange={handleChangeImg} />
+                            </div>
                         </form>
                     </Body>
                     {/*footer*/}
-                    <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                    <div
+                        className="flex items-center justify-end 
+                    p-6 mt-11 border-t border-solid border-slate-200 rounded-b"
+                    >
                         <button
                             className="text-black-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
@@ -108,8 +113,8 @@ const Wrap = styled.div`
 const Inner = styled.div`
     background: white;
     border-radius: 5px;
-    width: 100%;
-    height: 70%;
+    width: 1000px;
+    height: 1000px;
 `;
 
 const Top = styled.div`
@@ -121,16 +126,19 @@ const Top = styled.div`
     border-bottom: 1px solid #ddd;
 `;
 
-const Body = styled.div`
-    height: 500px;
-`;
-
 const Content = styled.textarea`
     width: 100%;
-    height: 150px;
+    height: 300px;
     margin: 0 auto;
     padding: 10px;
     resize: none;
     outline: none;
 `;
+
+const Body = styled.div`
+    position: relative;
+    display: block;
+    height: 750px;
+`;
+
 export default NoticeModal;

@@ -11,7 +11,7 @@ const ProfileCard = ({ user }) => {
                             <img
                                 src={
                                     user &&
-                                    `http://192.168.0.208:9090/api/background/img/다운로드`
+                                    `http://192.168.0.208:9090${user.memberImgURL}`
                                 }
                                 className="rounded-full w-32 h-32 "
                                 alt="profile"
@@ -31,7 +31,7 @@ const ProfileCard = ({ user }) => {
                             <img
                                 src={
                                     user &&
-                                    `http://192.168.0.208:9090/api/background/img/400x400`
+                                    `http://192.168.0.208:9090${user.otherMemberImgURL}`
                                 }
                                 className="rounded-full w-32 h-32 "
                                 alt="profile"
