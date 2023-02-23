@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
 import InputDatePicker from "./InputDatePicker";
 import { useState } from "react";
-
 import axios from "axios";
+import { useAuthContext } from "../context/AuthContext";
+import styled from "styled-components";
 
 yup.setLocale({
     mixed: {
@@ -58,11 +58,11 @@ const schema = yup
         memo: yup.string("문자를 입력하세요").required("메모를 입력하세요"),
         gender: yup.string().required("성별을 선택하세요"),
         cateSeq: yup.string().required("카테고리를 선택하세요"),
-        image: yup.string().required("이미지를 선택하세요"),
     })
     .required();
 
 const ExpendModal = () => {
+    const { Authorization } = useAuthContext();
     const {
         register,
         handleSubmit,
@@ -84,13 +84,19 @@ const ExpendModal = () => {
     }, [image]);
 
     const onSubmit = (data) => {
+        const header = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization,
+            },
+        };
         const formData = new FormData();
         formData.append("file", data.image && data.image[0]);
         const body = {
             price: data.price,
             memo: data.memo,
-            date: data.date,
-            status: 1,
+            date: data.selectedDate,
+            status: data.gender,
             cateSeq: data.cateSeq,
         };
         const blob = new Blob([JSON.stringify(body)], {
@@ -99,14 +105,15 @@ const ExpendModal = () => {
         formData.append("json", blob);
         axios
             .post(
-                "http://192.168.0.208:9090/api/accountbook/expense/add?mbiSeq=96",
-                formData
+                "http://192.168.0.208:9090/api/accountbook/expense/add",
+                formData,
+                header
             )
             .then((res) => console.log(res));
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="relative">
             <p>날짜</p>
             <InputDatePicker control={control} {...register("selectedDate")} />
 
@@ -116,8 +123,8 @@ const ExpendModal = () => {
             <p>성별</p>
             <select {...register("gender")}>
                 <option value="">성별을 선택하세요</option>
-                <option value="woman">여자</option>
-                <option value="man">남자</option>
+                <option value="1">나</option>
+                <option value="2">우리</option>
             </select>
             <span className="text-red-500 pl-10">
                 {errors.gender && errors.gender.message}
@@ -154,12 +161,13 @@ const ExpendModal = () => {
                 id="picture"
                 type="file"
                 name="image"
+                accept="image/*"
                 className="focus:outline-none mb-3"
             />
             <img
                 src={imagePreview}
                 alt="imagePreview"
-                className="max-w-[55%] mb-4"
+                className="max-w-[55%] max-h-24 mb-4"
             />
             <label>
                 금액 <br /> <input {...register("price")} /> 원
@@ -170,9 +178,21 @@ const ExpendModal = () => {
                 메모 <br /> <input {...register("memo")} />
             </label>
             <span className="text-red-500 pl-10">{errors.memo?.message}</span>
-            <button onClick={handleSubmit(onSubmit)}>전송</button>
+            <SubmitBt onClick={handleSubmit(onSubmit)}>저장하기</SubmitBt>
         </form>
     );
 };
+
+const SubmitBt = styled.div`
+    position: absolute;
+    right: 20px;
+    bottom: -144px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    background-color: #fbe300;
+    font-size: 28px;
+    font-weight: 600;
+    cursor: pointer;
+`;
 
 export default ExpendModal;

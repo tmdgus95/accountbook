@@ -8,7 +8,10 @@ import "moment/locale/ko";
 import { useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { useAuthContext } from "../context/AuthContext";
+import SelectOption from "../components/SelectOption";
 const MoneyCalendar = () => {
+    const { Authorization } = useAuthContext();
     // 로컬 정보 호출
     const getLocalPost = () => {
         const data = localStorage.getItem("post");
@@ -18,11 +21,22 @@ const MoneyCalendar = () => {
             return JSON.parse(data);
         }
     };
+
+    // 월별 총합 (월 공유지출수입조회) 받아온 데이터
     useEffect(() => {
         // console.log("날짜호출");
-        const body = { saiSeq: "1", year: "2023", month: "02" };
+        // const body = { saiSeq: "1", year: "2023", month: "02" };
+        const header = {
+            headers: {
+                Authorization,
+            },
+        };
+
         axios
-            .get("http://192.168.0.208:9090/api/accountbook/list/month", body)
+            .get(
+                "http://192.168.0.208:9090/api/accountbook/list/month/couple?year=2023&month=2",
+                header
+            )
             .then((res) => console.log(res));
     }, []);
     const [todoData, setTodoData] = useState(getLocalPost());
@@ -55,6 +69,7 @@ const MoneyCalendar = () => {
     return (
         <>
             <Wrap>
+                <SelectOption />
                 <Calendar
                     formatDay={(locale, date) => moment(date).format("D")}
                     // 일요일부터 출력
