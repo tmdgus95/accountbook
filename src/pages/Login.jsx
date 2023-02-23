@@ -6,6 +6,8 @@ import * as yup from "yup";
 import Button from "../components/ui/Button";
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
+import { useState } from "react";
+import SearchPwModal from "../components/SearchPwModal";
 
 const schema = yup
     .object({
@@ -19,6 +21,7 @@ const schema = yup
 const Login = () => {
     const { setUser } = useAuthContext();
     const navigate = useNavigate();
+    const [searchPw, setSearchPw] = useState(true);
     const {
         register,
         handleSubmit,
@@ -62,6 +65,16 @@ const Login = () => {
                     회원가입
                 </Link>
             </p>
+            <p>
+                비밀번호를 잊으셨나요?{" "}
+                <button
+                    className="bg-main p-1 rounded-xl m-1"
+                    onClick={() => setSearchPw((prev) => !prev)}
+                >
+                    비밀번호 찾기
+                </button>
+            </p>
+            {searchPw && <SearchPwModal setSearchPw={setSearchPw} />}
         </div>
     );
 };
