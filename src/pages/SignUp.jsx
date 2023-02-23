@@ -6,6 +6,7 @@ import * as yup from "yup";
 import BankbookCreateModal from "../components/BankbookCreateModal";
 import { useState } from "react";
 import axios from "axios";
+import { useRef } from "react";
 
 const schema = yup
     .object({
@@ -58,17 +59,32 @@ const SignUp = () => {
             .post("http://192.168.0.208:9090/api/member/join", formData)
             .then((res) => console.log(res));
     };
+
+    const imageInput = useRef();
+
+    const onCickImageUpload = () => {
+        imageInput.current.click();
+    };
+
     const inpustStlye =
         "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
     return (
         <div className="w-full text-center">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input
+                    className="hidden"
                     {...register("image")}
                     id="picture"
                     type="file"
                     accept="image/*"
+                    ref={imageInput}
                 />
+                <button
+                    className="bg-main p-4 rounded-3xl"
+                    onClick={onCickImageUpload}
+                >
+                    이미지업로드
+                </button>
                 <br />
 
                 <label className="text-2xl">

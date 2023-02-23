@@ -5,8 +5,11 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { MdQueryStats } from "react-icons/md";
 import { BsFillPieChartFill, BsFillPersonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 const BottomNav = ({ setModal }) => {
+    const { Authorization } = useAuthContext();
+
     const handleChange = () => {
         setModal(true);
     };
@@ -16,28 +19,28 @@ const BottomNav = ({ setModal }) => {
             <Fix>
                 <FixUl>
                     <FixLi>
-                        <Link to="/calendar">
+                        <Link to={Authorization ? "/calendar" : "/"}>
                             <FaCalendarCheck />
                         </Link>
                     </FixLi>
                     <FixLi>
-                        <Link to="/chart">
+                        <Link to={Authorization ? "/chart" : "/"}>
                             <BsFillPieChartFill />
                         </Link>
                     </FixLi>
                     <FixLi>
                         <AiOutlinePlusCircle
-                            onClick={handleChange}
+                            onClick={Authorization && handleChange}
                             style={{ cursor: "pointer" }}
                         />
                     </FixLi>
                     <FixLi>
-                        <Link to="/Statistics">
+                        <Link to={Authorization ? "/Statistics" : "/"}>
                             <MdQueryStats />
                         </Link>
                     </FixLi>
                     <FixLi>
-                        <Link to="/mypage">
+                        <Link to={Authorization ? "/mypage" : "/"}>
                             <BsFillPersonFill />
                         </Link>
                     </FixLi>

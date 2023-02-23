@@ -21,7 +21,7 @@ const schema = yup
 const Login = () => {
     const { setUser } = useAuthContext();
     const navigate = useNavigate();
-    const [searchPw, setSearchPw] = useState(true);
+    const [searchPw, setSearchPw] = useState(false);
     const {
         register,
         handleSubmit,
