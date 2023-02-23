@@ -19,17 +19,14 @@ const MainModal = ({ setModal }) => {
                         onClick={handleChangeModal}
                         style={{ cursor: "pointer" }}
                     />
-                    <span>
-                        {nameChange(modalBt)}
-                        입력
-                    </span>
+                    <span>{nameChange(modalBt)}&nbsp;입력</span>
                     <button onClick={() => setModalBt(0)}>지출</button>
                     <button onClick={() => setModalBt(1)}>수입</button>
-                    <button onClick={() => setModalBt(2)}>일정</button>
+                    {/* <button onClick={() => setModalBt(2)}>일정</button> */}
                 </Top>
                 {modalBt === 0 && <ExpendModal />}
                 {modalBt === 1 && <IncomeModal />}
-                {modalBt === 2 && <ScheduleModal />}
+                {/* {modalBt === 2 && <ScheduleModal />} */}
             </Inner>
         </Wrap>
     );
@@ -56,6 +53,7 @@ const Wrap = styled.div`
     left: 0;
 `;
 const Inner = styled.div`
+    height: 900px;
     background: white;
     border-radius: 5px;
     padding: 3%;
