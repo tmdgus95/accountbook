@@ -23,7 +23,6 @@ const NoticeModal = ({ setModal }) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("file", file);
         const body = {
             memo,
 
@@ -33,8 +32,9 @@ const NoticeModal = ({ setModal }) => {
             type: "application/json",
         });
         formData.append("noticeVO", blob);
+        formData.append("file", file);
         axios
-            .put("http://192.168.0.156:9090/api/notice/add", formData)
+            .put("http://192.168.0.156:9090/api/notice/add?memberNo=96", formData)
             .then((res) => console.log(res));
 
         // let body = {
