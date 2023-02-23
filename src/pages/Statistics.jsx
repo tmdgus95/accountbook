@@ -1,43 +1,77 @@
 import React from "react";
 import styled from "styled-components";
-
 const Statistics = () => {
     return (
-        <div>
-            <Container className="container">
-                <div className="item">A</div>
-                <div className="item">B</div>
-                <div className="item">C</div>
-                <div className="item">D</div>
-                <div className="item">E</div>
-                <div className="item">F</div>
-                <div className="item">G</div>
-                <div className="item">H</div>
-                <div className="item">i</div>
-            </Container>
-        </div>
+        <>
+            <div>
+                <Table>
+                    <tr>
+                        <Td colSpan="2">
+                            <div>110,300원</div>
+                            <div>남은예산</div>
+                        </Td>
+                    </tr>
+                    <tr>
+                        <Td>
+                            <div>횟수</div>
+                            <div>총 지출 횟수</div>
+                        </Td>
+                        <Td>
+                            <div>횟수</div>
+                            <div>총 수입 횟수</div>
+                        </Td>
+                    </tr>
+                    <tr>
+                        <Td>
+                            <div>2,751,000원</div>
+                            <div>총 지출 금액</div>
+                        </Td>
+                        <Td>
+                            <div>2,751,000원</div>
+                            <div>총 수입 금액</div>
+                        </Td>
+                    </tr>
+                    <tr>
+                        <Td>
+                            <div>2,751,000원</div>
+                            <div>가장 많이 쓴 날(년,월,일)</div>
+                        </Td>
+                        <Td>
+                            <div>2,751,000원</div>
+                            <div>가장 적게 쓴 날(년,월,일)</div>
+                        </Td>
+                    </tr>
+                    <tr>
+                        <Td>
+                            <div>2,751,000원</div>
+                            <div>가장 많이 쓴 달(년,월,일)</div>
+                        </Td>
+                        <Td>
+                            <div>2,751,000원</div>
+                            <div>가장 적게 쓴 날(년,월,일)</div>
+                        </Td>
+                    </tr>
+                </Table>
+            </div>
+        </>
     );
 };
 
-const Container = styled.div`
-    display: grid;
-    height: 80vh;
-    border: 1px solid #000;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 150px 150px 150px;
+const Table = styled.table`
+    width: 75vw;
+    height: 75vh;
     margin: 0 auto;
+    padding: 20px;
+    text-align: start;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    margin-top: 30px;
+`;
 
-    .item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: skyblue;
-    }
-
-    .item:nth-child(1) {
-        grid-column: 1 / 3;
-        grid-row: 1 / 2;
-    }
+const Td = styled.td`
+    padding: 20px;
+    border: 1px solid #444444;
+    font-size: 20px;
 `;
 
 export default Statistics;
