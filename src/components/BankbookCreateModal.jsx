@@ -29,7 +29,6 @@ const BankbookCreateModal = ({ setCreateBank, setBankBookNumber }) => {
             startDay: data.startDay,
         };
         axios
-
             .post("http://192.168.0.208:9090/api/shareaccount/join", body)
             .then((res) => {
                 console.log(res);

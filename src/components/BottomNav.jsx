@@ -28,11 +28,12 @@ const BottomNav = ({ setModal }) => {
                             <BsFillPieChartFill />
                         </Link>
                     </FixLi>
-                    <FixLi>
-                        <AiOutlinePlusCircle
-                            onClick={Authorization && handleChange}
-                            style={{ cursor: "pointer" }}
-                        />
+                    <FixLi
+                        onClick={() => {
+                            Authorization && setModal(true);
+                        }}
+                    >
+                        <AiOutlinePlusCircle style={{ cursor: "pointer" }} />
                     </FixLi>
                     <FixLi>
                         <Link to={Authorization ? "/Statistics" : "/"}>

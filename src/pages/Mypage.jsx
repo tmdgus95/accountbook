@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -28,9 +28,25 @@ const Mypage = () => {
         resolver: yupResolver(schema),
     });
 
+    const [file, setFile] = useState("");
+    const [imagePreview, setImagePreview] = useState("");
+    const handleChangeImg = (e) => setFile(e.target.files[0]);
+    useEffect(() => {
+        if (file || file.length > 0) {
+            const image = file;
+            setImagePreview(URL.createObjectURL(image));
+        }
+    }, [file]);
+
+    const imageInput = useRef();
+
+    const onCickImageUpload = () => {
+        imageInput.current.click();
+    };
+
     const onSubmit = (data) => {
         const formData = new FormData();
-        formData.append("file", data.image && data.image[0]);
+        formData.append("file", file && file);
         const body = {
             name: data.name,
             password: data.password,
@@ -90,12 +106,30 @@ const Mypage = () => {
                     회원정보 변경
                 </p>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        {...register("image")}
-                        id="picture"
-                        type="file"
-                        accept="image/*"
+                    <img
+                        src={imagePreview}
+                        alt="프로필이미지를 선택하세요"
+                        className="w-60 h-60 mb-4 mx-auto"
                     />
+
+                    <input
+                        type="file"
+                        onChange={handleChangeImg}
+                        ref={imageInput}
+                        className="hidden"
+                    />
+
+                    <br />
+
+                    <button
+                        className="text-2xl bg-main rounded-lg p-3 mb-3 mr-4"
+                        onClick={onCickImageUpload}
+                        type="button"
+                    >
+                        이미지업로드
+                    </button>
+
+                    <br />
                     <br />
 
                     <label className="text-2xl">
@@ -120,9 +154,8 @@ const Mypage = () => {
                         />
                     </label>
                     <p>{errors.nickName?.message}</p>
-                    <button>변경</button>
+                    <button className="bg-main">변경</button>
                 </form>
-                <button>회원탈퇴</button>
             </div>
             <div>
                 <div className="text-4xl bg-main w-fit text-white p-2 rounded-lg mx-auto mb-4">
@@ -181,16 +214,4 @@ const Mypage = () => {
     );
 };
 
-// "memberSeq": 1,
-// "mbiBasicEmail": "1234@1234",
-// "gender": 0,
-// "name": "string",
-// "startDay": "2023-02-23",
-// "birth": "2023-02-23",
-// "nickName": "string",
-// "shareAccountName": "우리통장",
-// "shareAccountStartDay": "2022-01-12",
-// "shareAccountCode": "VDcEKfGW6F",
-// "memberImgName": "string",
-// "memberImgURL": "string"
 export default Mypage;

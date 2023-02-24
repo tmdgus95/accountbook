@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -37,9 +37,19 @@ const SignUp = () => {
         resolver: yupResolver(schema),
     });
 
+    const [file, setFile] = useState("");
+    const [imagePreview, setImagePreview] = useState("");
+    const handleChangeImg = (e) => setFile(e.target.files[0]);
+    useEffect(() => {
+        if (file || file.length > 0) {
+            const image = file;
+            setImagePreview(URL.createObjectURL(image));
+        }
+    }, [file]);
+
     const onSubmit = (data) => {
         const formData = new FormData();
-        formData.append("file", data.image && data.image[0]);
+        formData.append("file", file && file);
         const body = {
             mbiBasicEmail: data.mbiBasicEmail,
             password: data.password,
@@ -55,7 +65,6 @@ const SignUp = () => {
         });
         formData.append("json", blob);
         axios
-
             .post("http://192.168.0.208:9090/api/member/join", formData)
             .then((res) => console.log(res));
     };
@@ -71,22 +80,6 @@ const SignUp = () => {
     return (
         <div className="w-full text-center">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input
-                    className="hidden"
-                    {...register("image")}
-                    id="picture"
-                    type="file"
-                    accept="image/*"
-                    ref={imageInput}
-                />
-                <button
-                    className="bg-main p-4 rounded-3xl"
-                    onClick={onCickImageUpload}
-                >
-                    이미지업로드
-                </button>
-                <br />
-
                 <label className="text-2xl">
                     이메일
                     <br />
@@ -156,7 +149,30 @@ const SignUp = () => {
                     />
                 </label>
                 <p>{errors.accountNumber?.message}</p>
-                <button className="text-2xl bg-main rounded-xl p-3 mb-3">
+
+                <img
+                    src={imagePreview}
+                    alt="프로필이미지를 선택하세요"
+                    className="w-60 h-60 mb-4 mx-auto"
+                />
+
+                <input
+                    type="file"
+                    onChange={handleChangeImg}
+                    ref={imageInput}
+                    className="hidden"
+                />
+
+                <br />
+
+                <button
+                    className="text-2xl bg-main rounded-lg p-3 mb-3 mr-4"
+                    onClick={onCickImageUpload}
+                    type="button"
+                >
+                    이미지업로드
+                </button>
+                <button className="text-2xl bg-main rounded-lg p-3 mb-3">
                     회원가입
                 </button>
             </form>
@@ -183,5 +199,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-// 이메일 비밀번호 이름 닉네임 참여코드 통장개설 이름 사귄날
