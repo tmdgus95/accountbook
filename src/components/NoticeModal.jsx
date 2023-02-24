@@ -25,8 +25,7 @@ const NoticeModal = ({ setModal }) => {
         const formData = new FormData();
         const body = {
             memo,
-
-            niMbiSeq: 96,
+            // niMbiSeq: 96,
         };
         const blob = new Blob([JSON.stringify(body)], {
             type: "application/json",
@@ -34,16 +33,14 @@ const NoticeModal = ({ setModal }) => {
         formData.append("noticeVO", blob);
         formData.append("file", file);
         axios
-            .put("http://192.168.0.156:9090/api/notice/add?memberNo=96", formData)
-            .then((res) => console.log(res));
-
-        // let body = {
-        //     memo,
-        // };
-        // axios
-        //     .put("http://192.168.0.156:9090/api/notice/add", body)
-        //     .then((res) => console.log(res))
-        //     .catch((err) => console.log(err));
+            .put(
+                "http://192.168.0.208:9090/api/notice/add?memberNo=96",
+                formData
+            )
+            .then((res) => {
+                console.log(res);
+            })
+            .then(() => setModal(false));
     };
 
     return (
@@ -67,7 +64,7 @@ const NoticeModal = ({ setModal }) => {
                                 <img
                                     src={imagePreview}
                                     alt="imagePreview"
-                                    className="max-w-[45%] mb-2"
+                                    className="w-64 h-64 mb-2"
                                 />
                                 <input type="file" onChange={handleChangeImg} />
                             </div>
@@ -79,14 +76,16 @@ const NoticeModal = ({ setModal }) => {
                     p-6 mt-11 border-t border-solid border-slate-200 rounded-b"
                     >
                         <button
-                            className="text-black-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            className="text-black-500 background-transparent font-bold uppercase px-6 py-2 
+                            text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
                             type="button"
                             onClick={() => setModal(false)}
                         >
                             취소
                         </button>
                         <button
-                            className="bg-main text-black active:bg-main font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            className="bg-main text-black active:bg-main font-bold uppercase text-sm px-6 py-3 
+                            rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 cursor-pointer"
                             type="button"
                             onClick={(e) => handleSubmit(e)}
                         >
@@ -113,7 +112,7 @@ const Wrap = styled.div`
 const Inner = styled.div`
     background: white;
     border-radius: 5px;
-    width: 1000px;
+    width: 800px;
     height: 1000px;
 `;
 
@@ -128,7 +127,7 @@ const Top = styled.div`
 
 const Content = styled.textarea`
     width: 100%;
-    height: 300px;
+    height: 400px;
     margin: 0 auto;
     padding: 10px;
     resize: none;

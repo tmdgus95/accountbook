@@ -38,7 +38,7 @@ const ProfileCard = ({ user }) => {
                             />
                         </div>
                         <div className="name  text-white  flex flex-col items-center text-2xl  mt-4 z-10">
-                            {user && user.otherName}
+                            {user && user.otherNickName}
                         </div>
                     </div>
                 </div>

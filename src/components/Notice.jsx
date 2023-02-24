@@ -25,7 +25,7 @@ export default function Notice() {
         //     },
         // };
         axios
-            .get("http://192.168.0.156:9090/api/notice/uri?memberNo=96")
+            .get("http://192.168.0.208:9090/api/notice/uri?memberNo=96")
             .then((res) => console.log(res.data));
         // .then((list) => setNoticeList(list));
     };
