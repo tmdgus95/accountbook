@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -67,23 +67,28 @@ const ExpendModal = () => {
         register,
         handleSubmit,
         control,
-        watch,
+        // watch,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
     });
 
+    const [file, setFile] = useState("");
     const [imagePreview, setImagePreview] = useState("");
-    const image = watch("image");
-
+    const handleChangeImg = (e) => setFile(e.target.files[0]);
     useEffect(() => {
-        if (image && image.length > 0) {
-            const file = image[0];
-            setImagePreview(URL.createObjectURL(file));
+        if (file || file.length > 0) {
+            const image = file;
+            setImagePreview(URL.createObjectURL(image));
         }
-    }, [image]);
+    }, [file]);
+    const imageInput = useRef();
+    const onCickImageUpload = () => {
+        imageInput.current.click();
+    };
 
     const onSubmit = (data) => {
+        // console.log(file);
         const header = {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -91,7 +96,7 @@ const ExpendModal = () => {
             },
         };
         const formData = new FormData();
-        formData.append("file", data.image && data.image[0]);
+        formData.append("file", file && file);
         const body = {
             price: data.price,
             memo: data.memo,
@@ -155,19 +160,26 @@ const ExpendModal = () => {
                 {errors.cateSeq && errors.cateSeq.message}
             </span>
             <br />
-            <p>이미지 업로드</p>
             <input
-                {...register("image")}
-                id="picture"
                 type="file"
-                name="image"
                 accept="image/*"
-                className="focus:outline-none mb-3"
+                ref={imageInput}
+                onChange={handleChangeImg}
+                className="hidden"
             />
+            <button
+                className="bg-orange-200 p-4 rounded-xl"
+                onClick={onCickImageUpload}
+                type="button"
+            >
+                이미지업로드
+            </button>
             <img
-                src={imagePreview}
-                alt="imagePreview"
-                className="max-w-[55%] max-h-24 mb-4"
+                src={
+                    imagePreview === "" ? "/images/white_bg.png" : imagePreview
+                }
+                alt=""
+                className="w-[345px] h-44 mb-4"
             />
             <label>
                 금액 <br /> <input {...register("price")} /> 원
@@ -185,8 +197,8 @@ const ExpendModal = () => {
 
 const SubmitBt = styled.div`
     position: absolute;
-    right: 20px;
-    bottom: -144px;
+    right: 10px;
+    bottom: -80px;
     padding: 15px 25px;
     border-radius: 10px;
     background-color: #fbe300;

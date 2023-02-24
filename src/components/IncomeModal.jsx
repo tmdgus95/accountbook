@@ -126,7 +126,7 @@ const IncomeModal = () => {
 const SubmitBt = styled.div`
     position: absolute;
     right: 20px;
-    bottom: -110%;
+    bottom: -165px;
     padding: 15px 25px;
     border-radius: 10px;
     background-color: #fbe300;

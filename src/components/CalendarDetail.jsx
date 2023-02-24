@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useAuthContext } from "../context/AuthContext";
+import moment from "moment/moment";
 
 const CalendarDetail = ({ date }) => {
     const { Authorization } = useAuthContext();
@@ -13,7 +14,11 @@ const CalendarDetail = ({ date }) => {
         };
         axios
             .get(
-                "http://192.168.0.208:9090/api/accountbook/list/day/couple?year=2023&month=2&day=22",
+                `http://192.168.0.208:9090/api/accountbook/list/day/couple?year=${moment(
+                    date
+                ).format("YYYY")}&month=${moment(date).format(
+                    "MM"
+                )}&day=${moment(date).format("DD")}`,
                 header
             )
             .then((res) => console.log(res))
