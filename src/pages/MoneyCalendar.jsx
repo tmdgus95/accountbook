@@ -21,6 +21,15 @@ const MoneyCalendar = () => {
             return JSON.parse(data);
         }
     };
+    // 사용자타입
+    const [type, setType] = useState("couple");
+
+    //   월별데이터
+    const [expenseData, setExpenseData] = useState([]);
+
+    // 선택된 날짜
+    const [date, setDate] = useState(new Date());
+    const [month, setMonth] = useState(null);
 
     // 월별 총합 (월 공유지출수입조회) 받아온 데이터
     useEffect(() => {
@@ -34,37 +43,59 @@ const MoneyCalendar = () => {
 
         axios
             .get(
-                "http://192.168.0.208:9090/api/accountbook/list/month/couple?year=2023&month=2",
+                `http://192.168.0.208:9090/api/accountbook/list/month/${type}?year=${moment(
+                    date
+                ).format("YYYY")}&month=${moment(date).format("MM")}`,
                 header
             )
-            .then((res) => console.log(res));
-    }, []);
-    const [todoData, setTodoData] = useState(getLocalPost());
-    // 선택된 날짜
-    const [date, setDate] = useState(new Date());
+            .then((res) => {
+                console.log(res);
+                setExpenseData(res.data.month);
+            });
+    }, [date]);
+
+    useEffect(() => {
+        console.log(expenseData);
+    }, [expenseData]);
+
+    useEffect(() => {
+        console.log("날짜", date);
+    }, [date]);
     // 이미지 출력
     const publicFolder = process.env.PUBLIC_URL;
     // 캘린더 내용 출력
     const showCalendar = ({ date, view }) => {
-        console.log("넘어오니?", date);
+        console.log("넘어오니?", date, view);
     };
     const showTile = ({ date, view }) => {
         let html = [];
-        let obj = todoData.find((item, index) => {
-            if (item.timestamp === moment(date).format("YYYY-MM-DD")) {
+        let obj = expenseData.find((item, index) => {
+            if (item.dt === moment(date).format("YYYY-MM-DD")) {
                 return item;
             }
         });
         if (obj !== undefined) {
             html.push(
-                <div key={obj.timestamp}>
-                    <span>{obj.title}</span>
-                    <span>{obj.content}</span>
+                <div key={obj.dt}>
+                    <span>지출 {obj.expenseSum}</span>
+                    <br />
+                    <span>입금 {obj.importSum ? obj.importSum : 0}</span>
                 </div>
             );
             return <div>{html}</div>;
         }
         return null;
+    };
+
+    const onClickDay = (e) => {
+        // setDate(e);
+        // console.log(e);
+        // 클릭할경우 <CalendarDetail date= e />
+    };
+
+    const onViewChange = (e) => {
+        console.log(e);
+        setDate(e.activeStartDate);
     };
     return (
         <>
@@ -75,7 +106,9 @@ const MoneyCalendar = () => {
                     // 일요일부터 출력
                     calendarType="US"
                     // 날짜 선택시 날짜 변경
-                    onChange={setDate}
+                    onChange={(e) => onClickDay(e)}
+                    onClickMonth={setDate}
+                    onActiveStartDateChange={onViewChange}
                     // 달력에 출력될 html 작성
                     tileContent={showTile}
                 />
