@@ -24,9 +24,9 @@ const MainModal = ({ setModal }) => {
                     <button onClick={() => setModalBt(1)}>수입</button>
                     {/* <button onClick={() => setModalBt(2)}>일정</button> */}
                 </Top>
-                {modalBt === 0 && <ExpendModal />}
-                {modalBt === 1 && <IncomeModal />}
-                {/* {modalBt === 2 && <ScheduleModal />} */}
+                {modalBt === 0 && <ExpendModal setModal={setModal} />}
+                {modalBt === 1 && <IncomeModal setModal={setModal} />}
+                {/* {modalBt === 2 && <ScheduleModal setModal={setModal} />} */}
             </Inner>
         </Wrap>
     );

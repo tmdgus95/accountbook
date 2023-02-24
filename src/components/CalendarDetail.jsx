@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import moment from "moment/moment";
 
-const CalendarDetail = ({ date }) => {
+const CalendarDetail = ({ setCalendarDetailModal, date }) => {
     const { Authorization } = useAuthContext();
     const fetchData = () => {
         const header = {
@@ -28,7 +28,17 @@ const CalendarDetail = ({ date }) => {
         fetchData();
     }, []);
 
-    return <div>{date}1</div>;
+    const handleClose = () => {
+        setCalendarDetailModal(false);
+    };
+
+    return (
+        <div className="w-full h-full absolute bg-black bg-opacity-50 z-10 top-0 p-60 px-96 ">
+            <div className="bg-white rounded-xl py-4">
+                <button onClick={handleClose}>닫기</button>
+            </div>
+        </div>
+    );
 };
 
 export default CalendarDetail;

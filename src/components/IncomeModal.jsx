@@ -6,6 +6,7 @@ import InputDatePicker from "./InputDatePicker";
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 yup.setLocale({
     mixed: {
@@ -59,7 +60,8 @@ const schema = yup
     })
     .required();
 
-const IncomeModal = () => {
+const IncomeModal = ({ setModal }) => {
+    const navigate = useNavigate();
     const { Authorization } = useAuthContext();
     const {
         register,
@@ -88,7 +90,10 @@ const IncomeModal = () => {
                 body,
                 header
             )
-            .then((res) => console.log(res));
+            .then((res) => console.log(res))
+            .then(alert("저장되었습니다."))
+            .then(setModal(false))
+            .then(navigate("/couplehome"));
     };
 
     return (

@@ -7,6 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 yup.setLocale({
     mixed: {
@@ -61,13 +62,13 @@ const schema = yup
     })
     .required();
 
-const ExpendModal = () => {
+const ExpendModal = ({ setModal }) => {
+    const navigate = useNavigate();
     const { Authorization } = useAuthContext();
     const {
         register,
         handleSubmit,
         control,
-        // watch,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
@@ -114,7 +115,11 @@ const ExpendModal = () => {
                 formData,
                 header
             )
-            .then((res) => console.log(res));
+            .then((res) => console.log(res.data))
+            .then(alert("저장되었습니다."))
+            .then(setModal(false))
+            .then(navigate("/couplehome"))
+            .catch((err) => console.log(err));
     };
 
     return (
