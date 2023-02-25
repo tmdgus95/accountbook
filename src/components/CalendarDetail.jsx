@@ -57,7 +57,8 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                             <li
                                 onClick={() =>
                                     navigate(
-                                        `/expensedetail/${expense.expenseSeq}`
+                                        `/expensedetail/${expense.expenseSeq}`,
+                                        { state: { expense } }
                                     )
                                 }
                                 key={expense.expenseSeq}

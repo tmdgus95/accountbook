@@ -2,12 +2,24 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+import { BsPencilFill } from "react-icons/bs";
+import ExpendEditModal from "../components/ExpendEditModal";
+import { FaTrashAlt } from "react-icons/fa";
 
 const ExpenseDetailPage = () => {
     const { expenseId } = useParams();
+    const navigate = useNavigate();
+    const {
+        state: { expense },
+    } = useLocation();
+    // console.log(expense.expenseSeq);
     const { Authorization } = useAuthContext();
+    const [editModal, setEditModal] = useState(false);
+    const handleEdit = () => {
+        setEditModal(true);
+    };
     const [expenseDetail, setExpenseDetail] = useState();
     const fetchData = () => {
         const header = {
@@ -27,10 +39,38 @@ const ExpenseDetailPage = () => {
         fetchData();
     }, []);
 
-    // console.log(expenseDetail && expenseDetail);
+    const handleDelete = () => {
+        let deleteConfirm = window.confirm("삭제하시겠습니까?");
+        const header = {
+            headers: {
+                Authorization,
+            },
+        };
+        deleteConfirm === true &&
+            axios
+                .delete(
+                    `http://192.168.0.208:9090/api/accountbook/expense/delete?eiSeq=${expenseId}`,
+                    header
+                )
+                .then((res) => console.log(res))
+                .then(alert("삭제되었습니다."))
+                .then(navigate("/couplehome"))
+                .catch((err) => console.log(err));
+    };
+
+    console.log(expenseDetail && expenseDetail);
     // console.log(expenseDetail && expenseDetail.imageUri);
     return (
         <div>
+            <BsPencilFill onClick={handleEdit} />
+            {editModal && (
+                <ExpendEditModal
+                    setEditModal={setEditModal}
+                    expense={expense}
+                    expenseId={expenseId}
+                />
+            )}
+            <FaTrashAlt onClick={handleDelete} />
             {expenseDetail && expenseDetail.category}
             {/* {expenseDetail && (
                 <img
