@@ -23,6 +23,7 @@ const MoneyCalendar = () => {
 
     // 선택된 날짜
     const [date, setDate] = useState(new Date());
+    // console.log(new Date());
     // 사용 X ?
     // const [month, setMonth] = useState(null);
 
@@ -42,7 +43,7 @@ const MoneyCalendar = () => {
                 header
             )
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setExpenseData(res.data.month);
             });
     }, [date]);
@@ -68,7 +69,7 @@ const MoneyCalendar = () => {
                 <div key={obj.dt}>
                     <span>지출 {obj.expenseSum}</span>
                     <br />
-                    <span>입금 {obj.importSum ? obj.importSum : 0}</span>
+                    <span>수입 {obj.importSum ? obj.importSum : 0}</span>
                 </div>
             );
             return <div>{html}</div>;
@@ -76,15 +77,17 @@ const MoneyCalendar = () => {
         return null;
     };
 
+    console.log(expenseData);
+
     const onClickDay = (e) => {
         setDate(e);
-        console.log(e);
+        
         // 클릭할경우 <CalendarDetail date= e />
         setCalendarDetailModal(true);
     };
 
     const onViewChange = (e) => {
-        console.log(e);
+        // console.log(e.activeStartDate);
         setDate(e.activeStartDate);
     };
     return (

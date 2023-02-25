@@ -8,7 +8,6 @@ import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { BsPencilFill } from "react-icons/bs";
 
 yup.setLocale({
     mixed: {
@@ -63,7 +62,7 @@ const schema = yup
     })
     .required();
 
-const ExpendModal = ({ setModal }) => {
+const ExpendEditModal = ({ setModal }) => {
     const navigate = useNavigate();
     const { Authorization } = useAuthContext();
     const {
@@ -214,4 +213,4 @@ const SubmitBt = styled.div`
     cursor: pointer;
 `;
 
-export default ExpendModal;
+export default ExpendEditModal;

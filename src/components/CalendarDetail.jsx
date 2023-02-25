@@ -1,18 +1,26 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import moment from "moment/moment";
+import { useNavigate } from "react-router-dom";
 
 const CalendarDetail = ({ setCalendarDetailModal, date }) => {
     const { Authorization } = useAuthContext();
-    const fetchData = () => {
+    const navigate = useNavigate();
+    const [expenseList, setExpenseList] = useState();
+    const [imcomeList, setImcomeList] = useState();
+
+    const fetchData = async () => {
         const header = {
             headers: {
                 Authorization,
             },
         };
-        axios
+        // console.log(moment(date).format("YYYY"));
+        // console.log(moment(date).format("MM"));
+        // console.log(moment(date).format("DD"));
+        return axios
             .get(
                 `http://192.168.0.208:9090/api/accountbook/list/day/couple?year=${moment(
                     date
@@ -21,7 +29,11 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                 )}&day=${moment(date).format("DD")}`,
                 header
             )
-            .then((res) => console.log(res))
+            .then((res) => {
+                console.log(res.data);
+                setExpenseList(res.data.expenseList);
+                setImcomeList(res.data.imcomeList);
+            })
             .catch((err) => console.log(err));
     };
     useEffect(() => {
@@ -32,10 +44,48 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
         setCalendarDetailModal(false);
     };
 
+    console.log(imcomeList);
+
     return (
         <div className="w-full h-full absolute bg-black bg-opacity-50 z-10 top-0 p-60 px-96 ">
             <div className="bg-white rounded-xl py-4">
                 <button onClick={handleClose}>닫기</button>
+                <p>지출</p>
+                <ul>
+                    {expenseList &&
+                        expenseList.map((expense) => (
+                            <li
+                                onClick={() =>
+                                    navigate(
+                                        `/expensedetail/${expense.expenseSeq}`
+                                    )
+                                }
+                                key={expense.expenseSeq}
+                            >
+                                {expense.expense}
+                            </li>
+                        ))}
+                    {expenseList && expenseList.length === 0 && (
+                        <li>없다!!!</li>
+                    )}
+                </ul>
+                <p>수입</p>
+                <ul>
+                    {imcomeList &&
+                        imcomeList.map((income) => (
+                            <li
+                                onClick={() =>
+                                    navigate(
+                                        `/importdetail/${income.importSeq}`
+                                    )
+                                }
+                                key={income.importSeq}
+                            >
+                                {income.income}
+                            </li>
+                        ))}
+                    {imcomeList && imcomeList.length === 0 && <li>없다!!!</li>}
+                </ul>
             </div>
         </div>
     );
