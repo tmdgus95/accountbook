@@ -10,31 +10,25 @@ import axios from "axios";
 import styled from "styled-components";
 import { useAuthContext } from "../context/AuthContext";
 import SelectOption from "../components/SelectOption";
+import CalendarDetail from "../components/CalendarDetail";
 const MoneyCalendar = () => {
     const { Authorization } = useAuthContext();
-    // 로컬 정보 호출
-    const getLocalPost = () => {
-        const data = localStorage.getItem("post");
-        if (data === null) {
-            return [];
-        } else {
-            return JSON.parse(data);
-        }
-    };
+    const [calendarDetailModal, setCalendarDetailModal] = useState(false);
+
     // 사용자타입
     const [type, setType] = useState("couple");
 
-    //   월별데이터
+    // 월별데이터
     const [expenseData, setExpenseData] = useState([]);
 
     // 선택된 날짜
     const [date, setDate] = useState(new Date());
-    const [month, setMonth] = useState(null);
+    // console.log(new Date());
+    // 사용 X ?
+    // const [month, setMonth] = useState(null);
 
     // 월별 총합 (월 공유지출수입조회) 받아온 데이터
     useEffect(() => {
-        // console.log("날짜호출");
-        // const body = { saiSeq: "1", year: "2023", month: "02" };
         const header = {
             headers: {
                 Authorization,
@@ -49,24 +43,20 @@ const MoneyCalendar = () => {
                 header
             )
             .then((res) => {
-                console.log(res);
+                // console.log(res.data);
                 setExpenseData(res.data.month);
             });
     }, [date]);
 
-    useEffect(() => {
-        console.log(expenseData);
-    }, [expenseData]);
+    // useEffect(() => {
+    //     console.log(expenseData);
+    // }, [expenseData]);
 
-    useEffect(() => {
-        console.log("날짜", date);
-    }, [date]);
-    // 이미지 출력
-    const publicFolder = process.env.PUBLIC_URL;
+    // useEffect(() => {
+    //     console.log("날짜", date);
+    // }, [date]);
+
     // 캘린더 내용 출력
-    const showCalendar = ({ date, view }) => {
-        console.log("넘어오니?", date, view);
-    };
     const showTile = ({ date, view }) => {
         let html = [];
         let obj = expenseData.find((item, index) => {
@@ -79,7 +69,7 @@ const MoneyCalendar = () => {
                 <div key={obj.dt}>
                     <span>지출 {obj.expenseSum}</span>
                     <br />
-                    <span>입금 {obj.importSum ? obj.importSum : 0}</span>
+                    <span>수입 {obj.importSum ? obj.importSum : 0}</span>
                 </div>
             );
             return <div>{html}</div>;
@@ -87,20 +77,30 @@ const MoneyCalendar = () => {
         return null;
     };
 
+    console.log(expenseData);
+
     const onClickDay = (e) => {
-        // setDate(e);
-        // console.log(e);
+        setDate(e);
+        
         // 클릭할경우 <CalendarDetail date= e />
+        setCalendarDetailModal(true);
     };
 
     const onViewChange = (e) => {
-        console.log(e);
+        // console.log(e.activeStartDate);
         setDate(e.activeStartDate);
     };
     return (
         <>
             <Wrap>
-                <SelectOption />
+                {calendarDetailModal && (
+                    <CalendarDetail
+                        date={date}
+                        setCalendarDetailModal={setCalendarDetailModal}
+                    />
+                )}
+
+                {/* <SelectOption /> */}
                 <Calendar
                     formatDay={(locale, date) => moment(date).format("D")}
                     // 일요일부터 출력

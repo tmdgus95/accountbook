@@ -1,14 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import InputDatePicker from "./InputDatePicker";
-import { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { BsPencilFill } from "react-icons/bs";
 
 yup.setLocale({
     mixed: {
@@ -59,11 +57,10 @@ const schema = yup
             .required("날짜를 입력하세요"),
         memo: yup.string("문자를 입력하세요").required("메모를 입력하세요"),
         gender: yup.string().required("성별을 선택하세요"),
-        cateSeq: yup.string().required("카테고리를 선택하세요"),
     })
     .required();
 
-const ExpendModal = ({ setModal }) => {
+const IncomeEditModal = ({ setModal }) => {
     const navigate = useNavigate();
     const { Authorization } = useAuthContext();
     const {
@@ -75,52 +72,28 @@ const ExpendModal = ({ setModal }) => {
         resolver: yupResolver(schema),
     });
 
-    const [file, setFile] = useState("");
-    const [imagePreview, setImagePreview] = useState("");
-    const handleChangeImg = (e) => setFile(e.target.files[0]);
-    useEffect(() => {
-        if (file || file.length > 0) {
-            const image = file;
-            setImagePreview(URL.createObjectURL(image));
-        }
-    }, [file]);
-    const imageInput = useRef();
-    const onCickImageUpload = () => {
-        imageInput.current.click();
-    };
-
     const onSubmit = (data) => {
-        // console.log(file);
         const header = {
             headers: {
-                "Content-Type": "multipart/form-data",
                 Authorization,
             },
         };
-        const formData = new FormData();
-        formData.append("file", file && file);
         const body = {
             price: data.price,
             memo: data.memo,
-            date: data.selectedDate,
             status: data.gender,
-            cateSeq: data.cateSeq,
+            date: data.selectedDate,
         };
-        const blob = new Blob([JSON.stringify(body)], {
-            type: "application/json",
-        });
-        formData.append("json", blob);
         axios
             .post(
-                "http://192.168.0.208:9090/api/accountbook/expense/add",
-                formData,
+                "http://192.168.0.208:9090/api/accountbook/import/add",
+                body,
                 header
             )
-            .then((res) => console.log(res.data))
+            .then((res) => console.log(res))
             .then(alert("저장되었습니다."))
             .then(setModal(false))
-            .then(navigate("/couplehome"))
-            .catch((err) => console.log(err));
+            .then(navigate("/couplehome"));
     };
 
     return (
@@ -141,62 +114,15 @@ const ExpendModal = ({ setModal }) => {
                 {errors.gender && errors.gender.message}
             </span>
             <br />
-            <p>카테고리</p>
-            <select {...register("cateSeq")} className="mb-4">
-                <option value="">카테고리를 선택하세요</option>
-                <option value="1">카페</option>
-                <option value="2">의료/건강</option>
-                <option value="3">오락</option>
-                <option value="4">교육</option>
-                <option value="5">여행</option>
-                <option value="6">패션</option>
-                <option value="7">미용</option>
-                <option value="8">생필품</option>
-                <option value="9">통신</option>
-                <option value="10">기타</option>
-                <option value="11">식비</option>
-                <option value="13">편의점</option>
-                <option value="14">문화/여가</option>
-                <option value="15">주거비</option>
-                <option value="16">취미</option>
-                <option value="17">술</option>
-                <option value="18">교통비</option>
-            </select>
-            <span className="text-red-500 pl-10">
-                {errors.cateSeq && errors.cateSeq.message}
-            </span>
-            <br />
             <label>
-                금액 <br /> <input {...register("price")} className="mt-2" /> 원
+                금액 <br /> <input {...register("price")} /> 원
             </label>
             <span className="text-red-500 pl-4">{errors.price?.message}</span>
             <br />
             <label>
-                메모 <br /> <input {...register("memo")} className="mt-2" />
+                메모 <br /> <input {...register("memo")} />
             </label>
             <span className="text-red-500 pl-10">{errors.memo?.message}</span>
-            <br />
-            <input
-                type="file"
-                accept="image/*"
-                ref={imageInput}
-                onChange={handleChangeImg}
-                className="hidden"
-            />
-            <button
-                className="bg-orange-200 p-3 mt-1 mb-4 rounded-xl text-lg"
-                onClick={onCickImageUpload}
-                type="button"
-            >
-                이미지업로드
-            </button>
-            <img
-                src={
-                    imagePreview === "" ? "/images/white_bg.png" : imagePreview
-                }
-                alt=""
-                className="w-[340px] h-44"
-            />
             <SubmitBt onClick={handleSubmit(onSubmit)}>저장하기</SubmitBt>
         </form>
     );
@@ -204,9 +130,9 @@ const ExpendModal = ({ setModal }) => {
 
 const SubmitBt = styled.div`
     position: absolute;
-    right: 5px;
-    bottom: -90px;
-    padding: 10px 20px;
+    right: 20px;
+    bottom: -165px;
+    padding: 15px 25px;
     border-radius: 10px;
     background-color: #fbe300;
     font-size: 28px;
@@ -214,4 +140,4 @@ const SubmitBt = styled.div`
     cursor: pointer;
 `;
 
-export default ExpendModal;
+export default IncomeEditModal;
