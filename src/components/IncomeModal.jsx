@@ -81,8 +81,8 @@ const IncomeModal = ({ setModal }) => {
         const body = {
             price: data.price,
             memo: data.memo,
-            status: data.gender,
-            date: data.selectedDate,
+            importStatus: data.gender,
+            importDate: data.selectedDate,
         };
         axios
             .post(
@@ -100,7 +100,6 @@ const IncomeModal = ({ setModal }) => {
         <form onSubmit={handleSubmit(onSubmit)} className="relative">
             <p>날짜</p>
             <InputDatePicker control={control} {...register("selectedDate")} />
-
             <span className="text-red-500 pl-10">
                 {errors.selectedDate && errors.selectedDate.message}
             </span>

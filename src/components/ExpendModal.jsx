@@ -8,7 +8,6 @@ import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { BsPencilFill } from "react-icons/bs";
 
 yup.setLocale({
     mixed: {
@@ -127,7 +126,6 @@ const ExpendModal = ({ setModal }) => {
         <form onSubmit={handleSubmit(onSubmit)} className="relative">
             <p>날짜</p>
             <InputDatePicker control={control} {...register("selectedDate")} />
-
             <span className="text-red-500 pl-10">
                 {errors.selectedDate && errors.selectedDate.message}
             </span>
