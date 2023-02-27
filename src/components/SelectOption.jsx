@@ -3,12 +3,13 @@ import { useState } from "react";
 
 import styled from "styled-components";
 
-const SelectOption = () => {
+const SelectOption = ({ setType }) => {
     const [val, setVal] = useState(0);
 
     // 성별 라디오 이벤트 핸들러
     const handleRadio = (e) => {
         const { name, id } = e.target;
+        setType(id);
         // const isCheck = e.target.checked;
         setVal({ ...val, [name]: id });
     };
@@ -32,30 +33,31 @@ const SelectOption = () => {
 
                 <input
                     type="radio"
-                    id="common"
+                    id="couple"
                     name="group"
+                    defaultChecked
                     onChange={handleRadio}
                 />
-                <label htmlFor="common" style={{ marginRight: "7px" }}>
+                <label htmlFor="couple" style={{ marginRight: "7px" }}>
                     공통내역
                 </label>
                 <input
                     type="radio"
-                    id="male"
+                    id="person"
                     name="group"
                     onChange={handleRadio}
                 />
-                <label htmlFor="male" style={{ marginRight: "7px" }}>
-                    남자
+                <label htmlFor="person" style={{ marginRight: "7px" }}>
+                    나
                 </label>
                 <input
                     type="radio"
-                    id="female"
+                    id="otherperson"
                     name="group"
                     onChange={handleRadio}
                 />
-                <label htmlFor="female" style={{ marginRight: "7px" }}>
-                    여자
+                <label htmlFor="otherperson" style={{ marginRight: "7px" }}>
+                    상대방
                 </label>
                 <span className="err">{Err.group}</span>
             </Box>
