@@ -4,14 +4,16 @@ import { useEffect } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const CalendarDetail = ({ setCalendarDetailModal, date }) => {
     const { Authorization } = useAuthContext();
     const navigate = useNavigate();
     const [expenseList, setExpenseList] = useState();
     const [imcomeList, setImcomeList] = useState();
+    const [schedule, setSchedule] = useState();
 
-    const fetchData = async () => {
+    const fetchData = () => {
         const header = {
             headers: {
                 Authorization,
@@ -20,7 +22,7 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
         // console.log(moment(date).format("YYYY"));
         // console.log(moment(date).format("MM"));
         // console.log(moment(date).format("DD"));
-        return axios
+        axios
             .get(
                 `http://192.168.0.208:9090/api/accountbook/list/day/couple?year=${moment(
                     date
@@ -35,7 +37,19 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                 setImcomeList(res.data.imcomeList);
             })
             .catch((err) => console.log(err));
+
+        axios
+            .get(
+                `http://192.168.0.208:9090/api/schedule/couple/month?year=${moment(
+                    date
+                ).format("YYYY")}&month=${moment(date).format("MM")}`,
+                header
+            )
+            .then((res) => {
+                setSchedule(res.data.scheduleList1);
+            });
     };
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -44,7 +58,7 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
         setCalendarDetailModal(false);
     };
 
-    console.log(imcomeList);
+    console.log(schedule && schedule);
 
     return (
         <div className="w-full h-full absolute bg-black bg-opacity-50 z-10 top-0 p-60 px-96 ">
@@ -77,7 +91,8 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                             <li
                                 onClick={() =>
                                     navigate(
-                                        `/importdetail/${income.importSeq}`
+                                        `/importdetail/${income.importSeq}`,
+                                        { state: { income } }
                                     )
                                 }
                                 key={income.importSeq}
@@ -86,6 +101,20 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                             </li>
                         ))}
                     {imcomeList && imcomeList.length === 0 && <li>없다!!!</li>}
+                </ul>
+                <p>일정</p>
+                <ul>
+                    {schedule &&
+                        schedule.map((item) => (
+                            <li
+                                key={uuidv4()}
+                                onClick={() =>
+                                    navigate(`/scheduledetail/${item.mbiseq}`)
+                                }
+                            >
+                                {item.memo}
+                            </li>
+                        ))}
                 </ul>
             </div>
         </div>

@@ -20,6 +20,7 @@ const MoneyCalendar = () => {
 
     // 월별데이터
     const [expenseData, setExpenseData] = useState([]);
+    const [schedule, setSchedule] = useState([]);
 
     // 선택된 날짜
     const [date, setDate] = useState(new Date());
@@ -43,8 +44,18 @@ const MoneyCalendar = () => {
                 header
             )
             .then((res) => {
-                // console.log(res.data);
                 setExpenseData(res.data.month);
+            });
+
+        axios
+            .get(
+                `http://192.168.0.208:9090/api/schedule/couple/month?year=${moment(
+                    date
+                ).format("YYYY")}&month=${moment(date).format("MM")}`,
+                header
+            )
+            .then((res) => {
+                setSchedule(res.data.scheduleList1);
             });
     }, [date]);
 
@@ -59,11 +70,18 @@ const MoneyCalendar = () => {
     // 캘린더 내용 출력
     const showTile = ({ date, view }) => {
         let html = [];
-        let obj = expenseData.find((item, index) => {
+        let obj = expenseData.find((item) => {
             if (item.dt === moment(date).format("YYYY-MM-DD")) {
                 return item;
             }
         });
+
+        let obj2 = schedule.find((item) => {
+            if (item.stdate === moment(date).format("YYYY-MM-DD")) {
+                return item;
+            }
+        });
+
         if (obj !== undefined) {
             html.push(
                 <div key={obj.dt}>
@@ -72,16 +90,17 @@ const MoneyCalendar = () => {
                     <span>수입 {obj.importSum ? obj.importSum : 0}</span>
                 </div>
             );
+            if (obj2 !== undefined) {
+                html.push(<span>일정 {obj2.memo}</span>);
+            }
             return <div>{html}</div>;
         }
         return null;
     };
 
-    console.log(expenseData);
-
     const onClickDay = (e) => {
         setDate(e);
-        
+
         // 클릭할경우 <CalendarDetail date= e />
         setCalendarDetailModal(true);
     };
@@ -125,26 +144,6 @@ const MoneyCalendar = () => {
                     </Bottom>
                 </Summary>
             </Wrap>
-            {/* 상세 정보 내역 출력 */}
-            {/* <div className="calender-detail">
-                {todoData && (
-                    <div className="calender-detail__item">
-                        <div className="calender-detail__title">
-                            <img
-                                src={`${publicFolder}/images/starbucks.png`}
-                                alt="스타벅스"
-                                className="calender-detail__icon"
-                                style={{ width: 20, height: 20 }}
-                            />
-                            방문한날
-                        </div>
-                        <div>{moment(date).format("YYYY년 MM월 DD일")}</div>
-                        <div className="calender-detail__date-wrap">
-                            {todoData.map((item, index) => item.title)}
-                        </div>
-                    </div>
-                )}
-            </div> */}
         </>
     );
 };
@@ -152,7 +151,7 @@ const Wrap = styled.div`
     padding: 1%;
     .react-calendar {
         width: 100%;
-        height: 643px;
+        height: 658px;
     }
     .react-calendar__navigation__label > span {
         font-size: 32px;
@@ -162,7 +161,7 @@ const Wrap = styled.div`
     }
     .react-calendar button {
         border-collapse: collapse;
-        height: 105px !important;
+        height: 90px !important;
     }
     .react-calendar__navigation {
         height: 60px !important;
@@ -196,7 +195,7 @@ const Wrap = styled.div`
 const Summary = styled.div`
     border: 1px solid #a0a096;
     width: 100%;
-    height: 100%;
+    height: 88px;
 `;
 const Top = styled.div`
     display: flex;

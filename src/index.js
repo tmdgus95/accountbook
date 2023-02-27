@@ -15,6 +15,7 @@ import NoticeDetail from "./pages/NoticeDetail";
 import CoupleHome from "./pages/CoupleHome";
 import ImportDetailPage from "./pages/ImportDetailPage";
 import ExpenseDetailPage from "./pages/ExpenseDetailPage";
+import ScheduleDetail from "./pages/ScheduleDetail";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path: "expensedetail/:expenseId",
                 element: <ExpenseDetailPage />,
+            },
+            {
+                path: "scheduledetail/:scheduleId",
+                element: <ScheduleDetail />,
             },
             { path: "chart", element: <Chart /> },
             { path: "statistics", element: <Statistics /> },

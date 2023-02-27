@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
 import InputDatePicker from "./InputDatePicker";
 import { useState } from "react";
-
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -48,17 +46,11 @@ yup.setLocale({
 });
 const schema = yup
     .object({
-        price: yup
-            .number()
-            .positive("양수를 입력하세요")
-            .integer("정수를 입력하세요")
-            .required("금액을 입력하세요"),
         selectedDate: yup
             .string("문자를 입력하세요")
             .required("날짜를 입력하세요"),
+
         memo: yup.string("문자를 입력하세요").required("메모를 입력하세요"),
-        gender: yup.string().required("성별을 선택하세요"),
-        cateSeq: yup.string().required("카테고리를 선택하세요"),
     })
     .required();
 
@@ -85,6 +77,7 @@ const ScheduleModal = () => {
     }, [image]);
 
     const onSubmit = (data) => {
+        // console.log(data);
         const header = {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -94,68 +87,46 @@ const ScheduleModal = () => {
         const formData = new FormData();
         formData.append("file", data.image && data.image[0]);
         const body = {
-            price: data.price,
-            memo: data.memo,
-            date: data.selectedDate,
-            status: data.gender,
-            cateSeq: data.cateSeq,
+            siStartDate: data.selectedDate,
+            siEndDate: data.selectedDate,
+            siMemo: data.memo,
         };
         const blob = new Blob([JSON.stringify(body)], {
             type: "application/json",
         });
         formData.append("json", blob);
         axios
-            .post(
-                "http://192.168.0.208:9090/api/accountbook/expense/add",
+            .put(
+                "http://192.168.0.123:9090/api/calendar/put?mbiSeq=96",
                 formData,
                 header
             )
             .then((res) => console.log(res));
+
+        // 캘린더 받아오기
+        // axios
+        //     .get(
+        //         "http://192.168.0.208:9090/api/schedule/couple/month?year=2023&month=2",
+        //         header
+        //     )
+        //     .then((res) => console.log(res));
     };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <p>날짜</p>
+            <p>시작날짜</p>
             <InputDatePicker control={control} {...register("selectedDate")} />
 
             <span className="text-red-500 pl-10">
                 {errors.selectedDate && errors.selectedDate.message}
             </span>
-            <p>성별</p>
-            <select {...register("gender")}>
-                <option value="">성별을 선택하세요</option>
-                <option value="1">나</option>
-                <option value="2">우리</option>
-            </select>
+            {/* <p>끝날짜</p>
+            <InputDatePicker control={control} {...register("siEndDate")} />
+
             <span className="text-red-500 pl-10">
-                {errors.gender && errors.gender.message}
-            </span>
-            <br />
-            <p>카테고리</p>
-            <select {...register("cateSeq")}>
-                <option value="">카테고리를 선택하세요</option>
-                <option value="1">카페</option>
-                <option value="2">의료/건강</option>
-                <option value="3">오락</option>
-                <option value="4">교육</option>
-                <option value="5">여행</option>
-                <option value="6">패션</option>
-                <option value="7">미용</option>
-                <option value="8">생필품</option>
-                <option value="9">통신</option>
-                <option value="10">기타</option>
-                <option value="11">식비</option>
-                <option value="13">편의점</option>
-                <option value="14">문화/여가</option>
-                <option value="15">주거비</option>
-                <option value="16">취미</option>
-                <option value="17">술</option>
-                <option value="18">교통비</option>
-            </select>
-            <span className="text-red-500 pl-10">
-                {errors.cateSeq && errors.cateSeq.message}
-            </span>
-            <br />
+                {errors.siEndDate && errors.siEndDate.message}
+            </span> */}
+
             <p>이미지 업로드</p>
             <input
                 {...register("image")}
@@ -170,11 +141,7 @@ const ScheduleModal = () => {
                 alt="imagePreview"
                 className="max-w-[55%] mb-4"
             />
-            <label>
-                금액 <br /> <input {...register("price")} /> 원
-            </label>
-            <span className="text-red-500 pl-4">{errors.price?.message}</span>
-            <br />
+
             <label>
                 메모 <br /> <input {...register("memo")} />
             </label>
