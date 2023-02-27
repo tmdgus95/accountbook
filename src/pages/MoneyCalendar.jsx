@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { useAuthContext } from "../context/AuthContext";
 import SelectOption from "../components/SelectOption";
 import CalendarDetail from "../components/CalendarDetail";
+
 const MoneyCalendar = () => {
     const { Authorization } = useAuthContext();
     const [calendarDetailModal, setCalendarDetailModal] = useState(false);
@@ -36,16 +37,18 @@ const MoneyCalendar = () => {
             },
         };
 
-        axios
-            .get(
-                `http://192.168.0.208:9090/api/accountbook/list/month/${type}?year=${moment(
-                    date
-                ).format("YYYY")}&month=${moment(date).format("MM")}`,
-                header
-            )
-            .then((res) => {
-                setExpenseData(res.data.month);
-            });
+        typeSelector(type, date, header, setExpenseData);
+        // axios
+        //     .get(
+        //         `http://192.168.0.208:9090/api/accountbook/list/month/otherperson?year=${moment(
+        //             date
+        //         ).format("YYYY")}&month=${moment(date).format("MM")}`,
+        //         header
+        //     )
+        //     .then((res) => {
+        //         console.log(res.data.expenseImportTotalList);
+        //         setExpenseData(res.data.expenseImportTotalList);
+        //     });
 
         axios
             .get(
@@ -57,7 +60,7 @@ const MoneyCalendar = () => {
             .then((res) => {
                 setSchedule(res.data.scheduleList1);
             });
-    }, [date]);
+    }, [date, type]);
 
     // useEffect(() => {
     //     console.log(expenseData);
@@ -119,7 +122,7 @@ const MoneyCalendar = () => {
                     />
                 )}
 
-                {/* <SelectOption /> */}
+                <SelectOption setType={setType} />
                 <Calendar
                     formatDay={(locale, date) => moment(date).format("D")}
                     // 일요일부터 출력
@@ -147,6 +150,33 @@ const MoneyCalendar = () => {
         </>
     );
 };
+
+function typeSelector(type, date, header, setExpenseData) {
+    if (type === "couple") {
+        axios
+            .get(
+                `http://192.168.0.208:9090/api/accountbook/list/month/${type}?year=${moment(
+                    date
+                ).format("YYYY")}&month=${moment(date).format("MM")}`,
+                header
+            )
+            .then((res) => {
+                setExpenseData(res.data.month);
+            });
+    } else {
+        axios
+            .get(
+                `http://192.168.0.208:9090/api/accountbook/list/month/${type}?year=${moment(
+                    date
+                ).format("YYYY")}&month=${moment(date).format("MM")}`,
+                header
+            )
+            .then((res) => {
+                setExpenseData(res.data.expenseImportTotalList);
+            });
+    }
+}
+
 const Wrap = styled.div`
     padding: 1%;
     .react-calendar {
