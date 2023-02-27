@@ -75,6 +75,7 @@ const ExpenseDetailPage = () => {
             {/* {expenseDetail && (
                 <img
                     src={`http://192.168.0.208:9090/api/accountbook/img/${expenseDetail.imageUri}`}
+                    src={`http://192.156.0.208/api/accountbook/img/${expenseDetail.imageUri}`}
                     alt="이미지"
                 />
             )} */}

@@ -60,7 +60,7 @@ const schema = yup
     })
     .required();
 
-const IncomeEditModal = ({ setModal }) => {
+const IncomeEditModal = ({ setEditModal, income, importId }) => {
     const navigate = useNavigate();
     const { Authorization } = useAuthContext();
     const {
@@ -71,6 +71,7 @@ const IncomeEditModal = ({ setModal }) => {
     } = useForm({
         resolver: yupResolver(schema),
     });
+    console.log(income.importSeq);
 
     const onSubmit = (data) => {
         const header = {
@@ -79,55 +80,124 @@ const IncomeEditModal = ({ setModal }) => {
             },
         };
         const body = {
-            price: data.price,
-            memo: data.memo,
-            status: data.gender,
-            date: data.selectedDate,
+            updatePrice: data.price,
+            updateMemo: data.memo,
+            updateDate: data.selectedDate,
+            updateStatus: data.gender,
         };
         axios
             .post(
-                "http://192.168.0.208:9090/api/accountbook/import/add",
+                `http://192.168.0.208:9090/api/accountbook/import/update?iiSeq=${importId}`,
                 body,
                 header
             )
-            .then((res) => console.log(res))
+            .then((res) => console.log(res.data))
             .then(alert("저장되었습니다."))
-            .then(setModal(false))
-            .then(navigate("/couplehome"));
+            .then(setEditModal(false))
+            .then(navigate("/couplehome"))
+            .catch((err) => console.log(err));
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="relative">
-            <p>날짜</p>
-            <InputDatePicker control={control} {...register("selectedDate")} />
-
-            <span className="text-red-500 pl-10">
-                {errors.selectedDate && errors.selectedDate.message}
-            </span>
-            <p>성별</p>
-            <select {...register("gender")}>
-                <option value="">성별을 선택하세요</option>
-                <option value="1">나</option>
-                <option value="2">우리</option>
-            </select>
-            <span className="text-red-500 pl-10">
-                {errors.gender && errors.gender.message}
-            </span>
-            <br />
-            <label>
-                금액 <br /> <input {...register("price")} /> 원
-            </label>
-            <span className="text-red-500 pl-4">{errors.price?.message}</span>
-            <br />
-            <label>
-                메모 <br /> <input {...register("memo")} />
-            </label>
-            <span className="text-red-500 pl-10">{errors.memo?.message}</span>
-            <SubmitBt onClick={handleSubmit(onSubmit)}>저장하기</SubmitBt>
-        </form>
+        <Wrap>
+            <Inner>
+                <form onSubmit={handleSubmit(onSubmit)} className="relative">
+                    <p>날짜</p>
+                    <InputDatePicker
+                        control={control}
+                        {...register("selectedDate")}
+                    />
+                    <span className="text-red-500 pl-10">
+                        {errors.selectedDate && errors.selectedDate.message}
+                    </span>
+                    <p>성별</p>
+                    <select {...register("gender")}>
+                        <option value="">성별을 선택하세요</option>
+                        <option value="1">나</option>
+                        <option value="2">우리</option>
+                    </select>
+                    <span className="text-red-500 pl-10">
+                        {errors.gender && errors.gender.message}
+                    </span>
+                    <br />
+                    <label>
+                        금액 <br /> <input {...register("price")} /> 원
+                    </label>
+                    <span className="text-red-500 pl-4">
+                        {errors.price?.message}
+                    </span>
+                    <br />
+                    <label>
+                        메모 <br /> <input {...register("memo")} />
+                    </label>
+                    <span className="text-red-500 pl-10">
+                        {errors.memo?.message}
+                    </span>
+                    <button type="button" onClick={() => setEditModal(false)}>
+                        닫기
+                    </button>
+                    <SubmitBt onClick={handleSubmit(onSubmit)}>
+                        저장하기
+                    </SubmitBt>
+                </form>
+            </Inner>
+        </Wrap>
     );
 };
 
+const Wrap = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    padding: 3% 30% 2% 30%;
+    top: 0;
+    left: 0;
+`;
+const Inner = styled.div`
+    height: 950px;
+    background: white;
+    border-radius: 5px;
+    padding: 3%;
+    p {
+        font-size: 20px;
+        margin: 20px 0 10px;
+    }
+    label {
+        font-size: 20px;
+        input {
+            width: 55%;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.88);
+            padding: 1%;
+            margin-bottom: 15px;
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+            transition: border 0.2s, box-shadow 0.2s;
+            &:focus {
+                border-color: #4096ff;
+                box-shadow: 0 0 0 2px rgb(5 145 255 / 10%);
+                outline: none;
+            }
+        }
+    }
+    select {
+        width: 55%;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.88);
+        padding: 1.2%;
+        border: 1px solid #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: border 0.2s, box-shadow 0.2s;
+        &:focus {
+            border-color: #4096ff;
+            box-shadow: 0 0 0 2px rgb(5 145 255 / 10%);
+            outline: none;
+        }
+    }
+`;
 const SubmitBt = styled.div`
     position: absolute;
     right: 20px;

@@ -132,7 +132,6 @@ const ExpendEditModal = ({ setEditModal, expense, expenseId }) => {
                         control={control}
                         {...register("selectedDate")}
                     />
-
                     <span className="text-red-500 pl-10">
                         {errors.selectedDate && errors.selectedDate.message}
                     </span>
