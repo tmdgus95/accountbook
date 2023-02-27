@@ -19,14 +19,18 @@ export default function Notice() {
     const [noticeList, setNoticeList] = useState([]);
 
     const fetchData = () => {
-        // const header = {
-        //     headers: {
-        //         Authorization,
-        //     },
-        // };
+        const header = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization,
+            },
+        };
         axios
-            .get("http://192.168.0.208:9090/api/notice/uri?memberNo=96")
-            .then((res) => console.log(res.data));
+            .get(
+                "http://192.168.0.208:9090/api/notice/list?memberNo=96",
+                header
+            )
+            .then((res) => setNoticeList(res.data.list));
         // .then((list) => setNoticeList(list));
     };
 
@@ -40,8 +44,9 @@ export default function Notice() {
         <>
             {modal && <NoticeModal setModal={setModal} />}
             <Banner className="inner">
-                <span className="flex justify-between items-center px-5">
+                {/* <span className="flex justify-between items-center px-5 ">
                     공지사항
+                    
                     <AiOutlinePlusCircle
                         style={{
                             fontSize: "30px",
@@ -50,8 +55,8 @@ export default function Notice() {
                         }}
                         onClick={() => setModal(true)}
                     />
-                </span>
-
+                </span> */}
+                <span>공지사항</span>
                 <Swiper
                     direction={"vertical"}
                     cssMode={true}
@@ -66,18 +71,39 @@ export default function Notice() {
                     {noticeList.map((notice) => {
                         return (
                             <SwiperSlide key={notice.niSeq}>
-                                <Link to={`/noticedetail/${notice.niSeq}`}>
+                                <p>
+                                    <Link to={`/noticedetail/${notice.niSeq}`}>
+                                        {notice.niMemo}
+                                    </Link>{" "}
+                                    <span className="text-black font-thin ">
+                                        {notice.niDate}
+                                    </span>
+                                </p>
+                                {/* <Link to={`/noticedetail/${notice.niSeq}`}>
                                     {notice.niMemo}
-                                </Link>
+                                <p>{notice.niDate}</p>
+                                </Link> */}
                             </SwiperSlide>
                         );
                     })}
                 </Swiper>
+                <div>
+                    <AiOutlinePlusCircle
+                        style={{
+                            fontSize: "30px",
+                            cursor: "pointer",
+                            marginRight: "6px",
+                            marginTop: "6px",
+                        }}
+                        onClick={() => setModal(true)}
+                    />
+                </div>
             </Banner>
         </>
     );
 }
 const Banner = styled.div`
+    display: flex;
     margin: 0 auto;
     line-height: 45px;
     height: 45px;
@@ -86,6 +112,11 @@ const Banner = styled.div`
     border: 1px solid gray;
     background: #fff;
     opacity: 0.8;
+    span {
+        position: absolute;
+        margin-left: 6px;
+        font-size: 18px;
+    }
     .mySwiper {
         width: 100%;
         height: 100%;
