@@ -1,7 +1,9 @@
+import styled from "styled-components";
 // import axios from "axios";
 import axios from "axios";
 import React, { useState } from "react";
 import { BsPencilFill } from "react-icons/bs";
+import { BsTrashFill } from "react-icons/bs";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
@@ -50,14 +52,34 @@ const NoticeDetail = () => {
 
     return (
         <>
-            <p>1</p>
-            <button onClick={handleDelete}>삭제</button>
-            <BsPencilFill
-                onClick={() => {
-                    setModal(true);
-                }}
-            />
-            {modal && <NoticeUpdateModal notice={notice} setModal={setModal} />}
+            <Inner>
+                <div className="flex justify-end gap-5">
+                    <BsTrashFill
+                        onClick={handleDelete}
+                        style={{ fontSize: "30px", cursor: "pointer" }}
+                    >
+                        삭제
+                    </BsTrashFill>
+                    <BsPencilFill
+                        onClick={() => {
+                            setModal(true);
+                        }}
+                        style={{ fontSize: "30px", cursor: "pointer" }}
+                    />
+                </div>
+                <Memo>
+                    메모
+                    <Date>날짜</Date>
+                </Memo>
+
+                {modal && (
+                    <NoticeUpdateModal
+                        notice={notice}
+                        setModal={setModal}
+                        style={{ fontSize: "30px" }}
+                    />
+                )}
+            </Inner>
         </>
         // <div>
         //     <p>메모{detail.niMemo}</p>
@@ -71,5 +93,25 @@ const NoticeDetail = () => {
         // </div>
     );
 };
+
+const Inner = styled.div`
+    max-width: 750px;
+
+    margin: 0 auto;
+`;
+
+const Memo = styled.div`
+    width: 750px;
+    height: 750px;
+    text-align: center;
+    background: red;
+`;
+
+const Date = styled.p`
+    background-color: pink;
+    display: flex;
+    justify-content: end;
+    margin-right: 10px;
+`;
 
 export default NoticeDetail;

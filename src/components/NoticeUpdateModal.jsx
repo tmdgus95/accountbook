@@ -101,7 +101,7 @@ const NoticeUpdateModal = ({ setModal, notice }) => {
                             type="button"
                             onClick={(e) => handleSubmit(e)}
                         >
-                            추가
+                            변경
                         </button>
                     </div>
                 </Inner>
