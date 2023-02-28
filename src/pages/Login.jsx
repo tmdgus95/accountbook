@@ -42,7 +42,7 @@ const Login = () => {
                     ? navigate("/")
                     : navigate("/couplehome");
             })
-            .catch((err) => console.log(err));
+            .catch((err) => alert(err));
     };
 
     const inpustStlye =

@@ -68,8 +68,10 @@ const SignUp = () => {
         formData.append("json", blob);
         axios
             .post("http://192.168.0.208:9090/api/member/join", formData)
-            .then((res) => console.log(res))
-            // .then(navigate("/"))
+            .then((res) => {
+                res.data.message === "회원가입 완료" && alert(res.data.message);
+                res.data.message === "회원가입 완료" && navigate("/");
+            })
             .catch((err) => alert(err));
     };
 
