@@ -6,6 +6,7 @@ import InputDatePicker from "./InputDatePicker";
 import { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 yup.setLocale({
     mixed: {
@@ -54,8 +55,9 @@ const schema = yup
     })
     .required();
 
-const ScheduleModal = () => {
+const ScheduleModal = ({ setModal }) => {
     const { Authorization } = useAuthContext();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -96,20 +98,12 @@ const ScheduleModal = () => {
         });
         formData.append("json", blob);
         axios
-            .put(
-                "http://192.168.0.123:9090/api/calendar/put?mbiSeq=96",
-                formData,
-                header
-            )
-            .then((res) => console.log(res));
-
-        // 캘린더 받아오기
-        // axios
-        //     .get(
-        //         "http://192.168.0.208:9090/api/schedule/couple/month?year=2023&month=2",
-        //         header
-        //     )
-        //     .then((res) => console.log(res));
+            .put("http://192.168.0.208:9090/api/calendar/put", formData, header)
+            .then((res) => console.log(res))
+            .then(alert("스케줄이 등록되었습니다."))
+            .then(setModal(false))
+            .then(navigate("/"))
+            .catch((err) => console.log(err));
     };
 
     return (

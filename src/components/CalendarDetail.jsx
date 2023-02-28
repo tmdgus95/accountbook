@@ -109,7 +109,7 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                             <li
                                 key={uuidv4()}
                                 onClick={() =>
-                                    navigate(`/scheduledetail/${item.mbiseq}`)
+                                    navigate(`/scheduledetail/${item.siseq}`)
                                 }
                             >
                                 {item.memo}

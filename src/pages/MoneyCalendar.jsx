@@ -70,6 +70,7 @@ const MoneyCalendar = () => {
                 header
             )
             .then((res) => {
+                console.log(res.data.scheduleList1);
                 setSchedule(res.data.scheduleList1);
             });
 

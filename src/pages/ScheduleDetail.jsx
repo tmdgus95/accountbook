@@ -24,12 +24,13 @@ const ScheduleDetail = () => {
         };
         axios
             .get(
-                `${process.env.REACT_APP_API_URL}/api/accountbook/list/expense/detail?eiSeq=${scheduleId}`,
+                //    `http://192.168.0.208:9090/api/schedule/couple/detail?saiSeq=1`
+                `${process.env.REACT_APP_API_URL}/api/schedule/couple/detail?saiSeq=${scheduleId}`,
                 header
             )
             .then((res) => {
-                console.log(res.data.expenseDetail);
-                setScheduleDetail(res.data.expenseDetail);
+                console.log(res.data);
+                setScheduleDetail(res.data);
             })
             .catch((err) => console.log(err));
     };
@@ -44,21 +45,29 @@ const ScheduleDetail = () => {
                 Authorization,
             },
         };
-        // deleteConfirm === true &&
-        //     axios
-        //         .delete(
-        //             `http://192.168.0.208:9090/api/accountbook/expense/delete?eiSeq=${scheduleId}`,
-        //             header
-        //         )
-        //         .then((res) => console.log(res))
-        //         .then(alert("삭제되었습니다."))
-        //         .then(navigate("/couplehome"))
-        //         .catch((err) => console.log(err));
+        deleteConfirm === true &&
+            axios
+                .delete(
+                    `http://192.168.0.208:9090/api/calendar/delete?siSeq=${scheduleId}`,
+                    header
+                )
+                .then((res) => console.log(res))
+                .then(alert("삭제되었습니다."))
+                .then(navigate("/couplehome"))
+                .catch((err) => console.log(err));
     };
 
     return (
         <div>
-            {scheduleDetail && scheduleDetail.category}
+            {scheduleDetail && scheduleDetail.memo}
+            {scheduleDetail && scheduleDetail.stdate}
+            {scheduleDetail && scheduleDetail.eddate}
+            {scheduleDetail && (
+                <img
+                    src={`http://192.168.0.208:9090${scheduleDetail.scheimg}`}
+                    alt="스케쥴"
+                ></img>
+            )}
             {editModal && (
                 <ScheduleEditModal
                     setEditModal={setEditModal}

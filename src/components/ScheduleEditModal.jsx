@@ -8,6 +8,7 @@ import { useAuthContext } from "../context/AuthContext";
 import * as yup from "yup";
 import InputDatePicker from "./InputDatePicker";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 yup.setLocale({
     mixed: {
@@ -57,6 +58,7 @@ const schema = yup
     .required();
 const ScheduleEditModal = ({ setEditModal, scheduleId }) => {
     const { Authorization } = useAuthContext();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -102,7 +104,9 @@ const ScheduleEditModal = ({ setEditModal, scheduleId }) => {
                 formData,
                 header
             )
-            .then((res) => console.log(res));
+            .then((res) => alert(res.data.message))
+            .then(navigate("/"))
+            .catch((err) => console.log(err));
     };
     return (
         <Wrap>
