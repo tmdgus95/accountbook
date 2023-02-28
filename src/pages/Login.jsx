@@ -35,10 +35,14 @@ const Login = () => {
         axios
             .post("http://192.168.0.208:9090/api/member/login", body)
             .then((res) => {
+                res.data.Authentication === null &&
+                    alert(`통장번호는 ${res.data.shareAccountCode}입니다.`);
                 setUser(res.data);
-                console.log(res);
+                res.data.Authentication === null
+                    ? navigate("/")
+                    : navigate("/couplehome");
             })
-            .then(navigate("/couplehome"));
+            .catch((err) => console.log(err));
     };
 
     const inpustStlye =

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -7,6 +7,7 @@ import BankbookCreateModal from "../components/BankbookCreateModal";
 import { useState } from "react";
 import axios from "axios";
 import { useRef } from "react";
+import BankbookCheckModal from "../components/BankbookCheckModal";
 
 const schema = yup
     .object({
@@ -27,8 +28,9 @@ const schema = yup
 
 const SignUp = () => {
     const [createBank, setCreateBank] = useState(false);
+    const [checkBank, setCheckBank] = useState(false);
     const [bankBookNumber, setBankBookNumber] = useState("");
-
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -66,7 +68,9 @@ const SignUp = () => {
         formData.append("json", blob);
         axios
             .post("http://192.168.0.208:9090/api/member/join", formData)
-            .then((res) => console.log(res));
+            .then((res) => console.log(res))
+            // .then(navigate("/"))
+            .catch((err) => alert(err));
     };
 
     const imageInput = useRef();
@@ -150,6 +154,22 @@ const SignUp = () => {
                 </label>
                 <p>{errors.accountNumber?.message}</p>
 
+                <button
+                    type="button"
+                    className="text-2xl bg-main rounded-xl p-3 mb-3 mr-3"
+                    onClick={() => setCreateBank((prev) => !prev)}
+                >
+                    통장개설
+                </button>
+
+                <button
+                    type="button"
+                    className="text-2xl bg-main rounded-xl p-3 mb-3"
+                    onClick={() => setCheckBank(true)}
+                >
+                    통장확인
+                </button>
+
                 <img
                     src={imagePreview}
                     alt="프로필이미지를 선택하세요"
@@ -182,11 +202,7 @@ const SignUp = () => {
                     setBankBookNumber={setBankBookNumber}
                 />
             )}
-            <button className="text-2xl bg-main rounded-xl p-3 mb-3">
-                <span onClick={() => setCreateBank((prev) => !prev)}>
-                    통장개설
-                </span>
-            </button>
+            {checkBank && <BankbookCheckModal setCheckBank={setCheckBank} />}
 
             <p>
                 이미 회원이신가요?{" "}

@@ -16,23 +16,26 @@ const ScheduleDetail = () => {
         setEditModal(true);
     };
     const [scheduleDetail, setScheduleDetail] = useState();
-    // const fetchData = () => {
-    //     const header = {
-    //         headers: {
-    //             Authorization,
-    //         },
-    //     };
-    //     axios
-    //         .get(
-    //             `http://192.168.0.208:9090/api/accountbook/list/expense/detail?eiSeq=${scheduleId}`,
-    //             header
-    //         )
-    //         .then((res) => setScheduleDetail(res.data.expenseDetail))
-    //         .catch((err) => console.log(err));
-    // };
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
+    const fetchData = () => {
+        const header = {
+            headers: {
+                Authorization,
+            },
+        };
+        axios
+            .get(
+                `${process.env.REACT_APP_API_URL}/api/accountbook/list/expense/detail?eiSeq=${scheduleId}`,
+                header
+            )
+            .then((res) => {
+                console.log(res.data.expenseDetail);
+                setScheduleDetail(res.data.expenseDetail);
+            })
+            .catch((err) => console.log(err));
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const handleDelete = () => {
         let deleteConfirm = window.confirm("삭제하시겠습니까?");
@@ -41,21 +44,21 @@ const ScheduleDetail = () => {
                 Authorization,
             },
         };
-        deleteConfirm === true &&
-            axios
-                .delete(
-                    `http://192.168.0.208:9090/api/accountbook/expense/delete?eiSeq=${scheduleId}`,
-                    header
-                )
-                .then((res) => console.log(res))
-                .then(alert("삭제되었습니다."))
-                .then(navigate("/couplehome"))
-                .catch((err) => console.log(err));
+        // deleteConfirm === true &&
+        //     axios
+        //         .delete(
+        //             `http://192.168.0.208:9090/api/accountbook/expense/delete?eiSeq=${scheduleId}`,
+        //             header
+        //         )
+        //         .then((res) => console.log(res))
+        //         .then(alert("삭제되었습니다."))
+        //         .then(navigate("/couplehome"))
+        //         .catch((err) => console.log(err));
     };
 
     return (
         <div>
-            {scheduleId}
+            {scheduleDetail && scheduleDetail.category}
             {editModal && (
                 <ScheduleEditModal
                     setEditModal={setEditModal}
