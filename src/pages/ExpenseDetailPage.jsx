@@ -78,7 +78,7 @@ const ExpenseDetailPage = () => {
     };
 
     console.log(expenseDetail && expenseDetail);
-    // console.log(expenseDetail && expenseDetail.imageUri);
+    console.log(expenseDetail && expenseDetail.imageUri);
     return (
         <div>
             <BsPencilFill onClick={handleEdit} />
@@ -91,9 +91,10 @@ const ExpenseDetailPage = () => {
             )}
             <FaTrashAlt onClick={handleDelete} />
             {expenseDetail && expenseDetail.category}
-            {expenseDetail.imageUri && (
+            {expenseDetail && (
                 <img
                     src={`http://192.168.0.208:9090/api/accountbook/img/${expenseDetail.imageUri}`}
+                    // src="1"
                     alt="이미지"
                 />
             )}

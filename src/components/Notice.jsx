@@ -15,8 +15,9 @@ import NoticeModal from "./NoticeModal";
 import { useAuthContext } from "../context/AuthContext";
 
 export default function Notice() {
-    const { Authorization } = useAuthContext();
+    const { Authorization, user } = useAuthContext();
     const [noticeList, setNoticeList] = useState([]);
+    const member = user && user.mbiSeq;
 
     const fetchData = () => {
         const header = {
@@ -25,19 +26,22 @@ export default function Notice() {
                 Authorization,
             },
         };
+
         axios
             .get(
-                "http://192.168.0.208:9090/api/notice/list?memberNo=96",
+                `http://192.168.0.208:9090/api/notice/list?memberNo=${member}`,
                 header
             )
-            .then((res) => setNoticeList(res.data.list));
+            .then((res) => setNoticeList(res.data.list))
+            .catch((err) => console.log(err));
     };
 
     const [modal, setModal] = useState(false);
 
+    console.log(member);
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [member]);
 
     return (
         <>
