@@ -22,6 +22,17 @@ const MoneyCalendar = () => {
     // 월별데이터
     const [expenseData, setExpenseData] = useState([]);
     const [schedule, setSchedule] = useState([]);
+    const [totalMoney, setTotalMoney] = useState();
+    const monthExpenseMoney =
+        expenseData &&
+        expenseData.reduce((acc, cur) => {
+            return acc + cur.expenseSum;
+        }, 0);
+    const monthImportMoney =
+        expenseData &&
+        expenseData.reduce((acc, cur) => {
+            return acc + cur.importSum;
+        }, 0);
 
     // 선택된 날짜
     const [date, setDate] = useState(new Date());
@@ -60,6 +71,13 @@ const MoneyCalendar = () => {
             .then((res) => {
                 setSchedule(res.data.scheduleList1);
             });
+
+        axios
+            .get(
+                `http://192.168.0.208:9090/api/accountbook/list/totalprice`,
+                header
+            )
+            .then((res) => setTotalMoney(res.data.myAccountInfoVO));
     }, [date, type]);
 
     // useEffect(() => {
@@ -112,6 +130,9 @@ const MoneyCalendar = () => {
         // console.log(e.activeStartDate);
         setDate(e.activeStartDate);
     };
+
+    console.log(totalMoney && totalMoney);
+
     return (
         <>
             <Wrap>
@@ -141,9 +162,21 @@ const MoneyCalendar = () => {
                         <span>합계</span>
                     </Top>
                     <Bottom>
-                        <span>3,117,000원</span>
-                        <span>3,953,930원</span>
-                        <span>-836,930원</span>
+                        <span>{monthImportMoney}원</span>
+                        <span>{monthExpenseMoney}원</span>
+                        <span>{monthImportMoney - monthExpenseMoney}원</span>
+                    </Bottom>
+                </Summary>
+                <Summary>
+                    <Top>
+                        <span>총 수입</span>
+                        <span>총 지출</span>
+                        <span>총 합계</span>
+                    </Top>
+                    <Bottom>
+                        <span>{totalMoney && totalMoney.totalImport}원</span>
+                        <span>{totalMoney && totalMoney.totalExpense}원</span>
+                        <span>{totalMoney && totalMoney.balance}원</span>
                     </Bottom>
                 </Summary>
             </Wrap>

@@ -58,6 +58,25 @@ const ExpenseDetailPage = () => {
                 .catch((err) => console.log(err));
     };
 
+    const handleDeleteImg = () => {
+        let deleteConfirm = window.confirm("삭제하시겠습니까?");
+        const header = {
+            headers: {
+                Authorization,
+            },
+        };
+        deleteConfirm === true &&
+            axios
+                .delete(
+                    `http://192.168.0.208:9090/api/accountbook/expense/img/delete?eiSeq=${expenseId}`,
+                    header
+                )
+                .then((res) => console.log(res))
+                .then(alert("삭제되었습니다."))
+                .then(navigate("/couplehome"))
+                .catch((err) => console.log(err));
+    };
+
     console.log(expenseDetail && expenseDetail);
     // console.log(expenseDetail && expenseDetail.imageUri);
     return (
@@ -72,13 +91,14 @@ const ExpenseDetailPage = () => {
             )}
             <FaTrashAlt onClick={handleDelete} />
             {expenseDetail && expenseDetail.category}
-            {/* {expenseDetail && (
+            {expenseDetail.imageUri && (
                 <img
                     src={`http://192.168.0.208:9090/api/accountbook/img/${expenseDetail.imageUri}`}
-                    src={`http://192.156.0.208/api/accountbook/img/${expenseDetail.imageUri}`}
                     alt="이미지"
                 />
-            )} */}
+            )}
+            <br />
+            <button onClick={handleDeleteImg}>이미지삭제버튼</button>
         </div>
     );
 };
