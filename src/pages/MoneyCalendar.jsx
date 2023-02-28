@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { useAuthContext } from "../context/AuthContext";
 import SelectOption from "../components/SelectOption";
 import CalendarDetail from "../components/CalendarDetail";
+import { v4 as uuidv4 } from "uuid";
 
 const MoneyCalendar = () => {
     const { Authorization } = useAuthContext();
@@ -112,7 +113,7 @@ const MoneyCalendar = () => {
                 </div>
             );
             if (obj2 !== undefined) {
-                html.push(<span>일정 {obj2.memo}</span>);
+                html.push(<span key={uuidv4()}>일정 {obj2.memo}</span>);
             }
             return <div>{html}</div>;
         }

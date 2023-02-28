@@ -75,8 +75,20 @@ const ImportDetailPage = () => {
             {importDetail && importDetail.price}
             <br />
             {importDetail && importDetail.memo}
+            <br />
+            돈낸사람 {importDetail && who(importDetail.importStatus)}
         </div>
     );
 };
+
+function who(target) {
+    if (target === 0) {
+        return "우리";
+    } else if (target === 1) {
+        return "나";
+    } else {
+        return "너";
+    }
+}
 
 export default ImportDetailPage;

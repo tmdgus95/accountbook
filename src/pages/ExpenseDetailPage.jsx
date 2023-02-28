@@ -90,7 +90,11 @@ const ExpenseDetailPage = () => {
                 />
             )}
             <FaTrashAlt onClick={handleDelete} />
-            {expenseDetail && expenseDetail.category}
+            <p>카테고리 {expenseDetail && expenseDetail.category}</p>
+            <p>돈 낸사람 {expenseDetail && who(expenseDetail.expenseStatus)}</p>
+            <p>메모 {expenseDetail && expenseDetail.memo}</p>
+            <p>가격 {expenseDetail && expenseDetail.price}</p>
+
             {expenseDetail && (
                 <img
                     src={`http://192.168.0.208:9090/api/accountbook/img/${expenseDetail.imageUri}`}
@@ -103,5 +107,15 @@ const ExpenseDetailPage = () => {
         </div>
     );
 };
+
+function who(target) {
+    if (target === 0) {
+        return "우리";
+    } else if (target === 1) {
+        return "나";
+    } else {
+        return "너";
+    }
+}
 
 export default ExpenseDetailPage;
