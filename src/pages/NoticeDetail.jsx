@@ -42,9 +42,12 @@ const NoticeDetail = () => {
                 `http://192.168.0.208:9090/api/notice/detail?noticeNo=${notice}`,
                 header
             )
-            .then((res) => console.log(res.data));
-        // .then((list) => setDetail(list));
+            .then((res) => setDetail(res.data))
+            .catch((err) => console.log(err));
+
+        // .then((res) => console.log(res.data))
     };
+    console.log(detail && detail);
 
     useEffect(() => {
         fetchData();
@@ -68,9 +71,11 @@ const NoticeDetail = () => {
                     />
                 </div>
                 <Memo>
+                    {detail.memo}
                     메모
-                    <Date>날짜</Date>
+                    <Date> {detail.date}날짜</Date>
                 </Memo>
+                <img src={`${detail.uri}`} alt="사진" />
 
                 {modal && (
                     <NoticeUpdateModal
