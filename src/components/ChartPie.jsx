@@ -1,45 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
+import axios from "axios";
+import { useAuthContext } from "../context/AuthContext";
 
 const ChartPie = () => {
+    const { Authorization } = useAuthContext();
+    const [chartData, setChartData] = useState([]);
+
+    const chData = async () => {
+        const header = {
+            headers: {
+                Authorization,
+            },
+        };
+        try {
+            const res = await axios.get(
+                "http://192.168.0.208:9090/api/statistics/totalexpense",
+                header
+            );
+            setChartData(res.data.list);
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const pieChartData = chartData.map((item) => {
+        let dd = {
+            id: item.cate,
+            label: item.cate,
+            value: item.extotal,
+        };
+        return dd;
+    });
+
+    useEffect(() => {
+        chData();
+    }, []);
+
     return (
         <>
             {/* chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height
 설정 */}
+
             <div style={{ width: "800px", height: "500px", margin: "auto" }}>
                 <ResponsivePie
-                    data={[
-                        {
-                            id: "ruby",
-                            label: "ruby",
-                            value: 285,
-                            color: "hsl(28, 70%, 50%)",
-                        },
-                        {
-                            id: "css",
-                            label: "css",
-                            value: 352,
-                            color: "hsl(117, 70%, 50%)",
-                        },
-                        {
-                            id: "lisp",
-                            label: "lisp",
-                            value: 41,
-                            color: "hsl(309, 70%, 50%)",
-                        },
-                        {
-                            id: "javascript",
-                            label: "javascript",
-                            value: 111,
-                            color: "hsl(2, 70%, 50%)",
-                        },
-                        {
-                            id: "sass",
-                            label: "sass",
-                            value: 319,
-                            color: "hsl(52, 70%, 50%)",
-                        },
-                    ]}
+                    data={pieChartData}
                     margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
                     innerRadius={0.5}
                     padAngle={0.7}
