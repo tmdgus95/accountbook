@@ -111,7 +111,7 @@ const ExpendModal = ({ setModal }) => {
         formData.append("json", blob);
         axios
             .post(
-                "http://192.168.0.208:9090/api/accountbook/expense/add",
+                `${process.env.REACT_APP_API_URL}/api/accountbook/expense/add`,
                 formData,
                 header
             )

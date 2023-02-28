@@ -45,7 +45,7 @@ const NoticeUpdateModal = ({ setModal, notice }) => {
         formData.append("file", file);
         axios
             .post(
-                `http://192.168.0.208:9090/api/notice/update?noticeNo=${notice}`,
+                `${process.env.REACT_APP_API_URL}/api/notice/update?noticeNo=${notice}`,
                 formData,
                 header
             )

@@ -66,7 +66,7 @@ const Mypage = () => {
 
         axios
             .post(
-                "http://192.168.0.208:9090/api/member/change",
+                `${process.env.REACT_APP_API_URL}/api/member/change`,
                 formData,
                 header
             )
@@ -84,7 +84,7 @@ const Mypage = () => {
         };
 
         return axios
-            .get("http://192.168.0.208:9090/api/member/info", header)
+            .get(`${process.env.REACT_APP_API_URL}/api/member/info`, header)
             .then((res) => {
                 setUserInfo(res.data);
                 return res.data;

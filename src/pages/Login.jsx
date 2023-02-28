@@ -33,7 +33,8 @@ const Login = () => {
     const onSubmit = (data) => {
         const body = { email: data.email, password: data.password };
         axios
-            .post("http://192.168.0.208:9090/api/member/login", body)
+
+            .post(`${process.env.REACT_APP_API_URL}/api/member/login`, body)
             .then((res) => {
                 res.data.Authentication === null &&
                     alert(`통장번호는 ${res.data.shareAccountCode}입니다.`);

@@ -87,7 +87,7 @@ const IncomeEditModal = ({ setEditModal, income, importId }) => {
         };
         axios
             .post(
-                `http://192.168.0.208:9090/api/accountbook/import/update?iiSeq=${importId}`,
+                `${process.env.REACT_APP_API_URL}/api/accountbook/import/update?iiSeq=${importId}`,
                 body,
                 header
             )

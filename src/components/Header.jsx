@@ -14,7 +14,11 @@ const Header = () => {
             },
         };
         axios
-            .post("http://192.168.0.208:9090/api/member/logout", {}, header)
+            .post(
+                `${process.env.REACT_APP_API_URL}/api/member/logout`,
+                {},
+                header
+            )
             .then((res) => console.log(res))
             .then(setUser((prev) => ""))
             .then(navigate("/"))

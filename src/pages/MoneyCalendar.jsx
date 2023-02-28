@@ -64,9 +64,11 @@ const MoneyCalendar = () => {
 
         axios
             .get(
-                `http://192.168.0.208:9090/api/schedule/couple/month?year=${moment(
-                    date
-                ).format("YYYY")}&month=${moment(date).format("MM")}`,
+                `${
+                    process.env.REACT_APP_API_URL
+                }/api/schedule/couple/month?year=${moment(date).format(
+                    "YYYY"
+                )}&month=${moment(date).format("MM")}`,
                 header
             )
             .then((res) => {
@@ -76,7 +78,7 @@ const MoneyCalendar = () => {
 
         axios
             .get(
-                `http://192.168.0.208:9090/api/accountbook/list/totalprice`,
+                `${process.env.REACT_APP_API_URL}/api/accountbook/list/totalprice`,
                 header
             )
             .then((res) => setTotalMoney(res.data.myAccountInfoVO));
@@ -190,9 +192,11 @@ function typeSelector(type, date, header, setExpenseData) {
     if (type === "couple") {
         axios
             .get(
-                `http://192.168.0.208:9090/api/accountbook/list/month/${type}?year=${moment(
-                    date
-                ).format("YYYY")}&month=${moment(date).format("MM")}`,
+                `${
+                    process.env.REACT_APP_API_URL
+                }/api/accountbook/list/month/${type}?year=${moment(date).format(
+                    "YYYY"
+                )}&month=${moment(date).format("MM")}`,
                 header
             )
             .then((res) => {
@@ -201,9 +205,11 @@ function typeSelector(type, date, header, setExpenseData) {
     } else {
         axios
             .get(
-                `http://192.168.0.208:9090/api/accountbook/list/month/${type}?year=${moment(
-                    date
-                ).format("YYYY")}&month=${moment(date).format("MM")}`,
+                `${
+                    process.env.REACT_APP_API_URL
+                }/api/accountbook/list/month/${type}?year=${moment(date).format(
+                    "YYYY"
+                )}&month=${moment(date).format("MM")}`,
                 header
             )
             .then((res) => {

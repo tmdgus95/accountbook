@@ -22,7 +22,7 @@ const BankbookCheckModal = ({ setCheckBank }) => {
     const onSubmit = (data) => {
         axios
             .get(
-                `http://192.168.0.208:9090/api/shareaccount/check?accountCode=${data.code}`
+                `${process.env.REACT_APP_API_URL}/api/shareaccount/check?accountCode=${data.code}`
             )
             .then((res) => {
                 console.log(res.data.message);

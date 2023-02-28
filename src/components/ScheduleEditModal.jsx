@@ -100,7 +100,7 @@ const ScheduleEditModal = ({ setEditModal, scheduleId }) => {
         formData.append("json", blob);
         axios
             .post(
-                `http://192.168.0.208:9090/api/calendar/update?siSeq=${scheduleId}`,
+                `${process.env.REACT_APP_API_URL}/api/calendar/update?siSeq=${scheduleId}`,
                 formData,
                 header
             )

@@ -112,7 +112,7 @@ const ExpendEditModal = ({ setEditModal, expense, expenseId }) => {
         formData.append("json", blob);
         axios
             .post(
-                `http://192.168.0.208:9090/api/accountbook/expense/update?eiSeq=${expenseId}`,
+                `${process.env.REACT_APP_API_URL}/api/accountbook/expense/update?eiSeq=${expenseId}`,
                 formData,
                 header
             )

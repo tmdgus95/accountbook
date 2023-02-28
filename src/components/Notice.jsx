@@ -29,7 +29,7 @@ export default function Notice() {
 
         axios
             .get(
-                `http://192.168.0.208:9090/api/notice/list?memberNo=${member}`,
+                `${process.env.REACT_APP_API_URL}/api/notice/list?memberNo=${member}`,
                 header
             )
             .then((res) => setNoticeList(res.data.list))

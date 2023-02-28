@@ -86,7 +86,7 @@ const IncomeModal = ({ setModal }) => {
         };
         axios
             .post(
-                "http://192.168.0.208:9090/api/accountbook/import/add",
+                `${process.env.REACT_APP_API_URL}/api/accountbook/import/add`,
                 body,
                 header
             )

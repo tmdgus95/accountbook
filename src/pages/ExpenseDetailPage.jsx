@@ -29,7 +29,7 @@ const ExpenseDetailPage = () => {
         };
         axios
             .get(
-                `http://192.168.0.208:9090/api/accountbook/list/expense/detail?eiSeq=${expenseId}`,
+                `${process.env.REACT_APP_API_URL}/api/accountbook/list/expense/detail?eiSeq=${expenseId}`,
                 header
             )
             .then((res) => setExpenseDetail(res.data.expenseDetail))
@@ -49,7 +49,7 @@ const ExpenseDetailPage = () => {
         deleteConfirm === true &&
             axios
                 .delete(
-                    `http://192.168.0.208:9090/api/accountbook/expense/delete?eiSeq=${expenseId}`,
+                    `${process.env.REACT_APP_API_URL}/api/accountbook/expense/delete?eiSeq=${expenseId}`,
                     header
                 )
                 .then((res) => console.log(res))
@@ -68,7 +68,7 @@ const ExpenseDetailPage = () => {
         deleteConfirm === true &&
             axios
                 .delete(
-                    `http://192.168.0.208:9090/api/accountbook/expense/img/delete?eiSeq=${expenseId}`,
+                    `${process.env.REACT_APP_API_URL}/api/accountbook/expense/img/delete?eiSeq=${expenseId}`,
                     header
                 )
                 .then((res) => console.log(res))
@@ -97,7 +97,7 @@ const ExpenseDetailPage = () => {
 
             {expenseDetail && (
                 <img
-                    src={`http://192.168.0.208:9090/api/accountbook/img/${expenseDetail.imageUri}`}
+                    src={`${process.env.REACT_APP_API_URL}/api/accountbook/img/${expenseDetail.imageUri}`}
                     // src="1"
                     alt="이미지"
                 />

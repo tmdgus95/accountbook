@@ -23,7 +23,7 @@ const NoticeDetail = () => {
         deleteConfirm === true &&
             axios
                 .delete(
-                    `http://192.168.0.208:9090/api/notice/delete?noticeNo=${notice}`
+                    `${process.env.REACT_APP_API_URL}/api/notice/delete?noticeNo=${notice}`
                 )
                 .then((res) => console.log(res))
                 .then(alert("삭제되었어..."))
@@ -39,7 +39,7 @@ const NoticeDetail = () => {
         };
         axios
             .get(
-                `http://192.168.0.208:9090/api/notice/detail?noticeNo=${notice}`,
+                `${process.env.REACT_APP_API_URL}/api/notice/detail?noticeNo=${notice}`,
                 header
             )
             .then((res) => {

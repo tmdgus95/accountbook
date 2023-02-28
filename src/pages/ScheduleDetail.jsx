@@ -24,7 +24,6 @@ const ScheduleDetail = () => {
         };
         axios
             .get(
-                //    `http://192.168.0.208:9090/api/schedule/couple/detail?saiSeq=1`
                 `${process.env.REACT_APP_API_URL}/api/schedule/couple/detail?saiSeq=${scheduleId}`,
                 header
             )
@@ -48,7 +47,7 @@ const ScheduleDetail = () => {
         deleteConfirm === true &&
             axios
                 .delete(
-                    `http://192.168.0.208:9090/api/calendar/delete?siSeq=${scheduleId}`,
+                    `${process.env.REACT_APP_API_URL}/api/calendar/delete?siSeq=${scheduleId}`,
                     header
                 )
                 .then((res) => console.log(res))

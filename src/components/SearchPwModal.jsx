@@ -29,7 +29,10 @@ const SearchPwModal = ({ setSearchPw }) => {
             birth: data.birth,
         };
         axios
-            .post("http://192.168.0.208:9090/api/member/findpassword", body)
+            .post(
+                `${process.env.REACT_APP_API_URL}/api/member/findpassword`,
+                body
+            )
             .then((res) => console.log(res))
             .then(setSearchPw(false))
             .catch((err) => console.log(err));

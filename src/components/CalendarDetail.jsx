@@ -24,11 +24,13 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
         // console.log(moment(date).format("DD"));
         axios
             .get(
-                `http://192.168.0.208:9090/api/accountbook/list/day/couple?year=${moment(
-                    date
-                ).format("YYYY")}&month=${moment(date).format(
-                    "MM"
-                )}&day=${moment(date).format("DD")}`,
+                `${
+                    process.env.REACT_APP_API_URL
+                }/api/accountbook/list/day/couple?year=${moment(date).format(
+                    "YYYY"
+                )}&month=${moment(date).format("MM")}&day=${moment(date).format(
+                    "DD"
+                )}`,
                 header
             )
             .then((res) => {
@@ -40,9 +42,11 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
 
         axios
             .get(
-                `http://192.168.0.208:9090/api/schedule/couple/month?year=${moment(
-                    date
-                ).format("YYYY")}&month=${moment(date).format("MM")}`,
+                `${
+                    process.env.REACT_APP_API_URL
+                }/api/schedule/couple/month?year=${moment(date).format(
+                    "YYYY"
+                )}&month=${moment(date).format("MM")}`,
                 header
             )
             .then((res) => {

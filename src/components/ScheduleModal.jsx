@@ -98,7 +98,11 @@ const ScheduleModal = ({ setModal }) => {
         });
         formData.append("json", blob);
         axios
-            .put("http://192.168.0.208:9090/api/calendar/put", formData, header)
+            .put(
+                `${process.env.REACT_APP_API_URL}/api/calendar/put`,
+                formData,
+                header
+            )
             .then((res) => console.log(res))
             .then(alert("스케줄이 등록되었습니다."))
             .then(setModal(false))

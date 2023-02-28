@@ -11,7 +11,7 @@ const ProfileCard = ({ user }) => {
                             <img
                                 src={
                                     user &&
-                                    `http://192.168.0.208:9090/api/background/img/${user.memberImgURL}`
+                                    `${process.env.REACT_APP_API_URL}/api/background/img/${user.memberImgURL}`
                                 }
                                 className="rounded-full w-32 h-32 "
                                 alt="profile"
@@ -31,7 +31,7 @@ const ProfileCard = ({ user }) => {
                             <img
                                 src={
                                     user &&
-                                    `http://192.168.0.208:9090/api/background/img/${user.otherMemberImgURL}`
+                                    `${process.env.REACT_APP_API_URL}/api/background/img/${user.otherMemberImgURL}`
                                 }
                                 className="rounded-full w-32 h-32 "
                                 alt="profile"

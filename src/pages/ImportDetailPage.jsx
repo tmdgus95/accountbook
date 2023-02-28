@@ -30,7 +30,7 @@ const ImportDetailPage = () => {
         };
         axios
             .get(
-                `http://192.168.0.208:9090/api/accountbook/list/import/detail?iiSeq=${importId}`,
+                `${process.env.REACT_APP_API_URL}/api/accountbook/list/import/detail?iiSeq=${importId}`,
                 header
             )
             .then((res) => setImportDetail(res.data.importDetail))
@@ -50,7 +50,7 @@ const ImportDetailPage = () => {
         deleteConfirm === true &&
             axios
                 .delete(
-                    `http://192.168.0.208:9090/api/accountbook/import/delete?iiSeq=${importId}`,
+                    `${process.env.REACT_APP_API_URL}/api/accountbook/import/delete?iiSeq=${importId}`,
                     header
                 )
                 .then((res) => console.log(res))
