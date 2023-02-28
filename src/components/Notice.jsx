@@ -31,7 +31,6 @@ export default function Notice() {
                 header
             )
             .then((res) => setNoticeList(res.data.list));
-        // .then((list) => setNoticeList(list));
     };
 
     const [modal, setModal] = useState(false);
@@ -74,8 +73,8 @@ export default function Notice() {
                                 <p>
                                     <Link to={`/noticedetail/${notice.niSeq}`}>
                                         {notice.niMemo}
-                                    </Link>{" "}
-                                    <span className="text-black font-thin ">
+                                    </Link>
+                                    <span className="text-black font-thin pl-4">
                                         {notice.niDate}
                                     </span>
                                 </p>
@@ -133,3 +132,4 @@ const Banner = styled.div`
         height: 100%;
     }
 `;
+const Date = styled.span``;

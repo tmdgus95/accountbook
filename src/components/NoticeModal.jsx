@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { useAuthContext } from "../context/AuthContext";
 
 const NoticeModal = ({ setModal }) => {
     const [memo, setMeno] = useState("");
@@ -10,6 +11,8 @@ const NoticeModal = ({ setModal }) => {
     const [imagePreview, setImagePreview] = useState("");
     const handleChangeMemo = (e) => setMeno(e.target.value);
     const handleChangeImg = (e) => setFile(e.target.files[0]);
+
+    const { Authorization } = useAuthContext();
 
     useEffect(() => {
         if (file || file.length > 0) {
@@ -23,6 +26,13 @@ const NoticeModal = ({ setModal }) => {
         e.preventDefault();
 
         const formData = new FormData();
+
+        const header = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization,
+            },
+        };
         const body = {
             memo,
             // niMbiSeq: 96,
@@ -35,7 +45,8 @@ const NoticeModal = ({ setModal }) => {
         axios
             .put(
                 "http://192.168.0.208:9090/api/notice/add?memberNo=96",
-                formData
+                formData,
+                header
             )
             .then((res) => {
                 console.log(res);
