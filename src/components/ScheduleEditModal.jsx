@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -69,15 +69,19 @@ const ScheduleEditModal = ({ setEditModal, scheduleId }) => {
         resolver: yupResolver(schema),
     });
 
+    const [file, setFile] = useState("");
     const [imagePreview, setImagePreview] = useState("");
-    const image = watch("image");
-
+    const handleChangeImg = (e) => setFile(e.target.files[0]);
     useEffect(() => {
-        if (image && image.length > 0) {
-            const file = image[0];
-            setImagePreview(URL.createObjectURL(file));
+        if (file || file.length > 0) {
+            const image = file;
+            setImagePreview(URL.createObjectURL(image));
         }
-    }, [image]);
+    }, [file]);
+    const imageInput = useRef();
+    const onCickImageUpload = () => {
+        imageInput.current.click();
+    };
 
     const onSubmit = (data) => {
         // console.log(data);
@@ -88,7 +92,7 @@ const ScheduleEditModal = ({ setEditModal, scheduleId }) => {
             },
         };
         const formData = new FormData();
-        formData.append("file", data.image && data.image[0]);
+        formData.append("file", file && file);
         const body = {
             siMemo: data.memo,
             updateStartDate: data.selectedDate,
@@ -105,12 +109,13 @@ const ScheduleEditModal = ({ setEditModal, scheduleId }) => {
                 header
             )
             .then((res) => alert(res.data.message))
-            .then(navigate("/"))
+            .then(navigate("/couplehome"))
             .catch((err) => console.log(err));
     };
     return (
         <Wrap>
             <Inner>
+                <p className="text-center">스케쥴 수정</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <p>시작날짜</p>
                     <InputDatePicker
@@ -121,20 +126,30 @@ const ScheduleEditModal = ({ setEditModal, scheduleId }) => {
                     <span className="text-red-500 pl-10">
                         {errors.selectedDate && errors.selectedDate.message}
                     </span>
+                    <br />
 
-                    <p>이미지 업로드</p>
                     <input
-                        {...register("image")}
-                        id="picture"
                         type="file"
-                        name="image"
                         accept="image/*"
-                        className="focus:outline-none mb-3"
+                        ref={imageInput}
+                        onChange={handleChangeImg}
+                        className="hidden"
                     />
+                    <button
+                        className="bg-orange-200 p-3 mt-5 mb-4 rounded-xl text-lg"
+                        onClick={onCickImageUpload}
+                        type="button"
+                    >
+                        이미지업로드
+                    </button>
                     <img
-                        src={imagePreview}
-                        alt="imagePreview"
-                        className="max-w-[55%] mb-4"
+                        src={
+                            imagePreview === ""
+                                ? "/images/white_bg.png"
+                                : imagePreview
+                        }
+                        alt=""
+                        className="w-[340px] h-44"
                     />
 
                     <label>
@@ -143,9 +158,21 @@ const ScheduleEditModal = ({ setEditModal, scheduleId }) => {
                     <span className="text-red-500 pl-10">
                         {errors.memo?.message}
                     </span>
-                    <button onClick={handleSubmit(onSubmit)}>전송</button>
+
+                    <br />
                 </form>
-                <button onClick={() => setEditModal(false)}>닫기</button>
+                <button
+                    className="bg-orange-200 p-3 mt-5 mb-4 rounded-xl text-lg mr-5"
+                    onClick={handleSubmit(onSubmit)}
+                >
+                    수정
+                </button>
+                <button
+                    className="bg-orange-200 p-3 mt-5 mb-4 rounded-xl text-lg"
+                    onClick={() => setEditModal(false)}
+                >
+                    닫기
+                </button>
             </Inner>
         </Wrap>
     );

@@ -111,7 +111,7 @@ const ScheduleModal = ({ setModal }) => {
             .then((res) => console.log(res))
             .then(alert("스케줄이 등록되었습니다."))
             .then(setModal(false))
-            .then(navigate("/"))
+            .then(navigate("/couplehome"))
             .catch((err) => console.log(err));
     };
 
