@@ -6,14 +6,14 @@ const ProfileCard = ({ user }) => {
         <>
             <div className="flex justify-between px-10  w-maincard">
                 <div className="main">
-                    <div className="card  p-4 rounded-2xl w-48 h-60 ">
+                    <div className="card  p-4 rounded-2xl w-56 h-60 ">
                         <div className="image flex flex-col items-center">
                             <img
                                 src={
                                     user &&
                                     `${process.env.REACT_APP_API_URL}/api/background/img/${user.memberImgURL}`
                                 }
-                                className="rounded-full w-32 h-32 "
+                                className="rounded-full w-56 h-48"
                                 alt="profile"
                             />
                         </div>
@@ -23,17 +23,17 @@ const ProfileCard = ({ user }) => {
                     </div>
                 </div>
 
-                <BsFillHeartFill className="text-white mt-16 hover:text-red-400 hover:duration-300 hover:scale-110" />
+                <BsFillHeartFill className="text-white mt-24 text-6xl hover:text-red-400 hover:duration-300 hover:scale-110" />
 
                 <div className="main">
-                    <div className="card p-4  rounded-2xl w-48 h-60 ">
+                    <div className="card p-4  rounded-2xl  w-56 h-60 ">
                         <div className="image flex flex-col items-center">
                             <img
                                 src={
                                     user &&
                                     `${process.env.REACT_APP_API_URL}/api/background/img/${user.otherMemberImgURL}`
                                 }
-                                className="rounded-full w-32 h-32 "
+                                className="rounded-full w-56 h-48"
                                 alt="profile"
                             />
                         </div>

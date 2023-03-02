@@ -88,7 +88,7 @@ const NoticeDetail = () => {
                         />
                     </div>
                     {detail && detail.memo}
-                    <Date> {detail && detail.date}</Date>
+                    <Date> 등록일 : {detail && detail.date}</Date>
                     {detail && (
                         <img
                             src={`http://192.168.0.208:9090/api/noticeimage/img/${detail.uri}`}
