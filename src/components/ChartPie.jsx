@@ -52,7 +52,7 @@ const ChartPie = () => {
             {/* chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height
 설정 */}
 
-            <div style={{ width: "1200px", height: "828px", margin: "auto" }}>
+            <div style={{ width: "1200px", height: "719px", margin: "auto" }}>
                 <ResponsivePie
                     data={pieChartData}
                     theme={theme}

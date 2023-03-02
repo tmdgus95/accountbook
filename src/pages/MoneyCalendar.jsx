@@ -267,7 +267,7 @@ const Wrap = styled.div`
     padding: 1%;
     .react-calendar {
         width: 100%;
-        height: 615px;
+        height: 583px;
     }
     .react-calendar__navigation__label > span {
         font-size: 32px;

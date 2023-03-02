@@ -59,7 +59,7 @@ const Statistics = () => {
 
 const Table = styled.table`
     width: 75vw;
-    height: 75vh;
+    height: 65.2vh;
     margin: 0 auto;
     padding: 20px;
     text-align: start;

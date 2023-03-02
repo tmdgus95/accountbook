@@ -100,7 +100,7 @@ const Mypage = () => {
         "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
 
     return (
-        <div className="flex w-full text-center justify-around">
+        <div className="flex w-full text-center h-mypapge justify-around">
             <div>
                 <p className="text-4xl bg-main w-fit text-white p-2 rounded-lg mx-auto mb-4">
                     회원정보 변경

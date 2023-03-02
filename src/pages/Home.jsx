@@ -45,7 +45,7 @@ const ImgCover = styled.div`
     background-repeat: no-repeat;
     background-size: cover; */
     max-width: 1280px;
-    height: 71vh;
+    height: 70.9vh;
     margin: 0 auto;
 `;
 

@@ -33,7 +33,7 @@ const ImgCover = styled.div`
     background: url("images/background.jpg");
     background-size: cover;
     background-position: center;
-    height: 70vh;
+    height: 70.9vh;
 `;
 const Celebrate = styled.div`
     position: relative;

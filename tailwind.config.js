@@ -6,7 +6,8 @@ module.exports = {
             colors: { main: "#fbe300" },
             spacing: {
                 maincard: "1020px",
-                login: "740px",
+                login: "749px",
+                mypapge: "749px",
             },
         },
     },
