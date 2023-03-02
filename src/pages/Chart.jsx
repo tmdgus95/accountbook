@@ -25,15 +25,18 @@ const Piechart = () => {
     // }));
 
     return (
-        <div>
-            <Expense>지출</Expense>
-            <ChartPie />
+        <div style={{ textAlign: "center" }}>
+            <Expense > 카테고리별 지출</Expense>
+            <ChartPie/>
         </div>
     );
 };
-const Expense = styled.div`
-    width: 100%;
+const Expense = styled.span`
     background: #fbe300;
-    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 50px;
 `;
 export default Piechart;

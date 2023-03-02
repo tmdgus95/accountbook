@@ -24,6 +24,13 @@ const ChartPie = () => {
             console.log(err);
         }
     };
+    const theme = {
+        labels: {
+            text: {
+                fontSize: 20,
+            },
+        },
+    };
 
     const pieChartData = chartData.map((item) => {
         let dd = {
@@ -43,9 +50,10 @@ const ChartPie = () => {
             {/* chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height
 설정 */}
 
-            <div style={{ width: "800px", height: "500px", margin: "auto" }}>
+            <div style={{ width: "1200px", height: "828px", margin: "auto" }}>
                 <ResponsivePie
                     data={pieChartData}
+                    theme={theme}
                     margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
                     innerRadius={0.5}
                     padAngle={0.7}
@@ -140,7 +148,7 @@ const ChartPie = () => {
                             anchor: "bottom",
                             direction: "column",
                             justify: false,
-                            translateX: 300,
+                            translateX: 470,
                             translateY: -73,
                             itemsSpacing: 22,
                             itemWidth: 10,
@@ -158,6 +166,7 @@ const ChartPie = () => {
                                     },
                                 },
                             ],
+                         
                         },
                     ]}
                 />

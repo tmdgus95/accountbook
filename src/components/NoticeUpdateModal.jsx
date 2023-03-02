@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -11,6 +12,7 @@ const NoticeUpdateModal = ({ setModal, notice }) => {
     const [imagePreview, setImagePreview] = useState("");
     const handleChangeMemo = (e) => setMeno(e.target.value);
     const handleChangeImg = (e) => setFile(e.target.files[0]);
+    const navigate = useNavigate();
 
     const { Authorization } = useAuthContext();
 
@@ -55,8 +57,13 @@ const NoticeUpdateModal = ({ setModal, notice }) => {
                 header
             )
             .then((res) => {
+                alert("수정되었어요.")
+                navigate("/couplehome");
+                
                 console.log(res);
+            
             })
+            
             .then(() => setModal(false));
     };
 
