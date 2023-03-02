@@ -52,7 +52,7 @@ const SelectOption = ({ setType }) => {
 };
 const Box = styled.div`
     position: absolute;
-    top: 85px;
+    top: 75px;
     right: 150px;
     display: inline-block;
     padding: 10px;
@@ -60,7 +60,7 @@ const Box = styled.div`
     label {
         margin-left: 7px;
         margin-right: 40px;
-        font-size: 20px;
+        font-size: 25px;
         font-weight: 700;
         color: #000;
     }

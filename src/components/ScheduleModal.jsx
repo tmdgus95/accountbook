@@ -8,6 +8,7 @@ import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import styled from "styled-components";
 
 yup.setLocale({
     mixed: {
@@ -116,7 +117,7 @@ const ScheduleModal = ({ setModal }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="relative">
             <p>시작날짜</p>
             <InputDatePicker control={control} {...register("selectedDate")} />
 
@@ -129,8 +130,12 @@ const ScheduleModal = ({ setModal }) => {
             <span className="text-red-500 pl-10">
                 {errors.siEndDate && errors.siEndDate.message}
             </span> */}
-
-            <p>이미지 업로드</p>
+            <br />
+            <label>
+                메모 <br /> <input {...register("memo")} />
+            </label>
+            <span className="text-red-500 pl-10">{errors.memo?.message}</span>
+            <br />
             <input
                 type="file"
                 accept="image/*"
@@ -152,14 +157,20 @@ const ScheduleModal = ({ setModal }) => {
                 alt=""
                 className="w-[340px] h-44"
             />
-
-            <label>
-                메모 <br /> <input {...register("memo")} />
-            </label>
-            <span className="text-red-500 pl-10">{errors.memo?.message}</span>
-            <button onClick={handleSubmit(onSubmit)}>전송</button>
+            <SubmitBt onClick={handleSubmit(onSubmit)}>저장하기</SubmitBt>
         </form>
     );
 };
+const SubmitBt = styled.div`
+    position: absolute;
+    right: 5px;
+    bottom: -328px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #fbe300;
+    font-size: 28px;
+    font-weight: 600;
+    cursor: pointer;
+`;
 
 export default ScheduleModal;

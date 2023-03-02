@@ -103,9 +103,9 @@ const IncomeModal = ({ setModal }) => {
             <span className="text-red-500 pl-10">
                 {errors.selectedDate && errors.selectedDate.message}
             </span>
-            <p>성별</p>
-            <select {...register("gender")}>
-                <option value="">성별을 선택하세요</option>
+            <p>작성자</p>
+            <select {...register("gender")} className="mb-5">
+                <option value="">작성자를 선택하세요</option>
                 <option value="1">나</option>
                 <option value="2">우리</option>
             </select>
@@ -114,12 +114,12 @@ const IncomeModal = ({ setModal }) => {
             </span>
             <br />
             <label>
-                금액 <br /> <input {...register("price")} /> 원
+                금액 <br /> <input {...register("price")} className="mt-2" /> 원
             </label>
             <span className="text-red-500 pl-4">{errors.price?.message}</span>
             <br />
             <label>
-                메모 <br /> <input {...register("memo")} />
+                메모 <br /> <input {...register("memo")} className="mt-2" />
             </label>
             <span className="text-red-500 pl-10">{errors.memo?.message}</span>
             <SubmitBt onClick={handleSubmit(onSubmit)}>저장하기</SubmitBt>
@@ -129,9 +129,9 @@ const IncomeModal = ({ setModal }) => {
 
 const SubmitBt = styled.div`
     position: absolute;
-    right: 20px;
-    bottom: -165px;
-    padding: 15px 25px;
+    right: 5px;
+    bottom: -355px;
+    padding: 10px 20px;
     border-radius: 10px;
     background-color: #fbe300;
     font-size: 28px;

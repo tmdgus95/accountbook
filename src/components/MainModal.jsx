@@ -15,14 +15,18 @@ const MainModal = ({ setModal }) => {
         <Wrap>
             <Inner>
                 <Top>
-                    <SlClose
-                        onClick={handleChangeModal}
-                        style={{ cursor: "pointer" }}
-                    />
-                    <span>{nameChange(modalBt)}</span>
-                    <button onClick={() => setModalBt(0)}>지출 등록</button>
-                    <button onClick={() => setModalBt(1)}>수입 등록</button>
-                    <button onClick={() => setModalBt(2)}>일정 등록</button>
+                    <div>
+                        <span>{nameChange(modalBt)}</span>
+                        <SlClose
+                            onClick={handleChangeModal}
+                            className="absolute top-2 right-0 cursor-pointer"
+                        />
+                    </div>
+                    <ButtonWrap>
+                        <button onClick={() => setModalBt(0)}>지출</button>
+                        <button onClick={() => setModalBt(1)}>수입</button>
+                        <button onClick={() => setModalBt(2)}>일정</button>
+                    </ButtonWrap>
                 </Top>
                 {modalBt === 0 && <ExpendModal setModal={setModal} />}
                 {modalBt === 1 && <IncomeModal setModal={setModal} />}
@@ -96,11 +100,34 @@ const Inner = styled.div`
     }
 `;
 const Top = styled.div`
+    position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
-    font-size: 30px;
+    font-size: 40px;
+    div {
+        display: flex;
+        align-items: center;
+        span {
+            font-size: 40px;
+            font-weight: 600;
+        }
+    }
+`;
+const ButtonWrap = styled.div`
+    position: relative;
+    display: flex;
+    gap: 20px;
+    margin-left: 470px;
+    margin-top: 10px;
+    button {
+        font-size: 25px;
+        padding: 5px 8px;
+        border-radius: 10px;
+        background-color: #fbe300;
+    }
 `;
 
 export default MainModal;
