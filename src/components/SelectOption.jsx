@@ -1,11 +1,8 @@
 import React from "react";
 import { useState } from "react";
-
 import styled from "styled-components";
-
 const SelectOption = ({ setType }) => {
     const [val, setVal] = useState(0);
-
     // 성별 라디오 이벤트 핸들러
     const handleRadio = (e) => {
         const { name, id } = e.target;
@@ -13,7 +10,6 @@ const SelectOption = ({ setType }) => {
         // const isCheck = e.target.checked;
         setVal({ ...val, [name]: id });
     };
-
     // 에러 정보 관리 객체
     const [Err, setErr] = useState({});
     const check = (_val) => {
@@ -27,10 +23,6 @@ const SelectOption = ({ setType }) => {
     return (
         <>
             <Box>
-                <div style={{ textAlign: "center", marginBottom: "10px" }}>
-                    SELECTOR
-                </div>
-
                 <input
                     type="radio"
                     id="couple"
@@ -38,41 +30,39 @@ const SelectOption = ({ setType }) => {
                     defaultChecked
                     onChange={handleRadio}
                 />
-                <label htmlFor="couple" style={{ marginRight: "7px" }}>
-                    공통내역
-                </label>
+                <label htmlFor="couple">공통내역</label>
                 <input
                     type="radio"
                     id="person"
                     name="group"
                     onChange={handleRadio}
                 />
-                <label htmlFor="person" style={{ marginRight: "7px" }}>
-                    나
-                </label>
+                <label htmlFor="person">나</label>
                 <input
                     type="radio"
                     id="otherperson"
                     name="group"
                     onChange={handleRadio}
                 />
-                <label htmlFor="otherperson" style={{ marginRight: "7px" }}>
-                    상대방
-                </label>
+                <label htmlFor="otherperson">연인</label>
                 <span className="err">{Err.group}</span>
             </Box>
         </>
     );
 };
-
 const Box = styled.div`
     position: absolute;
-    right: 30px;
+    top: 85px;
+    right: 150px;
     display: inline-block;
     padding: 10px;
     border-radius: 5px;
-    background: #a9a9a9;
-    opacity: 0.7;
+    label {
+        margin-left: 7px;
+        margin-right: 40px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #000;
+    }
 `;
-
 export default SelectOption;
