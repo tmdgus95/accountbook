@@ -21,6 +21,7 @@ const Header = () => {
             )
             .then((res) => console.log(res))
             .then(setUser((prev) => ""))
+            .then(alert("로그아웃 되었습니다."))
             .then(navigate("/"))
             .catch((err) => console.log(err));
     };
@@ -37,17 +38,17 @@ const Header = () => {
                 {Authorization ? (
                     <button
                         onClick={handleLogout}
-                        className="bg-main p-2 rounded-xl m-2"
+                        className="bg-main p-2 px-6 text-xl rounded-xl m-1 duration-300 opacity-80 hover:scale-110 hover:opacity-100 "
                     >
                         로그아웃
                     </button>
                 ) : (
                     <>
-                        <button className="bg-main p-2 rounded-xl m-2">
+                        <button className="bg-main p-2 px-6 text-xl rounded-xl m-1 duration-300 opacity-80 hover:scale-110 hover:opacity-100 ">
                             <Link to={"/login"}>로그인</Link>
                         </button>
 
-                        <button className="bg-main p-2 rounded-xl m-2">
+                        <button className="bg-main p-2 px-6 text-xl rounded-xl m-1 duration-300 opacity-80 hover:scale-110 hover:opacity-100 ">
                             <Link to={"/signup"}>회원가입</Link>
                         </button>
                     </>

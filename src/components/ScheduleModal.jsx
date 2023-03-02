@@ -7,6 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 yup.setLocale({
     mixed: {
@@ -62,21 +63,25 @@ const ScheduleModal = ({ setModal }) => {
         register,
         handleSubmit,
         control,
-        watch,
+
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
     });
 
+    const [file, setFile] = useState("");
     const [imagePreview, setImagePreview] = useState("");
-    const image = watch("image");
-
+    const handleChangeImg = (e) => setFile(e.target.files[0]);
     useEffect(() => {
-        if (image && image.length > 0) {
-            const file = image[0];
-            setImagePreview(URL.createObjectURL(file));
+        if (file || file.length > 0) {
+            const image = file;
+            setImagePreview(URL.createObjectURL(image));
         }
-    }, [image]);
+    }, [file]);
+    const imageInput = useRef();
+    const onCickImageUpload = () => {
+        imageInput.current.click();
+    };
 
     const onSubmit = (data) => {
         // console.log(data);
@@ -87,7 +92,7 @@ const ScheduleModal = ({ setModal }) => {
             },
         };
         const formData = new FormData();
-        formData.append("file", data.image && data.image[0]);
+        formData.append("file", file && file);
         const body = {
             siStartDate: data.selectedDate,
             siEndDate: data.selectedDate,
@@ -127,17 +132,25 @@ const ScheduleModal = ({ setModal }) => {
 
             <p>이미지 업로드</p>
             <input
-                {...register("image")}
-                id="picture"
                 type="file"
-                name="image"
                 accept="image/*"
-                className="focus:outline-none mb-3"
+                ref={imageInput}
+                onChange={handleChangeImg}
+                className="hidden"
             />
+            <button
+                className="bg-orange-200 p-3 mt-1 mb-4 rounded-xl text-lg"
+                onClick={onCickImageUpload}
+                type="button"
+            >
+                이미지업로드
+            </button>
             <img
-                src={imagePreview}
-                alt="imagePreview"
-                className="max-w-[55%] mb-4"
+                src={
+                    imagePreview === "" ? "/images/white_bg.png" : imagePreview
+                }
+                alt=""
+                className="w-[340px] h-44"
             />
 
             <label>

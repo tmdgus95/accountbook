@@ -49,7 +49,7 @@ const Login = () => {
     const inpustStlye =
         "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
     return (
-        <div className="w-full text-center">
+        <div className="w-full text-center h-login pt-48">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label className="text-2xl">
                     이메일
@@ -65,18 +65,20 @@ const Login = () => {
                 </label>
                 <p>{errors.password?.message}</p>
 
-                <Button>로그인</Button>
+                <button className="bg-main p-2 px-6 text-xl rounded-xl m-1 duration-300 opacity-80 hover:scale-110 hover:opacity-100 ">
+                    로그인
+                </button>
             </form>
-            <p>
+            <p className="mt-5 text-xl">
                 아직 회원이 아니신가요?{" "}
                 <Link style={{ color: "blue" }} to={"/signup"}>
                     회원가입
                 </Link>
             </p>
-            <p>
+            <p className="mt-5 text-xl">
                 비밀번호를 잊으셨나요?{" "}
                 <button
-                    className="bg-main p-1 rounded-xl m-1"
+                    className="bg-main p-2 px-6 rounded-xl m-1 duration-300 opacity-80 hover:scale-110 hover:opacity-100 "
                     onClick={() => setSearchPw((prev) => !prev)}
                 >
                     비밀번호 찾기

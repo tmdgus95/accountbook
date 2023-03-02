@@ -63,7 +63,7 @@ const ScheduleDetail = () => {
             {scheduleDetail && scheduleDetail.eddate}
             {scheduleDetail && (
                 <img
-                    src={`http://192.168.0.208:9090${scheduleDetail.scheimg}`}
+                    src={`http://192.168.0.208:9090/api/schedule/img/${scheduleDetail.scheimg}`}
                     alt="스케쥴"
                 ></img>
             )}

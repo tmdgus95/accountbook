@@ -7,8 +7,9 @@ const Button = ({ children }) => {
 
 const Btn = styled.button`
     background: #fbe300;
-    border-radius: 4px;
-    padding: 4px;
+    font-size: 24px;
+    border-radius: 8px;
+    padding: 8px;
     margin: 0 2px;
 `;
 
