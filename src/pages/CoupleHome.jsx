@@ -1,7 +1,6 @@
 import React from "react";
 import Notice from "../components/Notice";
 import styled from "styled-components";
-import SelectOption from "../components/SelectOption";
 import ProfileCard from "../components/ProfileCard";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -12,7 +11,6 @@ const CoupleHome = () => {
     return (
         <div>
             <ImgCover>
-                <SelectOption />
                 <div style={{ height: "150px" }}></div>
                 <Notice />
                 <div className="z-50 text-center mt-16 text-white">
