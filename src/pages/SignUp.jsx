@@ -60,7 +60,7 @@ const SignUp = () => {
             mbiStartDay: data.mbiStartDay,
             mbiBrith: data.mbiBrith,
             nickName: data.nickName,
-            accountNumber: bankBookNumber,
+            accountNumber: data.accountNumber,
         };
         const blob = new Blob([JSON.stringify(body)], {
             type: "application/json",
