@@ -5,6 +5,7 @@ import { useAuthContext } from "../context/AuthContext";
 import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { SlClose } from "react-icons/sl";
 
 const CalendarDetail = ({ setCalendarDetailModal, date }) => {
     const { Authorization } = useAuthContext();
@@ -65,61 +66,87 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
     console.log(schedule && schedule);
 
     return (
-        <div className="w-full h-full absolute bg-black bg-opacity-50 z-10 top-0 p-60 px-96 ">
-            <div className="bg-white rounded-xl py-4">
-                <button onClick={handleClose}>닫기</button>
-                <p>지출</p>
-                <ul>
-                    {expenseList &&
-                        expenseList.map((expense) => (
-                            <li
-                                onClick={() =>
-                                    navigate(
-                                        `/expensedetail/${expense.expenseSeq}`,
-                                        { state: { expense } }
-                                    )
-                                }
-                                key={expense.expenseSeq}
-                            >
-                                {expense.expense}
+        <div className="w-full h-full absolute bg-black bg-opacity-50 z-10 top-0 left-0 p-60 px-96 ">
+            <div className="relative grid grid-cols-3 bg-white rounded-xl p-4 text-2xl">
+                <SlClose
+                    onClick={handleClose}
+                    className="absolute right-4 top-4 text-4xl cursor-pointer"
+                />
+                <div>
+                    <p className="text-3xl mb-4">지출</p>
+                    <ul>
+                        {expenseList &&
+                            expenseList.map((expense) => (
+                                <li
+                                    onClick={() =>
+                                        navigate(
+                                            `/expensedetail/${expense.expenseSeq}`,
+                                            { state: { expense } }
+                                        )
+                                    }
+                                    key={expense.expenseSeq}
+                                    className="mb-1"
+                                >
+                                    {expense.expense
+                                        .toString()
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                    원
+                                </li>
+                            ))}
+                        {expenseList && expenseList.length === 0 && (
+                            <li className="text-neutral-400">
+                                등록된 지출이 없습니다.
                             </li>
-                        ))}
-                    {expenseList && expenseList.length === 0 && (
-                        <li>없다!!!</li>
-                    )}
-                </ul>
-                <p>수입</p>
-                <ul>
-                    {imcomeList &&
-                        imcomeList.map((income) => (
-                            <li
-                                onClick={() =>
-                                    navigate(
-                                        `/importdetail/${income.importSeq}`,
-                                        { state: { income } }
-                                    )
-                                }
-                                key={income.importSeq}
-                            >
-                                {income.income}
+                        )}
+                    </ul>
+                </div>
+                <div>
+                    <p className="text-3xl mb-4">수입</p>
+                    <ul>
+                        {imcomeList &&
+                            imcomeList.map((income) => (
+                                <li
+                                    onClick={() =>
+                                        navigate(
+                                            `/importdetail/${income.importSeq}`,
+                                            { state: { income } }
+                                        )
+                                    }
+                                    key={income.importSeq}
+                                    className="mb-1"
+                                >
+                                    {income.income
+                                        .toString()
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                    원
+                                </li>
+                            ))}
+                        {imcomeList && imcomeList.length === 0 && (
+                            <li className="text-neutral-400">
+                                등록된 수입이 없습니다.
                             </li>
-                        ))}
-                    {imcomeList && imcomeList.length === 0 && <li>없다!!!</li>}
-                </ul>
-                <p>일정</p>
-                <ul>
-                    {schedule &&
-                        schedule.map((item) => (
-                            <li
-                                key={uuidv4()}
-                                onClick={() =>
-                                    navigate(`/scheduledetail/${item.siseq}`)
-                                }
-                            >
-                                {item.memo}
-                            </li>
-                        ))}
-                </ul>
+                        )}
+                    </ul>
+                </div>
+                <div>
+                    <p className="text-3xl mb-4">일정</p>
+                    <ul>
+                        {schedule &&
+                            schedule.map((item) => (
+                                <li
+                                    key={uuidv4()}
+                                    onClick={() =>
+                                        navigate(
+                                            `/scheduledetail/${item.siseq}`
+                                        )
+                                    }
+                                    className="mb-1"
+                                >
+                                    {item.memo}
+                                </li>
+                            ))}
+                    </ul>
+                </div>
             </div>
         </div>
     );

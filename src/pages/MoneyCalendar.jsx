@@ -110,13 +110,25 @@ const MoneyCalendar = () => {
         if (obj !== undefined) {
             html.push(
                 <div key={obj.dt}>
-                    <span>지출 {obj.expenseSum}</span>
+                    <span>
+                        지출 &nbsp;
+                        {obj.expenseSum
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </span>
                     <br />
-                    <span>수입 {obj.importSum ? obj.importSum : 0}</span>
+                    <span>
+                        수입 &nbsp;
+                        {obj.importSum
+                            ? obj.importSum
+                                  .toString()
+                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                            : 0}
+                    </span>
                 </div>
             );
             if (obj2 !== undefined) {
-                html.push(<span key={uuidv4()}>일정 {obj2.memo}</span>);
+                html.push(<span key={uuidv4()}>일정 &nbsp;{obj2.memo}</span>);
             }
             return <div>{html}</div>;
         }
@@ -131,7 +143,7 @@ const MoneyCalendar = () => {
     };
 
     const onViewChange = (e) => {
-        // console.log(e.activeStartDate);
+        console.log(e);
         setDate(e.activeStartDate);
     };
 
@@ -166,9 +178,24 @@ const MoneyCalendar = () => {
                         <span>합계</span>
                     </Top>
                     <Bottom>
-                        <span>{monthImportMoney}원</span>
-                        <span>{monthExpenseMoney}원</span>
-                        <span>{monthImportMoney - monthExpenseMoney}원</span>
+                        <span>
+                            {monthImportMoney
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            원
+                        </span>
+                        <span>
+                            {monthExpenseMoney
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            원
+                        </span>
+                        <span>
+                            {(monthImportMoney - monthExpenseMoney)
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            원
+                        </span>
                     </Bottom>
                 </Summary>
                 <Summary>
@@ -178,9 +205,27 @@ const MoneyCalendar = () => {
                         <span>총 합계</span>
                     </Top>
                     <Bottom>
-                        <span>{totalMoney && totalMoney.totalImport}원</span>
-                        <span>{totalMoney && totalMoney.totalExpense}원</span>
-                        <span>{totalMoney && totalMoney.balance}원</span>
+                        <span>
+                            {totalMoney &&
+                                totalMoney.totalImport
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            원
+                        </span>
+                        <span>
+                            {totalMoney &&
+                                totalMoney.totalExpense
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            원
+                        </span>
+                        <span>
+                            {totalMoney &&
+                                totalMoney.balance
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            원
+                        </span>
                     </Bottom>
                 </Summary>
             </Wrap>
@@ -222,7 +267,7 @@ const Wrap = styled.div`
     padding: 1%;
     .react-calendar {
         width: 100%;
-        height: 658px;
+        height: 615px;
     }
     .react-calendar__navigation__label > span {
         font-size: 32px;
@@ -232,7 +277,11 @@ const Wrap = styled.div`
     }
     .react-calendar button {
         border-collapse: collapse;
-        height: 90px !important;
+        height: 83px !important;
+    }
+    .react-calendar button > div {
+        text-align: left !important;
+        padding: 5px 0 0 90px !important;
     }
     .react-calendar__navigation {
         height: 60px !important;
@@ -266,20 +315,20 @@ const Wrap = styled.div`
 const Summary = styled.div`
     border: 1px solid #a0a096;
     width: 100%;
-    height: 88px;
+    height: 60px;
 `;
 const Top = styled.div`
     display: flex;
     justify-content: space-around;
     span {
-        font-size: 30px;
+        font-size: 20px;
     }
 `;
 const Bottom = styled.div`
     display: flex;
     justify-content: space-around;
     span {
-        font-size: 30px;
+        font-size: 20px;
     }
 `;
 export default MoneyCalendar;
