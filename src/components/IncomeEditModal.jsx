@@ -7,6 +7,7 @@ import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { SlClose } from "react-icons/sl";
 
 yup.setLocale({
     mixed: {
@@ -101,6 +102,11 @@ const IncomeEditModal = ({ setEditModal, income, importId }) => {
     return (
         <Wrap>
             <Inner>
+                <Title>수입 수정</Title>
+                <SlClose
+                    onClick={() => setEditModal(false)}
+                    className="absolute top-8 right-6 cursor-pointer text-[40px]"
+                />
                 <form onSubmit={handleSubmit(onSubmit)} className="relative">
                     <p>날짜</p>
                     <InputDatePicker
@@ -110,9 +116,9 @@ const IncomeEditModal = ({ setEditModal, income, importId }) => {
                     <span className="text-red-500 pl-10">
                         {errors.selectedDate && errors.selectedDate.message}
                     </span>
-                    <p>성별</p>
-                    <select {...register("gender")}>
-                        <option value="">성별을 선택하세요</option>
+                    <p>작성자</p>
+                    <select {...register("gender")} className="mb-3">
+                        <option value="">작성자를 선택하세요</option>
                         <option value="1">나</option>
                         <option value="2">우리</option>
                     </select>
@@ -121,21 +127,20 @@ const IncomeEditModal = ({ setEditModal, income, importId }) => {
                     </span>
                     <br />
                     <label>
-                        금액 <br /> <input {...register("price")} /> 원
+                        금액 <br />
+                        <input {...register("price")} className="mt-2" /> 원
                     </label>
                     <span className="text-red-500 pl-4">
                         {errors.price?.message}
                     </span>
                     <br />
                     <label>
-                        메모 <br /> <input {...register("memo")} />
+                        메모 <br />
+                        <input {...register("memo")} className="mt-2" />
                     </label>
                     <span className="text-red-500 pl-10">
                         {errors.memo?.message}
                     </span>
-                    <button type="button" onClick={() => setEditModal(false)}>
-                        닫기
-                    </button>
                     <SubmitBt onClick={handleSubmit(onSubmit)}>
                         저장하기
                     </SubmitBt>
@@ -156,6 +161,7 @@ const Wrap = styled.div`
     left: 0;
 `;
 const Inner = styled.div`
+    position: relative;
     height: 950px;
     background: white;
     border-radius: 5px;
@@ -198,11 +204,16 @@ const Inner = styled.div`
         }
     }
 `;
+const Title = styled.div`
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+`;
 const SubmitBt = styled.div`
     position: absolute;
-    right: 20px;
-    bottom: -165px;
-    padding: 15px 25px;
+    right: 5px;
+    bottom: -440px;
+    padding: 10px 20px;
     border-radius: 10px;
     background-color: #fbe300;
     font-size: 28px;

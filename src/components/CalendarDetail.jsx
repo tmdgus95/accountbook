@@ -73,7 +73,7 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                     className="absolute right-4 top-4 text-4xl cursor-pointer"
                 />
                 <div>
-                    <p className="text-3xl mb-4">지출</p>
+                    <p className="text-4xl font-medium mb-4">지출</p>
                     <ul>
                         {expenseList &&
                             expenseList.map((expense) => (
@@ -85,7 +85,7 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                                         )
                                     }
                                     key={expense.expenseSeq}
-                                    className="mb-1"
+                                    className="mb-1 cursor-pointer"
                                 >
                                     {expense.expense
                                         .toString()
@@ -101,7 +101,7 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                     </ul>
                 </div>
                 <div>
-                    <p className="text-3xl mb-4">수입</p>
+                    <p className="text-4xl font-medium mb-4">수입</p>
                     <ul>
                         {imcomeList &&
                             imcomeList.map((income) => (
@@ -113,7 +113,7 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                                         )
                                     }
                                     key={income.importSeq}
-                                    className="mb-1"
+                                    className="mb-1 cursor-pointer"
                                 >
                                     {income.income
                                         .toString()
@@ -129,7 +129,7 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                     </ul>
                 </div>
                 <div>
-                    <p className="text-3xl mb-4">일정</p>
+                    <p className="text-4xl font-medium mb-4">일정</p>
                     <ul>
                         {schedule &&
                             schedule.map((item) => (
@@ -140,7 +140,7 @@ const CalendarDetail = ({ setCalendarDetailModal, date }) => {
                                             `/scheduledetail/${item.siseq}`
                                         )
                                     }
-                                    className="mb-1"
+                                    className="mb-1 cursor-pointer"
                                 >
                                     {item.memo}
                                 </li>

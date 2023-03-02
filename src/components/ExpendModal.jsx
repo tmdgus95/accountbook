@@ -129,9 +129,9 @@ const ExpendModal = ({ setModal }) => {
             <span className="text-red-500 pl-10">
                 {errors.selectedDate && errors.selectedDate.message}
             </span>
-            <p>성별</p>
+            <p>작성자</p>
             <select {...register("gender")}>
-                <option value="">성별을 선택하세요</option>
+                <option value="">작성자를 선택하세요</option>
                 <option value="1">나</option>
                 <option value="2">우리</option>
             </select>
@@ -203,7 +203,7 @@ const ExpendModal = ({ setModal }) => {
 const SubmitBt = styled.div`
     position: absolute;
     right: 5px;
-    bottom: -90px;
+    bottom: -10px;
     padding: 10px 20px;
     border-radius: 10px;
     background-color: #fbe300;

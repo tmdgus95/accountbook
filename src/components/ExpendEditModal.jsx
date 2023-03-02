@@ -8,6 +8,7 @@ import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { SlClose } from "react-icons/sl";
 
 yup.setLocale({
     mixed: {
@@ -126,6 +127,11 @@ const ExpendEditModal = ({ setEditModal, expense, expenseId }) => {
     return (
         <Wrap>
             <Inner>
+                <Title>지출 수정</Title>
+                <SlClose
+                    onClick={() => setEditModal(false)}
+                    className="absolute top-8 right-6 cursor-pointer text-[40px]"
+                />
                 <form onSubmit={handleSubmit(onSubmit)} className="relative">
                     <p>날짜</p>
                     <InputDatePicker
@@ -135,9 +141,9 @@ const ExpendEditModal = ({ setEditModal, expense, expenseId }) => {
                     <span className="text-red-500 pl-10">
                         {errors.selectedDate && errors.selectedDate.message}
                     </span>
-                    <p>성별</p>
+                    <p>작성자</p>
                     <select {...register("gender")}>
-                        <option value="">성별을 선택하세요</option>
+                        <option value="">작성자를 선택하세요</option>
                         <option value="1">나</option>
                         <option value="2">우리</option>
                     </select>
@@ -209,9 +215,6 @@ const ExpendEditModal = ({ setEditModal, expense, expenseId }) => {
                         alt=""
                         className="w-[340px] h-44"
                     />
-                    <button type="button" onClick={() => setEditModal(false)}>
-                        닫기
-                    </button>
                     <SubmitBt onClick={handleSubmit(onSubmit)}>
                         저장하기
                     </SubmitBt>
@@ -232,6 +235,7 @@ const Wrap = styled.div`
     left: 0;
 `;
 const Inner = styled.div`
+    position: relative;
     height: 950px;
     background: white;
     border-radius: 5px;
@@ -273,6 +277,11 @@ const Inner = styled.div`
             outline: none;
         }
     }
+`;
+const Title = styled.div`
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
 `;
 const SubmitBt = styled.div`
     position: absolute;

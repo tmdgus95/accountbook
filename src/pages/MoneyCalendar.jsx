@@ -315,20 +315,20 @@ const Wrap = styled.div`
 const Summary = styled.div`
     border: 1px solid #a0a096;
     width: 100%;
-    height: 60px;
+    height: 64px;
 `;
 const Top = styled.div`
     display: flex;
     justify-content: space-around;
     span {
-        font-size: 20px;
+        font-size: 22px;
     }
 `;
 const Bottom = styled.div`
     display: flex;
     justify-content: space-around;
     span {
-        font-size: 20px;
+        font-size: 22px;
     }
 `;
 export default MoneyCalendar;
