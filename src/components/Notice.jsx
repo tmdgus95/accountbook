@@ -39,9 +39,10 @@ export default function Notice() {
     const [modal, setModal] = useState(false);
 
     console.log(member);
+
     useEffect(() => {
         fetchData();
-    }, [member]);
+    }, [member,modal]);
 
     return (
         <>
