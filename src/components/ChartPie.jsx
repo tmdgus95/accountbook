@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
+import SelectOption from "./SelectOption";
 
 const ChartPie = () => {
     const { Authorization } = useAuthContext();
@@ -33,12 +34,12 @@ const ChartPie = () => {
     };
 
     const pieChartData = chartData.map((item) => {
-        let dd = {
+        let data = {
             id: item.cate,
             label: item.cate,
             value: item.extotal,
         };
-        return dd;
+        return data;
     });
 
     useEffect(() => {
@@ -47,6 +48,7 @@ const ChartPie = () => {
 
     return (
         <>
+            <SelectOption />
             {/* chart height이 100%이기 때문이 chart를 덮는 마크업 요소에 height
 설정 */}
 
@@ -166,7 +168,6 @@ const ChartPie = () => {
                                     },
                                 },
                             ],
-                         
                         },
                     ]}
                 />

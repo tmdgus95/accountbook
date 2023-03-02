@@ -5,7 +5,7 @@ module.exports = {
         extend: {
             colors: { main: "#fbe300" },
             spacing: {
-                maincard: "800px",
+                maincard: "1020px",
                 login: "740px",
             },
         },
