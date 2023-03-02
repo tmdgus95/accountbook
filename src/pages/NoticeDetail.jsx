@@ -43,6 +43,7 @@ const NoticeDetail = () => {
                 header
             )
             .then((res) => {
+                console.log(res);
                 setDetail(res.data);
             })
             .catch((err) => console.log(err));
@@ -57,31 +58,49 @@ const NoticeDetail = () => {
     return (
         <>
             <Inner>
-                <div className="flex justify-end gap-5">
-                    <BsTrashFill
-                        onClick={handleDelete}
-                        style={{ fontSize: "30px", cursor: "pointer" }}
-                    >
-                        삭제
-                    </BsTrashFill>
-                    <BsPencilFill
-                        onClick={() => {
-                            setModal(true);
-                        }}
-                        style={{ fontSize: "30px", cursor: "pointer" }}
-                    />
-                </div>
                 <Memo>
+                    <div className="flex justify-end gap-2 mb-3">
+                        <BsTrashFill
+                            onClick={handleDelete}
+                            style={{
+                                fontSize: "50px",
+                                cursor: "pointer",
+                                color: "#fbe300",
+                                padding: "10px",
+                                background: "black",
+                                borderRadius: "10px",
+                            }}
+                        >
+                            삭제
+                        </BsTrashFill>
+                        <BsPencilFill
+                            onClick={() => {
+                                setModal(true);
+                            }}
+                            style={{
+                                fontSize: "50px",
+                                cursor: "pointer",
+                                color: "#fbe300",
+                                padding: "10px",
+                                background: "black",
+                                borderRadius: "10px",
+                            }}
+                        />
+                    </div>
                     {detail && detail.memo}
-                    메모
-                    <Date> {detail && detail.date}날짜</Date>
+                    <Date> {detail && detail.date}</Date>
+                    {detail && (
+                        <img
+                            src={`http://192.168.0.208:9090/api/noticeimage/img/${detail.uri}`}
+                            alt="사진"
+                            style={{
+                                width: "500px",
+                                height: "500px",
+                                margin: "0 auto",
+                            }}
+                        />
+                    )}
                 </Memo>
-                {detail && (
-                    <img
-                        src={`http://192.168.0.208:9090/api/noticeimagme/img/${detail.uri}`}
-                        alt="사진"
-                    />
-                )}
 
                 {modal && (
                     <NoticeUpdateModal
@@ -107,22 +126,26 @@ const NoticeDetail = () => {
 
 const Inner = styled.div`
     max-width: 750px;
-
+    height: 754px;
     margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
 `;
 
 const Memo = styled.div`
     width: 750px;
     height: 750px;
+    font-size: 30px;
     text-align: center;
-    background: red;
+    border-radius: 6px;
 `;
 
 const Date = styled.p`
-    background-color: pink;
     display: flex;
-    justify-content: end;
-    margin-right: 10px;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 20px;
 `;
 
 export default NoticeDetail;

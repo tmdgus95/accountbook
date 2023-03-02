@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
@@ -22,6 +22,11 @@ const NoticeUpdateModal = ({ setModal, notice }) => {
             console.log(image);
         }
     }, [file]);
+    const imageInput = useRef();
+
+    const handleOnClickImage = () => {
+        imageInput.current.click();
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -74,18 +79,34 @@ const NoticeUpdateModal = ({ setModal, notice }) => {
                             </p>
                             <div className="pl-5">
                                 <img
-                                    src={imagePreview}
+                                    src={
+                                        imagePreview
+                                            ? imagePreview
+                                            : "/images/white_bg.png"
+                                    }
                                     alt="imagePreview"
                                     className="w-64 h-64 mb-2"
                                 />
-                                <input type="file" onChange={handleChangeImg} />
+                                <input
+                                    type="file"
+                                    onChange={handleChangeImg}
+                                    className="hidden"
+                                    ref={imageInput}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleOnClickImage}
+                                    className="bg-orange-200 p-3 mt-1 mb-4 rounded-xl text-lg"
+                                >
+                                    이미지업로드
+                                </button>
                             </div>
                         </form>
                     </Body>
                     {/*footer*/}
                     <div
                         className="flex items-center justify-end 
-                    p-6 mt-11 border-t border-solid border-slate-200 rounded-b"
+                    p-6 mt-4 border-t border-solid border-slate-200 rounded-b"
                     >
                         <button
                             className="text-black-500 background-transparent font-bold uppercase px-6 py-2 
@@ -124,8 +145,9 @@ const Wrap = styled.div`
 const Inner = styled.div`
     background: white;
     border-radius: 5px;
-    width: 800px;
-    height: 1000px;
+    width: 500px;
+    height: 950px;
+    margin: 0 auto;
 `;
 
 const Top = styled.div`
@@ -151,5 +173,4 @@ const Body = styled.div`
     display: block;
     height: 750px;
 `;
-
 export default NoticeUpdateModal;
