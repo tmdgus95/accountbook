@@ -112,26 +112,39 @@ const MoneyCalendar = () => {
                 <div key={obj.dt}>
                     <span>
                         지출 &nbsp;
-                        {obj.expenseSum
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        <span className="text-red-500 font-bold">
+                            {obj.expenseSum
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        </span>
                     </span>
                     <br />
                     <span>
                         수입 &nbsp;
-                        {obj.importSum
-                            ? obj.importSum
-                                  .toString()
-                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                            : 0}
+                        <span className="text-blue-700 font-bold">
+                            {obj.importSum
+                                ? obj.importSum
+                                      .toString()
+                                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                : 0}{" "}
+                        </span>
                     </span>
                 </div>
             );
-            if (obj2 !== undefined) {
-                html.push(<span key={uuidv4()}>일정 &nbsp;{obj2.memo}</span>);
-            }
+        }
+        if (obj2 !== undefined) {
+            html.push(
+                <span key={uuidv4()}>
+                    일정 &nbsp;
+                    <span className="font-bold">{obj2.memo}</span>
+                </span>
+            );
+        }
+
+        if (obj !== undefined || obj2 !== undefined) {
             return <div>{html}</div>;
         }
+
         return null;
     };
 
@@ -329,6 +342,13 @@ const Bottom = styled.div`
     justify-content: space-around;
     span {
         font-size: 22px;
+        font-weight: 500;
+        :nth-child(1) {
+            color: blue;
+        }
+        :nth-child(2) {
+            color: red;
+        }
     }
 `;
 export default MoneyCalendar;

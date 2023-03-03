@@ -9,6 +9,9 @@ module.exports = {
                 login: "749px",
                 mypapge: "749px",
             },
+            backgroundImage: {
+                couplemain: "url('images/background.jpg')",
+            },
         },
     },
     plugins: [],

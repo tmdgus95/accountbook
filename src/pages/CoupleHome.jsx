@@ -10,7 +10,7 @@ const CoupleHome = () => {
 
     return (
         <div>
-            <ImgCover>
+            <ImgCover className="bg-couplemain">
                 <div style={{ height: "150px" }}></div>
                 <Notice />
                 <div className="z-50 text-center mt-16 text-white">
@@ -30,7 +30,7 @@ const CoupleHome = () => {
     );
 };
 const ImgCover = styled.div`
-    background: url("images/background.jpg");
+    /* background: url("images/background.jpg"); */
     background-size: cover;
     background-position: center;
     height: 70.9vh;
