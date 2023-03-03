@@ -30,7 +30,7 @@ const Header = () => {
             <div>
                 <Link to={Authorization ? "/couplehome" : "/"} className="flex">
                     <FaHeart className="text-red-400 mt-4 mr-2 text-3xl" />
-                    <span className="mt-4">커플통장</span>
+                    <span className="mt-4">허니머니</span>
                 </Link>
             </div>
 

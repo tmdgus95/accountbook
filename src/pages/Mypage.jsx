@@ -97,7 +97,7 @@ const Mypage = () => {
     }, []);
 
     const inpustStlye =
-        "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
+        "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3 placeholder:text-center";
 
     return (
         <div className="flex w-full text-center h-mypapge justify-around">
@@ -109,7 +109,7 @@ const Mypage = () => {
                     <img
                         src={imagePreview}
                         alt="프로필이미지를 선택하세요"
-                        className="w-60 h-60 mb-4 mx-auto"
+                        className="w-40 h-40 mb-4 mx-auto"
                     />
 
                     <input
@@ -122,7 +122,7 @@ const Mypage = () => {
                     <br />
 
                     <button
-                        className="text-2xl bg-main rounded-lg p-3 mb-3 mr-4"
+                        className="text-2xl bg-main rounded-lg p-1.5 mb-3 mr-4"
                         onClick={onCickImageUpload}
                         type="button"
                     >
@@ -134,27 +134,36 @@ const Mypage = () => {
 
                     <label className="text-2xl">
                         이름 <br />{" "}
-                        <input className={inpustStlye} {...register("name")} />
+                        <input
+                            placeholder="이름을 입력하세요"
+                            className={inpustStlye}
+                            {...register("name")}
+                        />
                     </label>
-                    <p>{errors.email?.message}</p>
+                    <p className="text-red-600">{errors.name?.message}</p>
 
                     <label className="text-2xl">
                         비밀번호 <br />
                         <input
+                            type="password"
+                            placeholder="비밀번호를 입력하세요"
                             className={inpustStlye}
                             {...register("password")}
                         />
                     </label>
-                    <p>{errors.password?.message}</p>
+                    <p className="text-red-600">{errors.password?.message}</p>
                     <label className="text-2xl">
                         별명 <br />
                         <input
+                            placeholder="별명을 입력하세요"
                             className={inpustStlye}
                             {...register("nickName")}
                         />
                     </label>
-                    <p>{errors.nickName?.message}</p>
-                    <button className="bg-main">변경</button>
+                    <p className="text-red-600">{errors.nickName?.message}</p>
+                    <button className="text-2xl bg-main rounded-lg p-1.5 mb-3 mr-4">
+                        변경
+                    </button>
                 </form>
             </div>
             <div>

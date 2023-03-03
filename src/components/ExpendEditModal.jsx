@@ -118,9 +118,9 @@ const ExpendEditModal = ({ setEditModal, expense, expenseId }) => {
                 header
             )
             .then((res) => console.log(res.data))
-            .then(alert("저장되었습니다."))
+            .then(alert("수정되었습니다."))
             .then(setEditModal(false))
-            .then(navigate("/couplehome"))
+            .then(navigate("/calendar"))
             .catch((err) => console.log(err));
     };
 

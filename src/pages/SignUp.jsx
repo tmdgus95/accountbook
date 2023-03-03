@@ -17,12 +17,12 @@ const schema = yup
         password: yup
             .string("숫자를 입력하세요")
             .required("비밀번호를 입력하세요"),
-        gender: yup.number().required(),
-        name: yup.string().required(),
-        mbiStartDay: yup.string().required(),
-        mbiBrith: yup.string().required(),
-        nickName: yup.string().required(),
-        accountNumber: yup.string(),
+        gender: yup.string().required("성별을 입력하세요"),
+        name: yup.string().required("이름을 입력하세요"),
+        mbiStartDay: yup.string().required("사귀기 시작한날을 입력하세요"),
+        mbiBrith: yup.string().required("생일을 입력하세요"),
+        nickName: yup.string().required("닉네임을 입력하세요"),
+        accountNumber: yup.string("통장번호를 입력하세요"),
     })
     .required();
 
@@ -82,7 +82,7 @@ const SignUp = () => {
     };
 
     const inpustStlye =
-        "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
+        "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3 placeholder:text-center";
     return (
         <div className="w-full text-center">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -90,18 +90,24 @@ const SignUp = () => {
                     이메일
                     <br />
                     <input
+                        placeholder="이메일을 입력하세요"
                         className={inpustStlye}
                         {...register("mbiBasicEmail")}
                     />
                 </label>
-                <p>{errors.mbiBasicEmail?.message}</p>
+                <p className="text-red-600">{errors.mbiBasicEmail?.message}</p>
 
                 <label className="text-2xl">
                     비밀번호
                     <br />
-                    <input className={inpustStlye} {...register("password")} />
+                    <input
+                        placeholder="비밀번호를 입력하세요"
+                        type="password"
+                        className={inpustStlye}
+                        {...register("password")}
+                    />
                 </label>
-                <p>{errors.password?.message}</p>
+                <p className="text-red-600">{errors.password?.message}</p>
 
                 <label className="text-2xl">
                     성별
@@ -112,49 +118,65 @@ const SignUp = () => {
                         <option value="0">남자</option>
                     </select>
                 </label>
-                <p>{errors.gender && errors.gender.message}</p>
+                <p className="text-red-600">
+                    {errors.gender && errors.gender.message}
+                </p>
 
                 <label className="text-2xl">
                     이름
                     <br />
-                    <input className={inpustStlye} {...register("name")} />
+                    <input
+                        placeholder="이름을 입력하세요"
+                        className={inpustStlye}
+                        {...register("name")}
+                    />
                 </label>
-                <p>{errors.name?.message}</p>
+                <p className="text-red-600">{errors.name?.message}</p>
 
                 <label className="text-2xl">
                     사귄날
                     <br />
                     <input
+                        placeholder="YYYY-MM-DD"
                         className={inpustStlye}
                         {...register("mbiStartDay")}
                     />
                 </label>
-                <p>{errors.mbiStartDay?.message}</p>
+                <p className="text-red-600">{errors.mbiStartDay?.message}</p>
 
                 <label className="text-2xl">
                     생일
                     <br />
-                    <input className={inpustStlye} {...register("mbiBrith")} />
+                    <input
+                        placeholder="YYYY-MM-DD"
+                        className={inpustStlye}
+                        {...register("mbiBrith")}
+                    />
                 </label>
-                <p>{errors.mbiStartDay?.message}</p>
+                <p className="text-red-600">{errors.mbiBrith?.message}</p>
 
                 <label className="text-2xl">
                     별명
                     <br />
-                    <input className={inpustStlye} {...register("nickName")} />
+                    <input
+                        placeholder="별명을 입력하세요"
+                        className={inpustStlye}
+                        {...register("nickName")}
+                    />
                 </label>
-                <p>{errors.nickName?.message}</p>
+                <p className="text-red-600">{errors.nickName?.message}</p>
 
                 <label className="text-2xl">
                     통장번호
                     <br />
                     <input
+                        placeholder="통장번호를 입력하세요"
                         className={inpustStlye}
                         {...register("accountNumber")}
                         defaultValue={bankBookNumber && bankBookNumber}
                     />
                 </label>
-                <p>{errors.accountNumber?.message}</p>
+                <p className="text-red-600">{errors.accountNumber?.message}</p>
 
                 <button
                     type="button"

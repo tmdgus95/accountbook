@@ -55,7 +55,7 @@ const ExpenseDetailPage = () => {
                 )
                 .then((res) => console.log(res))
                 .then(alert("삭제되었습니다."))
-                .then(navigate("/couplehome"))
+                .then(navigate("/calendar"))
                 .catch((err) => console.log(err));
     };
 
@@ -74,7 +74,7 @@ const ExpenseDetailPage = () => {
                 )
                 .then((res) => console.log(res))
                 .then(alert("삭제되었습니다."))
-                .then(navigate("/couplehome"))
+                .then(navigate("/calendar"))
                 .catch((err) => console.log(err));
     };
 
@@ -134,10 +134,12 @@ const ExpenseDetailPage = () => {
                         )}
                     </p>
                     <br />
-                    <SlClose
-                        onClick={handleDeleteImg}
-                        className="absolute top-[350px] left-[300px] cursor-pointer text-red-600 hover:scale-125"
-                    />
+                    {expenseDetail && expenseDetail.imageUri !== null && (
+                        <SlClose
+                            onClick={handleDeleteImg}
+                            className="absolute top-[350px] left-[300px] cursor-pointer text-red-600 hover:scale-125"
+                        />
+                    )}
                 </Memo>
             </Inner>
             {editModal && (

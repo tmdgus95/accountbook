@@ -47,23 +47,32 @@ const Login = () => {
     };
 
     const inpustStlye =
-        "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3";
+        "outline-none mb-5 mt-2 focus:border-none focus:outline-main rounded-xl px-3 placeholder:text-center";
     return (
         <div className="w-full text-center h-login pt-48">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label className="text-2xl">
                     이메일
                     <br />
-                    <input className={inpustStlye} {...register("email")} />
+                    <input
+                        placeholder="이메일을 입력하세요"
+                        className={inpustStlye}
+                        {...register("email")}
+                    />
                 </label>
-                <p>{errors.email?.message}</p>
+                <p className="text-red-600">{errors.email?.message}</p>
 
                 <label className="text-2xl">
                     비밀번호
                     <br />
-                    <input className={inpustStlye} {...register("password")} />
+                    <input
+                        placeholder="비밀번호를 입력하세요"
+                        type="password"
+                        className={inpustStlye}
+                        {...register("password")}
+                    />
                 </label>
-                <p>{errors.password?.message}</p>
+                <p className="text-red-600">{errors.password?.message}</p>
 
                 <button className="bg-main p-2 px-6 text-xl rounded-xl m-1 duration-300 opacity-80 hover:scale-110 hover:opacity-100 ">
                     로그인

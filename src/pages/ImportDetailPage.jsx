@@ -55,7 +55,7 @@ const ImportDetailPage = () => {
                 )
                 .then((res) => console.log(res))
                 .then(alert("삭제되었습니다."))
-                .then(navigate("/couplehome"))
+                .then(navigate("/calendar"))
                 .catch((err) => console.log(err));
     };
 
