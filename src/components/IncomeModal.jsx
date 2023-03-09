@@ -93,7 +93,7 @@ const IncomeModal = ({ setModal }) => {
             .then((res) => console.log(res))
             .then(alert("저장되었습니다."))
             .then(setModal(false))
-            .then(navigate("/calendar"));
+            .then(navigate("/couplehome"));
     };
 
     return (
