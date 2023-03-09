@@ -109,7 +109,7 @@ const ScheduleEditModal = ({ setEditModal, scheduleId }) => {
                 header
             )
             .then((res) => alert(res.data.message))
-            .then(navigate("/couplehome"))
+            .then(navigate("/calendar"))
             .catch((err) => console.log(err));
     };
     return (

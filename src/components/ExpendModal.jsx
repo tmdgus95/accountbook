@@ -118,7 +118,7 @@ const ExpendModal = ({ setModal }) => {
             .then((res) => console.log(res.data))
             .then(alert("저장되었습니다."))
             .then(setModal(false))
-            .then(navigate("/couplehome"))
+            .then(navigate("/calendar"))
             .catch((err) => console.log(err));
     };
 
