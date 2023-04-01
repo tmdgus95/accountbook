@@ -2,6 +2,9 @@
 
 ---
 
+## 노션으로보기
+<a href="https://plume-fruit-d51.notion.site/751a464fd35746dd8b957496439a0652" target="_blank"><img src="https://user-images.githubusercontent.com/118142479/229289108-2eccd9f8-9eb6-483d-a277-35a41cd732fb.png" width="100" height="100"></a>
+
 ## 개요
 
 
